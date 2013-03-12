@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Controlart_Web">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="Utils.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Utils/Utils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Dao.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Dao/Dao">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Transfer.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Transfer/Transfer">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/Controlart_Web/build/classes"/>
+        <property name="context-root" value="Controlart_Web"/>
+    </wb-module>
+</project-modules>

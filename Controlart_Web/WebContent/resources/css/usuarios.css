@@ -1,0 +1,22 @@
+.data-table-usuarios {
+	width: 90%;
+}
+
+.data-table-usuarios td:nth-child(2) {
+	text-align: center;
+	width: 380px;
+}
+
+.data-table-usuarios td:nth-child(3) {
+	width: 250px;
+}
+
+.data-table-usuarios td:nth-child(4) {
+	text-align: center;
+	width: 150px;
+}
+
+.data-table-usuarios td:nth-child(5) {
+	text-align: center;
+	width: 150px;
+}
