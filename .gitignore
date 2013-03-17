@@ -1,5 +1,5 @@
 *.class
-/Servers
+Servers/
 
 # Package Files #
 *.war
