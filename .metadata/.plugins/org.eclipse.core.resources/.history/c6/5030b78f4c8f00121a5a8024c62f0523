@@ -1,0 +1,5 @@
+package com.controlart.dao;
+
+public class ClassificacaoDao {
+
+}

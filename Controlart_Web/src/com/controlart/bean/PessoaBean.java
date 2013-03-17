@@ -21,15 +21,15 @@ import com.controlart.transfer.TipoPessoaT;
 public class PessoaBean extends ControlArtBean implements
 		ControlArtBeanInterface {
 
-	private static final long 			serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private PessoaT 					pessoa;
-	private List<PessoaT> 				listPessoa;
-	private boolean 					novoRegistro;
+	private PessoaT pessoa;
+	private List<PessoaT> listPessoa;
+	private boolean novoRegistro;
 
-	private List<SelectItem> 			listTipoPessoa;
+	private List<SelectItem> listTipoPessoa;
 
-	private HashMap<Integer, String> 	hashTipoPessoa;
+	private HashMap<Integer, String> hashTipoPessoa;
 
 	public PessoaBean() {
 		listPessoa = new ArrayList<PessoaT>(0);
@@ -52,6 +52,8 @@ public class PessoaBean extends ControlArtBean implements
 			listPessoa = pessoaDao.consultAll();
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -75,6 +77,8 @@ public class PessoaBean extends ControlArtBean implements
 			}
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -96,6 +100,8 @@ public class PessoaBean extends ControlArtBean implements
 					.clone();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -156,7 +162,7 @@ public class PessoaBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void deleteAction() {
+	public void inactivateAction() {
 		pessoa = (PessoaT) getFacesObject("listaPessoa");
 
 		try {

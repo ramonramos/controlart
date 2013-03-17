@@ -1,0 +1,45 @@
+<ui:composition lang="#{localeBean.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form>
+		<p:menubar>
+			<p:submenu label="#{msgs.labelAdministracao}">
+				<p:menuitem action="alterarSenha" ajax="false"
+					value="#{msgs.labelAlterarSenha}">
+				</p:menuitem>
+
+				<p:menuitem action="usuarios" ajax="false"
+					value="#{msgs.labelUsuarios}">
+				</p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="#{msgs.labelCadastrosBasicos}">
+				<p:menuitem action="acervo" ajax="false" value="#{msgs.labelAcervo}">
+				</p:menuitem>
+
+				<p:menuitem action="classificacao" ajax="false"
+					value="#{msgs.labelClassificacao}">
+				</p:menuitem>
+
+				<p:menuitem action="peca" ajax="false" value="#{msgs.labelPeca}">
+				</p:menuitem>
+
+				<p:menuitem action="pessoa" ajax="false" value="#{msgs.labelPessoa}">
+				</p:menuitem>
+
+				<p:menuitem action="tipoPessoa" ajax="false"
+					value="#{msgs.labelTipoPessoa}">
+				</p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="#{msgs.labelRelatorios}">
+				<p:menuitem action="relatorio" ajax="false"
+					value="#{msgs.labelTabelaPrecos}">
+				</p:menuitem>
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+</ui:composition>

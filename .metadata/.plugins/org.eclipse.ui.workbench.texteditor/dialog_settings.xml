@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="305" key="DIALOG_WIDTH"/>
+		<item value="72" key="DIALOG_Y_ORIGIN"/>
+		<item value="444" key="DIALOG_HEIGHT"/>
+		<item value="1503" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="data-table-classificacao" key="selection"/>
+		<list key="findhistory">
+			<item value="data-table-tipoPessoa"/>
+			<item value="errogen"/>
+			<item value="data-table-usuarios"/>
+			<item value="labelStatus"/>
+			<item value="labelTipoPessoa"/>
+			<item value="labelAlterarSenha"/>
+			<item value="Alterar Senha"/>
+			<item value="getEndereco()."/>
+		</list>
+		<list key="replacehistory">
+			<item value="data-table-classificacao"/>
+			<item value=".data-table-acervo"/>
+			<item value="data-table-tipoPessoa"/>
+			<item value=""/>
+			<item value="usuarioT"/>
+			<item value="connection"/>
+			<item value="alterarSenha"/>
+		</list>
+	</section>
+</section>

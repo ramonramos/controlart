@@ -17,11 +17,11 @@ import com.controlart.transfer.TipoPessoaT;
 public class TipoPessoaBean extends ControlArtBean implements
 		ControlArtBeanInterface {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private TipoPessoaT 		tipoPessoa;
-	private List<TipoPessoaT> 	listTipoPessoa;
-	private boolean 			novoRegistro;
+	private TipoPessoaT tipoPessoa;
+	private List<TipoPessoaT> listTipoPessoa;
+	private boolean novoRegistro;
 
 	public TipoPessoaBean() {
 		listTipoPessoa = new ArrayList<TipoPessoaT>(0);
@@ -42,6 +42,8 @@ public class TipoPessoaBean extends ControlArtBean implements
 			listTipoPessoa = tipoPessoaDao.consultAll();
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -63,6 +65,8 @@ public class TipoPessoaBean extends ControlArtBean implements
 					.clone();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -107,7 +111,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void deleteAction() {
+	public void inactivateAction() {
 		tipoPessoa = (TipoPessoaT) getFacesObject("listaTipoPessoa");
 
 		try {

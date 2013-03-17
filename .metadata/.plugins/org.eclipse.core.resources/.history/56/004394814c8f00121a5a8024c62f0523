@@ -1,0 +1,155 @@
+package com.controlart.bean;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import com.controlart.bean.interfac.ControlArtBeanInterface;
+import com.controlart.bean.utils.BeanUtils;
+import com.controlart.dao.ClassificacaoDao;
+import com.controlart.dao.TipoPessoaDao;
+import com.controlart.transfer.ClassificacaoT;
+import com.controlart.transfer.TipoPessoaT;
+
+@ManagedBean(name = "classificacaoBean")
+@ViewScoped
+public class ClassificacaoBean extends ControlArtBean implements
+		ControlArtBeanInterface {
+
+	private static final long serialVersionUID = 1L;
+
+	private ClassificacaoT classificacao;
+	private List<ClassificacaoT> listClassificacao;
+	private boolean novoRegistro;
+
+	public ClassificacaoBean() {
+		listClassificacao = new ArrayList<ClassificacaoT>(0);
+
+		clearAction();
+		consultAction();
+	}
+
+	@Override
+	public void clearAction() {
+		classificacao = new ClassificacaoT();
+	}
+
+	@Override
+	public void consultAction() {
+		try {
+			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+			listClassificacao = classificacaoDao.consultAll();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	@Override
+	public void definirNovo() {
+		novoRegistro = true;
+
+		clearAction();
+
+		classificacao.setAtivo(1);
+	}
+
+	@Override
+	public void definirEditar() {
+		novoRegistro = false;
+
+		try {
+			classificacao = (ClassificacaoT) ((ClassificacaoT) getFacesObject("listaClassificacao"))
+					.clone();
+		} catch (CloneNotSupportedException cns) {
+			cns.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	@Override
+	public void saveAction() {
+		if (novoRegistro) {
+			insertAction();
+		} else {
+			updateAction();
+		}
+	}
+
+	@Override
+	public void insertAction() {
+		try {
+			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+			classificacaoDao.insert(classificacao);
+
+			definirNovo();
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateAction() {
+		try {
+			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+			classificacaoDao.update(classificacao);
+
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void inactivateAction() {
+		classificacao = (ClassificacaoT) getFacesObject("listaClassificacao");
+
+		try {
+			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+			classificacaoDao.insert(classificacao);
+
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+	}
+
+	public ClassificacaoT getClassificacao() {
+		return classificacao;
+	}
+
+	public void setClassificacao(ClassificacaoT classificacao) {
+		this.classificacao = classificacao;
+	}
+
+	public List<ClassificacaoT> getListClassificacao() {
+		return listClassificacao;
+	}
+
+	public void setListClassificacao(List<ClassificacaoT> listClassificacao) {
+		this.listClassificacao = listClassificacao;
+	}
+
+	public boolean isNovoRegistro() {
+		return novoRegistro;
+	}
+
+	public void setNovoRegistro(boolean novoRegistro) {
+		this.novoRegistro = novoRegistro;
+	}
+}

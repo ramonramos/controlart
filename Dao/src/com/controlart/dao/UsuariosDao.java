@@ -15,9 +15,9 @@ public class UsuariosDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL = "SELECT tu.id_usuario, tu.id_tipo_usuario, tu.id_pessoa, tu.ds_login, tu.in_ativo FROM tb_usuario tu ORDER BY tu.ds_login";
-	private static final String SQL_INSERT 		= "INSERT INTO tb_usuario (id_tipo_usuario, id_pessoa, ds_login, ds_senha, in_ativo) VALUES (?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE 		= "UPDATE tb_usuario SET ds_senha = ?, in_ativo = ? WHERE id_usuario = ?";
-	private static final String SQL_INACTIVATE 	= "UPDATE tb_usuario SET in_ativo = 0 WHERE id_usuario = ?";
+	private static final String SQL_INSERT = "INSERT INTO tb_usuario (id_tipo_usuario, id_pessoa, ds_login, ds_senha, in_ativo) VALUES (?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE tb_usuario SET ds_senha = ?, in_ativo = ? WHERE id_usuario = ?";
+	private static final String SQL_INACTIVATE = "UPDATE tb_usuario SET in_ativo = 0 WHERE id_usuario = ?";
 
 	public UsuariosDao() throws SQLException {
 		connection = ConnFactory.getConnection();

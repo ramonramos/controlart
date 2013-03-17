@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p:dialog id="modalPessoa" appendToBody="false" modal="true"
+		resizable="false" styleClass="dialog" widgetVar="modalPessoaWV">
+		<f:facet name="header">
+			<h:outputLabel value="#{msgs.labelNovaPessoa}"
+				rendered="#{pessoaBean.novoRegistro}" />
+			<h:outputLabel value="#{msgs.labelEditarPessoa}"
+				rendered="#{not pessoaBean.novoRegistro}" />
+		</f:facet>
+
+		<h:form id="formModalPessoa">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panelGrid columns="3">
+				<h:outputLabel value="#{msgs.labelTipoPessoa}" />
+				<p:selectOneMenu
+					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+					id="tipoPessoa" required="true"
+					value="#{pessoaBean.pessoa.idTipoPessoa}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						itemValue="#{null}" />
+					<f:selectItems value="#{pessoaBean.listTipoPessoa}" />
+				</p:selectOneMenu>
+				<p:message for="tipoPessoa" />
+
+				<h:outputLabel value="#{msgs.labelNome}" />
+				<p:inputText id="nome" required="true"
+					value="#{pessoaBean.pessoa.nmPessoa}" />
+				<p:message for="nome" />
+
+				<h:outputLabel value="#{msgs.labelTelefone}" />
+				<p:inputText id="telefone" required="true"
+					value="#{pessoaBean.pessoa.nrFone}" />
+				<p:message for="telefone" />
+
+				<h:outputLabel value="#{msgs.labelEmail}" />
+				<p:inputText id="email" required="true"
+					value="#{pessoaBean.pessoa.dsEmail}" />
+				<p:message for="email" />
+
+				<h:outputLabel value="#{msgs.labelLogradouro}" />
+				<p:inputText id="rua" required="true"
+					value="#{pessoaBean.pessoa.nmRua}" />
+				<p:message for="rua" />
+
+				<h:outputLabel value="#{msgs.labelNumeroLograd}" />
+				<p:inputText id="numeroImovel" required="true"
+					value="#{pessoaBean.pessoa.nrImovel}" />
+				<p:message for="numeroImovel" />
+
+				<h:outputLabel value="#{msgs.labelBairro}" />
+				<p:inputText id="bairro" required="true"
+					value="#{pessoaBean.pessoa.nmBairro}">
+					<f:validateLength minimum="3" />
+				</p:inputText>
+				<p:message for="bairro" />
+
+				<h:outputLabel value="#{msgs.labelCidade}" />
+				<p:inputText id="cidade" required="true"
+					value="#{pessoaBean.pessoa.nmCidade}" />
+				<p:message for="cidade" />
+
+				<h:outputLabel value="#{msgs.labelSituacao}" />
+				<p:selectOneRadio value="#{pessoaBean.pessoa.situacao}">
+					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
+					<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
+				</p:selectOneRadio>
+				<h:outputLabel value="" />
+			</p:panelGrid>
+
+			<p:commandButton action="#{pessoaBean.saveAction}"
+				disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+				styleClass="botao"
+				update=":formPessoa:dataTablePessoa, :formModalPessoa, :formPainelInformativo"
+				value="#{msgs.labelSalvar}" />
+		</h:form>
+	</p:dialog>
+</ui:composition>

@@ -2,16 +2,16 @@ package com.controlart.transfer;
 
 public class UsuarioT extends PessoaT implements Cloneable {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private int 				idUsuario;
-	private int 				idTipoUsuario;
-	private String 				dsLogin;
-	private String 				cdSenha;
-	private String 				cdNovaSenha;
-	private String 				cdConfirmNovaSenha;
-	private boolean 			primeiroAcesso;
-	private int 				situacao;
+	private int idUsuario;
+	private int idTipoUsuario;
+	private String dsLogin;
+	private String cdSenha;
+	private String cdNovaSenha;
+	private String cdConfirmNovaSenha;
+	private boolean primeiroAcesso;
+	private int situacao;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {

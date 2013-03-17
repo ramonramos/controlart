@@ -15,5 +15,5 @@ public interface ControlArtBeanInterface {
 
 	public void updateAction();
 
-	public void deleteAction();
+	public void inactivateAction();
 }

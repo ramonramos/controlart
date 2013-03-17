@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class TipoPessoaT implements Serializable, Cloneable {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private int 				idTipoPessoa;
-	private String 				nmTipoPessoa;
-	private String 				dsTipoPessoa;
-	private int 				situacao;
+	private int idTipoPessoa;
+	private String nmTipoPessoa;
+	private String dsTipoPessoa;
+	private int situacao;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {

@@ -78,11 +78,11 @@ public class ControlArtBean implements Serializable {
 		return text.getString(key);
 	}
 
-	protected final UsuarioT getUsuarioLogado() {
+	public UsuarioT getUsuarioLogado() {
 		return usuarioLogado;
 	}
 
-	protected final void setUsuarioLogado(UsuarioT usuarioLogado) {
+	public void setUsuarioLogado(UsuarioT usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
 }

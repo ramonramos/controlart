@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class PessoaT implements Serializable, Cloneable {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private int 				idPessoa;
-	private int 				idTipoPessoa;
-	private String 				nmPessoa;
-	private String 				nrFone;
-	private String 				dsEmail;
-	private String 				nmRua;
-	private String 				nrImovel;
-	private String 				nmBairro;
-	private String 				nmCidade;
-	private int 				situacao;
+	private int idPessoa;
+	private int idTipoPessoa;
+	private String nmPessoa;
+	private String nrFone;
+	private String dsEmail;
+	private String nmRua;
+	private String nrImovel;
+	private String nmBairro;
+	private String nmCidade;
+	private int situacao;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -100,9 +100,5 @@ public class PessoaT implements Serializable, Cloneable {
 
 	public void setSituacao(int situacao) {
 		this.situacao = situacao;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 }

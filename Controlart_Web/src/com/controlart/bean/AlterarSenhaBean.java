@@ -14,12 +14,12 @@ import com.controlart.transfer.UsuarioT;
 @ViewScoped
 public class AlterarSenhaBean extends ControlArtBean {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private UsuarioT		 	usuario;
+	private UsuarioT usuario;
 
 	public AlterarSenhaBean() {
-		usuario = new UsuarioT();
+		clearAction();
 	}
 
 	private void clearAction() {
@@ -61,8 +61,12 @@ public class AlterarSenhaBean extends ControlArtBean {
 			clearAction();
 		} catch (NoSuchAlgorithmException nsa) {
 			nsa.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 

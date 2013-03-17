@@ -1,0 +1,20 @@
+# ==============================================================================
+# Component Errors
+# ==============================================================================
+
+javax.faces.component.UIInput.REQUIRED=Este campo é obrigatório.
+
+# ==============================================================================
+# Converter Errors
+# ==============================================================================
+
+# ==============================================================================
+# Validator Errors
+# ==============================================================================
+
+javax.faces.validator.LengthValidator.MINIMUM=Este campo deve possuir, no mínimo, {0} caracteres.
+javax.faces.validator.LengthValidator.MAXIMUM=Este campo deve possuir, no mínimo, {0} caracteres.
+javax.faces.validator.LongRangeValidator.MAXIMUM=Este valor excede o máximo ({0}) permitido. 
+javax.faces.validator.LongRangeValidator.MINIMUM=Este valor excede o mínino ({0}) permitido. 
+javax.faces.validator.LongRangeValidator.NOT_IN_RANGE={2}: Validation Error: Specified attribute is not between the expected values of {0} and {1}.
+javax.faces.validator.LongRangeValidator.TYPE={0}: Validation Error: Value is not of the correct type.

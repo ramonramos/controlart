@@ -1,0 +1,16 @@
+# ==============================================================================
+# Component Errors
+# ==============================================================================
+
+javax.faces.component.UIInput.REQUIRED=Campo obrigatório.
+
+# ==============================================================================
+# Converter Errors
+# ==============================================================================
+
+# ==============================================================================
+# Validator Errors
+# ==============================================================================
+
+javax.faces.validator.LengthValidator.MINIMUM=Este campos deve possuir no mínimo {0} caracteres.
+javax.faces.validator.LengthValidator.MAXIMUM={1}: Validation Error: Length is greater than allowable maximum of ''{0}''
