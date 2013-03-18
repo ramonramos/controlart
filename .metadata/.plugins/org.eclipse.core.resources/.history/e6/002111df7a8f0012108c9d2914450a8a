@@ -1,0 +1,9 @@
+package com.controlart.converter;
+
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+
+@FacesConverter("tipoTransacaoConverter")
+public class TipoTransacaoConverter implements Converter{
+
+}

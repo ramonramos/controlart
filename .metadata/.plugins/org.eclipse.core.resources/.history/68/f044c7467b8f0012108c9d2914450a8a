@@ -1,0 +1,145 @@
+# ==============================================================================
+# login XHTML
+# ==============================================================================
+
+tituloSistema=ControlArt
+tituloPaginaLogin=Controle para Acervos de Artes Online
+labelUsuario=Usuário
+tooltipUsuario=Informe seu usuário
+labelSenha=Senha
+tooltipSenha=Informe sua senha
+labelLogar=Logar
+tooltipLogar=Logar no sistema
+
+# ==============================================================================
+# LoginBean JAVA
+# ==============================================================================
+
+msUsuarioNaoEncontrado=Usuário e/ou senha inválidos.
+
+# ==============================================================================
+# cabecalho XHTML
+# ==============================================================================
+	
+labelCabecalho=Área Administrativa
+	
+# ==============================================================================
+# painelInformativo XHTML
+# ==============================================================================
+
+tooltipUsuarioLogodo=Usuário logado no sistema
+msBemVindo=Bem vindo
+tooltipHomePage=Home page
+labelHomePage=Home
+tooltipSairSistema=Sair do sistema
+labelSairSistema=Sair
+
+# ==============================================================================
+# painelNavegacao XHTML
+# ==============================================================================
+	
+labelAdministracao=Administração
+labelAlterarSenha=Alterar Senha
+labelUsuarios=Usuários
+labelCadastrosBasicos=Cadastros Básicos
+labelAcervo=Acervo
+labelClassificacao=Classificação
+labelPeca=Peça
+labelPessoa=Pessoa
+labelTipoPessoa=Tipo de Pessoa
+labelRegistrarTransacao=Registrar Transação
+labelRelatorios=Relatórios
+labelTabelaPrecos=Tabela de Preços
+
+# ==============================================================================
+# home XHTML
+# ==============================================================================
+
+tituloPaginaHome=Home Page
+home=Home
+
+# ==============================================================================
+# alterarSenha XHTML
+# ==============================================================================
+
+labelSenhaAtual=Senha atual
+labelNovaSenha=Nova senha
+labelConfirmNovaSenha=Confirmar nova senha
+msSenhaAtualInvalida=Senha atual incorreta
+msNovaSenhaConfirmDiferem=Nova senha e confirmação diferem 
+msRegistroAtualizado=Registro atualizado com sucesso
+labelSalvar=Salvar
+
+# ==============================================================================
+# AlterarSenhaBean JAVA
+# ==============================================================================
+
+msErroGenerico=Erro genérico
+
+# ==============================================================================
+# usuarios XHTML
+# ==============================================================================
+
+labelTipoUsuario=Tipo de Usuário
+msNenhumRegistro=Nenhum registro encontrado.
+labelLogin=Login
+labelSituacao=Situação
+labelEditar=Editar
+labelInativar=Inativar
+labelNovo=Novo
+labelNovoUsuario=Novo Usuário
+labelEditarUsuario=Editar Usuário
+labelSelecione=Selecione...
+labelConfirmSenha=Confirmar senha
+labelInativo=Inativo
+labelAtivo=Ativo
+msRegistroInserido=Registro inserido com sucesso
+msRegistroRemovido=Registro removido com sucesso
+msConfirmRemocao=Tem certeza que deseja remover o registro selecionado?
+
+# ==============================================================================
+# acervo XHTML
+# ==============================================================================
+
+labelAcervos=Acervos
+labelDono=Dono
+labelNovoAcervo=Novo Acervo
+labelEditarAcervo=Editar Acervo
+
+# ==============================================================================
+# classificacao XHTML
+# ==============================================================================
+
+labelNovaClassificacao=Nova Classificação
+labelEditarClassificacao=Editar Classificação
+
+# ==============================================================================
+# tipoPessoa XHTML
+# ==============================================================================
+
+labelNome=Nome
+labelDescricao=Descrição
+labelNovoTipoPessoa=Novo Tipo de Pessoa
+labelEditarTipoPessoa=Editar Tipo de Pessoa
+
+
+# ==============================================================================
+# pessoa XHTML
+# ==============================================================================
+
+labelTelefone=Telefone
+labelNovaPessoa=Nova Pessoa
+labelEditarPessoa=Editar Pessoa
+labelEmail=E-mail
+labelLogradouro=Logradouro
+labelNumeroLograd=Número
+labelBairro=Bairro
+labelCidade=Cidade
+
+# ==============================================================================
+# transacao XHTML
+# ==============================================================================
+
+labelTransacoes=Transações
+labelAcervoOrigem=Acervo Origem
+labelAcervoDestino=Acervo Destino

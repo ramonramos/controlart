@@ -25,7 +25,8 @@
 
 				<p:spacer width="18" />
 
-				<p:dataTable id="dataTableUsuarios" paginator="true"
+				<p:dataTable id="dataTableUsuarios"
+					emptyMessage="#{msgs.msNenhumRegistro}" paginator="true"
 					paginatorAlwaysVisible="false" rows="6"
 					styleClass="data-table-usuarios"
 					value="#{usuariosBean.listUsuarios}" var="listaUsuarios">

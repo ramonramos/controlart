@@ -1,0 +1,13 @@
+package com.controlart.transfer;
+
+public class TransacaoT {
+	private int id;
+	private int peca;
+	private int tipo;
+	private acervoOrigem;
+	private acervoDestino;
+	private Date dataEntrada;
+	private Date dataSaida;
+	private double preco;
+	private boolean online;
+}
