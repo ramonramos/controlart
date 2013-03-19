@@ -1,9 +1,10 @@
 package com.controlart.transfer;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class TransacaoT implements Serializable {
+public class TransacaoT implements Cloneable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,8 +15,13 @@ public class TransacaoT implements Serializable {
 	private int acervoDestino;
 	private Date dataEntrada;
 	private Date dataSaida;
-	private double preco;
+	private BigDecimal preco;
 	private int online;
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 
 	public int getId() {
 		return id;
@@ -73,11 +79,11 @@ public class TransacaoT implements Serializable {
 		this.dataSaida = dataSaida;
 	}
 
-	public double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 

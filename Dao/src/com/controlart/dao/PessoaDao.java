@@ -157,7 +157,7 @@ public class PessoaDao {
 		}
 	}
 
-	public void delete(PessoaT pessoaT) throws SQLException {
+	public void inativate(PessoaT pessoaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

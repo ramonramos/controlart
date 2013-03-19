@@ -167,7 +167,7 @@ public class PessoaBean extends ControlArtBean implements
 
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
-			pessoaDao.delete(pessoa);
+			pessoaDao.inativate(pessoa);
 
 			consultAction();
 

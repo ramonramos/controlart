@@ -92,7 +92,7 @@ public class UsuariosDao {
 		}
 	}
 
-	public void delete(UsuarioT usuarioT) throws SQLException {
+	public void inativate(UsuarioT usuarioT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

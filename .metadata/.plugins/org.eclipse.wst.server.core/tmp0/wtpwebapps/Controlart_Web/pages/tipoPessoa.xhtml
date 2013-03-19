@@ -47,6 +47,7 @@
 						<p:commandLink action="#{tipoPessoaBean.definirEditar}"
 							oncomplete="modalTipoPessoaWV.show();" update=":modalTipoPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalTipoPessoa" />
 						</p:commandLink>
 
 						<p:spacer height="20" />
@@ -63,7 +64,9 @@
 				<p:commandButton action="#{tipoPessoaBean.definirNovo}"
 					disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
 					oncomplete="modalTipoPessoaWV.show();" styleClass="botao"
-					update=":modalTipoPessoa" value="#{msgs.labelNovo}" />
+					update=":modalTipoPessoa" value="#{msgs.labelNovo}">
+					<p:resetInput target=":formModalTipoPessoa" />
+				</p:commandButton>
 			</p:panel>
 		</h:form>
 	</ui:define>

@@ -50,22 +50,6 @@ public class UsuarioT extends PessoaT implements Cloneable {
 		this.cdSenha = cdSenha;
 	}
 
-	public boolean isPrimeiroAcesso() {
-		return primeiroAcesso;
-	}
-
-	public void setPrimeiroAcesso(boolean primeiroAcesso) {
-		this.primeiroAcesso = primeiroAcesso;
-	}
-
-	public int getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
-	}
-
 	public String getCdNovaSenha() {
 		return cdNovaSenha;
 	}
@@ -80,5 +64,21 @@ public class UsuarioT extends PessoaT implements Cloneable {
 
 	public void setCdConfirmNovaSenha(String cdConfirmNovaSenha) {
 		this.cdConfirmNovaSenha = cdConfirmNovaSenha;
+	}
+
+	public boolean isPrimeiroAcesso() {
+		return primeiroAcesso;
+	}
+
+	public void setPrimeiroAcesso(boolean primeiroAcesso) {
+		this.primeiroAcesso = primeiroAcesso;
+	}
+
+	public int getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(int situacao) {
+		this.situacao = situacao;
 	}
 }

@@ -107,7 +107,7 @@ public class TipoPessoaDao {
 		}
 	}
 
-	public void delete(TipoPessoaT tipoPessoaT) throws SQLException {
+	public void inativate(TipoPessoaT tipoPessoaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

@@ -116,7 +116,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 
 		try {
 			TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
-			tipoPessoaDao.delete(getTipoPessoa());
+			tipoPessoaDao.inativate(tipoPessoa);
 
 			consultAction();
 

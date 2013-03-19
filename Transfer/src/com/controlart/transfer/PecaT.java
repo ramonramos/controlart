@@ -1,6 +1,7 @@
 package com.controlart.transfer;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class PecaT implements Cloneable, Serializable {
 
@@ -16,11 +17,11 @@ public class PecaT implements Cloneable, Serializable {
 	private double altura;
 	private double profundidade;
 	private String material;
-	private double numeroRegistro;
+	private int numeroRegistro;
 	private String historico;
 	private String status;
 	private String estado;
-	private double preco;
+	private BigDecimal preco;
 	private int disponivelLeilao;
 	private int ativo;
 
@@ -109,12 +110,20 @@ public class PecaT implements Cloneable, Serializable {
 		this.material = material;
 	}
 
-	public double getNumeroRegistro() {
+	public int getNumeroRegistro() {
 		return numeroRegistro;
 	}
 
-	public void setNumeroRegistro(double numeroRegistro) {
+	public void setNumeroRegistro(int numeroRegistro) {
 		this.numeroRegistro = numeroRegistro;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 	public String getHistorico() {
@@ -139,14 +148,6 @@ public class PecaT implements Cloneable, Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
 	}
 
 	public int getDisponivelLeilao() {

@@ -48,6 +48,7 @@
 						<p:commandLink action="#{acervoBean.definirEditar}"
 							oncomplete="modalAcervoWV.show();" update=":modalAcervo">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalAcervo" />
 						</p:commandLink>
 
 						<p:spacer height="20" />
@@ -64,7 +65,9 @@
 				<p:commandButton action="#{acervoBean.definirNovo}"
 					disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
 					oncomplete="modalAcervoWV.show();" styleClass="botao"
-					update=":modalAcervo" value="#{msgs.labelNovo}" />
+					update=":modalAcervo" value="#{msgs.labelNovo}">
+					<p:resetInput target=":formModalAcervo" />
+				</p:commandButton>
 			</p:panel>
 		</h:form>
 	</ui:define>

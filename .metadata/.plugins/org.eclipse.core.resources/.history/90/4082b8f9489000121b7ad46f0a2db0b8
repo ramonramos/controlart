@@ -1,0 +1,20 @@
+package com.controlart.transfer;
+
+public class UsuarioT extends PessoaT implements Cloneable {
+
+	private static final long serialVersionUID = 1L;
+
+	private int id;
+	private int tipo;
+	private String login;
+	private String senha;
+	private String novaSenha;
+	private String confirmNovaSenha;
+	private boolean primeiroAcesso;
+	private int ativo;
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+}

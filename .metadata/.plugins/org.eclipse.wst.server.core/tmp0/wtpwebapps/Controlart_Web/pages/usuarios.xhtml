@@ -54,6 +54,7 @@
 							oncomplete="modalUsuariosWV.show();" title="#{msgs.labelEditar}"
 							update=":modalUsuarios">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalUsuarios" />
 						</p:commandLink>
 
 						<p:spacer height="20" />
@@ -71,7 +72,9 @@
 					disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
 					oncomplete="modalUsuariosWV.show();" styleClass="botao"
 					title="#{msgs.labelNovo}" update=":modalUsuarios"
-					value="#{msgs.labelNovo}" />
+					value="#{msgs.labelNovo}">
+					<p:resetInput target=":formModalUsuarios" />
+				</p:commandButton>
 			</p:panel>
 		</h:form>
 	</ui:define>

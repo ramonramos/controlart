@@ -53,6 +53,7 @@
 							oncomplete="modalPessoaWV.show();" title="#{msgs.labelEditar}"
 							update=":modalPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalPessoa" />
 						</p:commandLink>
 
 						<p:spacer height="20" />
@@ -70,7 +71,9 @@
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					oncomplete="modalPessoaWV.show();" styleClass="botao"
 					title="#{msgs.labelNovo}" update=":modalPessoa"
-					value="#{msgs.labelNovo}" />
+					value="#{msgs.labelNovo}">
+					<p:resetInput target=":formModalPessoa" />
+				</p:commandButton>
 			</p:panel>
 		</h:form>
 	</ui:define>

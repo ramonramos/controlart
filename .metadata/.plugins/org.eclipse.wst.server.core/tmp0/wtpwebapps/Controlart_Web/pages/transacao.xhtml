@@ -58,6 +58,7 @@
 						<p:commandLink action="#{transacaoBean.definirEditar}"
 							oncomplete="modalTransacaoWV.show();" update=":modalTransacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalTransacao" />
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
@@ -65,7 +66,9 @@
 				<p:commandButton action="#{transacaoBean.definirNovo}"
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					oncomplete="modalTransacaoWV.show();" styleClass="botao"
-					update=":modalTransacao" value="#{msgs.labelNovo}" />
+					update=":modalTransacao" value="#{msgs.labelNovo}">
+					<p:resetInput target=":formModalTransacao" />
+				</p:commandButton>
 			</p:panel>
 		</h:form>
 	</ui:define>
