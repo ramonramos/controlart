@@ -62,12 +62,14 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton action="#{acervoBean.definirNovo}"
-					disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
-					oncomplete="modalAcervoWV.show();" styleClass="botao"
-					update=":modalAcervo" value="#{msgs.labelNovo}">
-					<p:resetInput target=":formModalAcervo" />
-				</p:commandButton>
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{acervoBean.definirNovo}"
+						disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalAcervoWV.show();" update=":modalAcervo"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalAcervo" />
+					</p:commandButton>
+				</h:panelGroup>
 			</p:panel>
 		</h:form>
 	</ui:define>

@@ -62,32 +62,9 @@
 	margin-top: 15px;
 }
 
-#conteudo .alt-senha {
-	width: 735px;
-}
-
-#conteudo .alt-senha .header-image {
-	margin-left: -11px;
-}
-
-#conteudo .alt-senha .ui-panelgrid .ui-widget-content {
-	border: none;
-}
-
-#conteudo .alt-senha .ui-panelgrid td {
-	border-width: 0px;
-}
-
-#conteudo .alt-senha .botao {
-	margin-top: 24px;
-}
-
-#conteudo {
-	margin-top: 15px;
-}
-
 #conteudo .panel {
 	width: 80%;
+	margin: auto;
 }
 
 #conteudo .panel .header-image {
@@ -103,7 +80,8 @@
 }
 
 #conteudo .panel .botao {
-	margin-top: 24px;
+	margin-left: 47%;
+	margin-top: 30px;
 }
 
 #painelFlutuante .dialog .ui-panelgrid .ui-widget-content {

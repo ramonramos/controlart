@@ -8,11 +8,16 @@
 	#{msgs.tituloSistema} - #{msgs.labelAlterarSenha}
 	</ui:define>
 
+	<ui:define name="estiloCSS">
+		<h:outputStylesheet library="css" name="alterarSenha.css" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formAlterarSenha">
 			<p:growl globalOnly="true" life="10000" />
 
-			<p:panel closable="true" closeSpeed="600" styleClass="alt-senha">
+			<p:panel closable="true" closeSpeed="600"
+				styleClass="panel-alterar-senha">
 				<f:facet name="header">
 					<h:graphicImage styleClass="header-image"
 						value="#{resource['image:favicon.ico']}" />

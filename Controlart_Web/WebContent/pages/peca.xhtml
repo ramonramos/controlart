@@ -66,12 +66,14 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton action="#{pecaBean.definirNovo}"
-					disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-					oncomplete="modalPecaWV.show();" styleClass="botao"
-					update=":modalPeca" value="#{msgs.labelNovo}">
-					<p:resetInput target=":formModalPeca" />
-				</p:commandButton>
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{pecaBean.definirNovo}"
+						disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalPecaWV.show();" update=":modalPeca"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalPeca" />
+					</p:commandButton>
+				</h:panelGroup>
 			</p:panel>
 		</h:form>
 	</ui:define>

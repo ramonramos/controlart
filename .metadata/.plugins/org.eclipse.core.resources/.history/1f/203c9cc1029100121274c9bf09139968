@@ -1,0 +1,20 @@
+.panel-alterar-senha {
+	width: 735px;
+	margin: auto;
+}
+
+.panel-alterar-senha .header-image {
+	margin-left: -11px;
+}
+
+.panel-alterar-senha .ui-panelgrid .ui-widget-content {
+	border: none;
+}
+
+.panel-alterar-senha .ui-panelgrid td {
+	border-width: 0px;
+}
+
+.panel-alterar-senha .botao {
+	margin-top: 24px;
+}

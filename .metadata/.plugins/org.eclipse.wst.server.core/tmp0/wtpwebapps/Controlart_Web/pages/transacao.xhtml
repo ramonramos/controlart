@@ -63,12 +63,14 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton action="#{transacaoBean.definirNovo}"
-					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					oncomplete="modalTransacaoWV.show();" styleClass="botao"
-					update=":modalTransacao" value="#{msgs.labelNovo}">
-					<p:resetInput target=":formModalTransacao" />
-				</p:commandButton>
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{transacaoBean.definirNovo}"
+						disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalTransacaoWV.show();" update=":modalTransacao"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalTransacao" />
+					</p:commandButton>
+				</h:panelGroup>
 			</p:panel>
 		</h:form>
 	</ui:define>

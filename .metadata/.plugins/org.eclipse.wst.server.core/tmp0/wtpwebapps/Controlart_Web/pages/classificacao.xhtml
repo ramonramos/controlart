@@ -59,12 +59,14 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton action="#{classificacaoBean.definirNovo}"
-					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					oncomplete="modalClassificacaoWV.show();" styleClass="botao"
-					update=":modalClassificacao" value="#{msgs.labelNovo}">
-					<p:resetInput target=":formModalClassificacao" />
-				</p:commandButton>
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{classificacaoBean.definirNovo}"
+						disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalClassificacaoWV.show();"
+						update=":modalClassificacao" value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalClassificacao" />
+					</p:commandButton>
+				</h:panelGroup>
 			</p:panel>
 		</h:form>
 	</ui:define>

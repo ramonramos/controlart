@@ -61,12 +61,14 @@
 					</p:column>
 				</p:dataTable>
 
-				<p:commandButton action="#{tipoPessoaBean.definirNovo}"
-					disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-					oncomplete="modalTipoPessoaWV.show();" styleClass="botao"
-					update=":modalTipoPessoa" value="#{msgs.labelNovo}">
-					<p:resetInput target=":formModalTipoPessoa" />
-				</p:commandButton>
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{tipoPessoaBean.definirNovo}"
+						disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalTipoPessoaWV.show();" update=":modalTipoPessoa"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalTipoPessoa" />
+					</p:commandButton>
+				</h:panelGroup>
 			</p:panel>
 		</h:form>
 	</ui:define>
