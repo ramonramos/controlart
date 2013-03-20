@@ -19,9 +19,10 @@
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
 
-				<p:commandButton action="#{alterarSenhaBean.updateAction}"
-					styleClass="botao" title="Gerar Report"
-					update=":formPesquisa" value="Gerar Report" />
+				<p:commandButton action="#{relatoriosBean.gerarRelatorio}"
+					styleClass="botao" title="Gerar Report" 
+					value="Gerar Report" ajax="false"
+					onclick="this.form.target='_blank';" />
 			</p:panel>
 		</h:form>
 	</ui:define>
