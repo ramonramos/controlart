@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcd3f1d1-9934-4899-bae9-2ff03c943b0f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.lang.Object" isForPrompting="false">
+		<parameterDescription><![CDATA[The letterhead image]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select tabela.nm_peca,
+       tabela.nm_pessoa,
+       tabela.dt_transacao,
+       tabela.dt_previsao,
+       case
+       		when dt_previsao >= dt_atual then
+            	'Falta(m) '||dt_previsao - dt_atual||' dias'
+            when dt_previsao < dt_atual then
+                'Atraso de '||dt_atual - dt_previsao||' dias'
+       end as ds_situacao
+from
+(
+select p.nm_peca,
+       t.dt_transacao,
+       pe.nm_pessoa,
+       t.dt_previsao,
+       (select cast(now() as date))as dt_atual
+from tb_transacao t inner join
+     tb_tipo_transacao tt using(id_tipo_transacao) inner join
+     tb_peca p using(id_peca) inner join
+     tb_acervo a on (t.id_acervo_origem = a.id_acervo) inner join
+     tb_pessoa pe using (id_pessoa)
+where tt.id_tipo_transacao IN (3,5)
+  and t.dt_devolucao is null
+) as tabela]]>
+	</queryString>
+	<field name="nm_peca" class="java.lang.String"/>
+	<field name="nm_pessoa" class="java.lang.String"/>
+	<field name="dt_transacao" class="java.sql.Date"/>
+	<field name="dt_previsao" class="java.sql.Date"/>
+	<field name="ds_situacao" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement uuid="746177c0-46e5-4928-9bf3-b69d64536282" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#CCCCCC"/>
+				<staticText>
+					<reportElement uuid="05071fad-1ce2-43df-9656-127acd68c804" x="248" y="20" width="297" height="43" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="28" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Prazo para Devolução]]></text>
+				</staticText>
+				<image>
+					<reportElement uuid="7b5963a1-494c-43fd-9ecb-d00b50b97a99" x="20" y="20" width="143" height="55"/>
+					<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="b7fc0e81-5c98-4102-a3e2-cb3bf0410e40" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="8374f688-a45f-47ab-ad5c-55c463fc0137" mode="Opaque" x="1" y="0" width="139" height="20" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peça]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3153fc3a-cffb-4797-ab5b-9d7cd5a29aa5" mode="Opaque" x="140" y="0" width="158" height="20" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pessoa a Devolver]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c2814ab9-3430-4052-b10e-432b052fa55d" mode="Opaque" x="288" y="0" width="194" height="20" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Prevista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="31c743c6-aac6-401a-9050-a780427df5a9" mode="Opaque" x="468" y="0" width="87" height="20" forecolor="#000000" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prazo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement uuid="90ca2e8b-89b9-4fae-a6bc-ba831ebf63a8" positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="747356df-f23a-40bb-84ec-51cd2a6ed879" x="0" y="0" width="143" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_peca}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement uuid="631d631e-cce2-4671-8229-f383c8feadfb" x="150" y="0" width="167" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_pessoa}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement uuid="8b24e3bf-66a7-44cb-8cc5-745abd8a34f1" x="347" y="0" width="114" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dt_previsao}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement uuid="2099567b-a26f-4c4c-96b8-49cfb2377f2a" x="414" y="0" width="138" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ds_situacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="391201fd-998d-48a3-9b73-766636206bd6" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd571bc3-e525-4545-9a73-6b5e653d1daa" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e160414d-93bc-4a4c-aa3d-cba166e02e09" x="4" y="4" width="453" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Visualizado/impresso em " + new SimpleDateFormat("d 'de' MMMMM 'de' yyyy 'às' HH:mm").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

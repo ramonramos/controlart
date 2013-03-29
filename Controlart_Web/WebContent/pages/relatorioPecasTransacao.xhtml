@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="titulo">
-	#{msgs.tituloSistema} - #{msgs.labelTabelaPrecos}
+	#{msgs.tituloSistema} - #{msgs.labelPecasTransacao}
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -19,7 +19,7 @@
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
 
-				<p:commandButton action="#{relatoriosBean.gerarRelatorio}"
+				<p:commandButton action="#{relatoriosBean.gerarRelatorioPecasTransacao}"
 					styleClass="botao" title="Gerar Report" 
 					value="Gerar Report" ajax="false"
 					onclick="this.form.target='_blank';" />
