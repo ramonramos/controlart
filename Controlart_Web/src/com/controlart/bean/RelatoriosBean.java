@@ -114,5 +114,32 @@ public class RelatoriosBean extends ControlArtBean {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void gerarRelatorioSaidaPeca() {
+		try {
+			
+			RelatoriosDao relatoriosDao = new RelatoriosDao();
+			Connection connection = relatoriosDao.getConnection();
+
+			facesContext = FacesContext.getCurrentInstance();
+			facesContext.responseComplete();
+			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_saida_peca.jasper");
+			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
+			String titulo = "Saída de Peças";
+						
+			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
+			HashMap parametros = new HashMap();
+			parametros.put("LOGO", imagem );
+			
+			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
+			
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
