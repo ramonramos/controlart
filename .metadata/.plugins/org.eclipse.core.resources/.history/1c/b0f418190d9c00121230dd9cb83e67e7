@@ -1,0 +1,38 @@
+package com.controlart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.controlart.dao.factory.ConnFactory;
+import com.controlart.dao.utils.DaoUtils;
+import com.controlart.transfer.PessoaT;
+
+public class ImagemDao {
+	private Connection connection;
+
+	public ImagemDao() throws SQLException {
+		connection = ConnFactory.getConnection();
+	}
+
+	public void insert(PessoaT pessoaT) throws SQLException {
+		PreparedStatement pStmt = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_INSERT);
+			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
+			pStmt.setObject(2, pessoaT.getNmPessoa());
+			pStmt.setObject(3, pessoaT.getNrFone());
+			pStmt.setObject(4, pessoaT.getDsEmail());
+			pStmt.setObject(5, pessoaT.getNmRua());
+			pStmt.setObject(6, pessoaT.getNrImovel());
+			pStmt.setObject(7, pessoaT.getNmBairro());
+			pStmt.setObject(8, pessoaT.getNmCidade());
+
+			pStmt.execute();
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+}

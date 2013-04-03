@@ -1,0 +1,25 @@
+package com.controlart.bean;
+
+import java.io.File;
+
+import javax.faces.context.FacesContext;
+
+public class ImagemBean extends ControlArtBean {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final String PATH_APLICACAO = FacesContext
+			.getCurrentInstance().getExternalContext().getRealPath("/");
+	private static final String PATH_IMAGENS = "Imagens" + File.separator;
+	private static final String PATH_IMAGENS_TEMPORARIAS = PATH_IMAGENS
+			+ "temp" + File.separator;
+
+	public ImagemBean() {
+		checkTempDir();
+	}
+
+	private void checkTempDir() {
+		File file = new File(PATH_APLICACAO + PATH_IMAGENS
+				+ PATH_IMAGENS_TEMPORARIAS);
+	}
+}

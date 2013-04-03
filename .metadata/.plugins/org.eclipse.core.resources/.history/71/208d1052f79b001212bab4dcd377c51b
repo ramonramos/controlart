@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p:dialog id="modalImagens" appendToBody="true" modal="true"
+		resizable="false" styleClass="dialog" widgetVar="modalImagensWV"
+		width="575">
+		<f:facet name="header">
+			<h:outputLabel value="#{msgs.labelImagens}" />
+		</f:facet>
+
+		<h:form id="formModalImagens">
+			<h:panelGroup layout="block">
+				<p:dataTable itemType="none" value="#{pecaBean.imagemBean.imagens}"
+					var="imagens">
+
+					<p:column headerText="Imagem">
+						<p:outputLabel value="#{imagens.nome}" />
+					</p:column>
+
+					<p:column style="text-align: center;">
+						<p:commandLink action="#{pecaBean.imagemBean.deleteFromList}">
+							<p:graphicImage url="#{resource['image:delete_ico.png']}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+
+			<h:panelGroup style="margin-top: 18px;" layout="block">
+				<p:fileUpload fileUploadListener="#{pecaBean.imagemBean.listener}"
+					mode="advanced" sizeLimit="512000" auto="true"
+					allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+			</h:panelGroup>
+		</h:form>
+	</p:dialog>
+</ui:composition>

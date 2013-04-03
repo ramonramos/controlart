@@ -1,0 +1,43 @@
+package com.controlart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.controlart.dao.factory.ConnFactory;
+import com.controlart.dao.utils.DaoUtils;
+import com.controlart.transfer.ImagemT;
+
+public class ImagemDao {
+	private Connection connection;
+
+	private static final String SQL_INSERT = "INSERT INTO tb_peca_imagem (id_peca, nm_imagem) VALUES (?, ?)";
+
+	public ImagemDao() throws SQLException {
+		connection = ConnFactory.getConnection();
+	}
+
+	public void insert(List<ImagemT> listImagemT) throws SQLException {
+		PreparedStatement pStmt = null;
+
+		try {
+			for (ImagemT imagemT : listImagemT) {
+				pStmt = connection.prepareStatement(SQL_INSERT);
+				pStmt.setObject(1, pessoaT.getIdTipoPessoa());
+				pStmt.setObject(2, pessoaT.getNmPessoa());
+				pStmt.setObject(3, pessoaT.getNrFone());
+				pStmt.setObject(4, pessoaT.getDsEmail());
+				pStmt.setObject(5, pessoaT.getNmRua());
+				pStmt.setObject(6, pessoaT.getNrImovel());
+				pStmt.setObject(7, pessoaT.getNmBairro());
+				pStmt.setObject(8, pessoaT.getNmCidade());
+
+				pStmt.execute();
+			}
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+}
