@@ -3,18 +3,19 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
 		<item value="72" key="DIALOG_Y_ORIGIN"/>
-		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="1503" key="DIALOG_X_ORIGIN"/>
+		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="labelPreco" key="selection"/>
+		<item value="pathAplicacao" key="selection"/>
 		<list key="findhistory">
+			<item value="PATH_APLICACAO"/>
 			<item value="labelImagem"/>
 			<item value="labelPreco"/>
 			<item value="labelSim"/>
@@ -22,9 +23,9 @@
 			<item value="labelImagens"/>
 			<item value=".alt-senha"/>
 			<item value="registro"/>
-			<item value="tipoPessoaT"/>
 		</list>
 		<list key="replacehistory">
+			<item value="pathAplicacao"/>
 			<item value=".panel-alterar-senha"/>
 			<item value="pecaT"/>
 			<item value="data-table-peca"/>
@@ -32,7 +33,6 @@
 			<item value="data-table-classificacao"/>
 			<item value=".data-table-acervo"/>
 			<item value="data-table-tipoPessoa"/>
-			<item value=""/>
 		</list>
 	</section>
 </section>

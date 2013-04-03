@@ -11,11 +11,11 @@ import javax.faces.model.SelectItem;
 
 import com.controlart.bean.interfac.ControlArtBeanInterface;
 import com.controlart.bean.utils.BeanUtils;
+import com.controlart.dao.AcervoDao;
 import com.controlart.dao.ClassificacaoDao;
-import com.controlart.dao.ImagemDao;
 import com.controlart.dao.PecaDao;
+import com.controlart.transfer.AcervoT;
 import com.controlart.transfer.ClassificacaoT;
-import com.controlart.transfer.ImagemT;
 import com.controlart.transfer.PecaT;
 
 @ManagedBean(name = "pecaBean")
@@ -28,8 +28,10 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	private List<PecaT> listPeca;
 	private boolean novoRegistro;
 
+	private List<SelectItem> listAcervo;
 	private List<SelectItem> listClassificacao;
 
+	private HashMap<Integer, String> hashAcervo;
 	private HashMap<Integer, String> hashClassificacao;
 
 	private ImagemBean imagemBean;
@@ -39,6 +41,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 		clearAction();
 		consultAction();
+		consultAcervo();
 		consultClassificacao();
 	}
 
@@ -52,6 +55,30 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		try {
 			PecaDao pecaDao = new PecaDao();
 			listPeca = pecaDao.consultAll();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	private void consultAcervo() {
+		try {
+			AcervoDao acervoDao = new AcervoDao();
+
+			List<AcervoT> _listAcervo = acervoDao.consultAll();
+
+			listAcervo = new ArrayList<SelectItem>(0);
+			hashAcervo = new HashMap<Integer, String>(0);
+
+			for (AcervoT acervoT : _listAcervo) {
+				if (acervoT.getAtivo() == 1) {
+					listAcervo.add(new SelectItem(acervoT.getId(), acervoT
+							.getNome()));
+				}
+
+				hashAcervo.put(acervoT.getId(), acervoT.getNome());
+			}
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
@@ -124,12 +151,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			PecaDao pecaDao = new PecaDao();
 			peca.setId(pecaDao.insert(peca));
 
-			for (ImagemT imagemT : imagemBean.getListImagens()) {
-				imagemT.setPeca(peca.getId());
-			}
-
-			ImagemDao imagemDao = new ImagemDao();
-			imagemDao.insert(imagemBean.getListImagens());
+			imagemBean.setIdPeca(peca.getId());
+			imagemBean.insertAction();
 
 			definirNovo();
 			consultAction();
@@ -171,6 +194,10 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (SQLException sqlEx) {
 			sqlEx.printStackTrace();
 		}
+	}
+
+	public String getAcervo(int key) {
+		return hashAcervo.get(key);
 	}
 
 	public String getClassificacao(int key) {
@@ -223,5 +250,21 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 	public void setImagemBean(ImagemBean imagemBean) {
 		this.imagemBean = imagemBean;
+	}
+
+	public List<SelectItem> getListAcervo() {
+		return listAcervo;
+	}
+
+	public void setListAcervo(List<SelectItem> listAcervo) {
+		this.listAcervo = listAcervo;
+	}
+
+	public HashMap<Integer, String> getHashAcervo() {
+		return hashAcervo;
+	}
+
+	public void setHashAcervo(HashMap<Integer, String> hashAcervo) {
+		this.hashAcervo = hashAcervo;
 	}
 }

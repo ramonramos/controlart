@@ -69,6 +69,16 @@
 
 				<h:panelGroup styleClass="sub-panel-right" layout="block">
 					<p:panelGrid columns="3">
+						<h:outputLabel value="#{msgs.labelAcervo}" />
+						<p:selectOneMenu
+							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+							id="acervo" required="true" value="#{pecaBean.peca.acervo}">
+							<f:selectItem itemLabel="#{msgs.labelSelecione}"
+								itemValue="#{null}" />
+							<f:selectItems value="#{pecaBean.listAcervo}" />
+						</p:selectOneMenu>
+						<p:message for="acervo" />
+
 						<h:outputLabel value="#{msgs.labelClassificacao}" />
 						<p:selectOneMenu
 							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"

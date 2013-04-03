@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.StackOverflowError"/>
-<fullyQualifiedTypeName name="com.controlart.bean.AlterarSenhaBean"/>
 <fullyQualifiedTypeName name="com.controlart.bean.UsuariosBean"/>
 <fullyQualifiedTypeName name="com.controlart.dao.UsuariosDao"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
@@ -33,8 +31,6 @@
 <fullyQualifiedTypeName name="com.controlart.transfer.AcervoT"/>
 <fullyQualifiedTypeName name="javax.print.attribute.HashAttributeSet"/>
 <fullyQualifiedTypeName name="java.sql.Timestamp"/>
-<fullyQualifiedTypeName name="javax.faces.convert.Converter"/>
-<fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.lang.Cloneable"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TransacaoDao"/>
@@ -42,14 +38,11 @@
 <fullyQualifiedTypeName name="javax.faces.convert.FacesConverter"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
-<fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
 <fullyQualifiedTypeName name="com.controlart.bean.PecaBean"/>
 <fullyQualifiedTypeName name="com.controlart.bean.ControlArtBean"/>
 <fullyQualifiedTypeName name="com.controlart.bean.ImagemBean"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
-<fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileUtils"/>
 <fullyQualifiedTypeName name="org.primefaces.event.FileUploadEvent"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.primefaces.model.UploadedFile"/>
@@ -58,6 +51,13 @@
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.controlart.dao.ImagemDao"/>
+<fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.ImagemT"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileUtils"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
+<fullyQualifiedTypeName name="javax.faces.convert.Converter"/>
 </qualifiedTypeNameHistroy>

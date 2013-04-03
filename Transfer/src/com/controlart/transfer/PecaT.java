@@ -8,6 +8,7 @@ public class PecaT implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	private int acervo;
 	private int classificacao;
 	private String nome;
 	private String descricao;
@@ -164,5 +165,13 @@ public class PecaT implements Cloneable, Serializable {
 
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
+	}
+
+	public int getAcervo() {
+		return acervo;
+	}
+
+	public void setAcervo(int acervo) {
+		this.acervo = acervo;
 	}
 }
