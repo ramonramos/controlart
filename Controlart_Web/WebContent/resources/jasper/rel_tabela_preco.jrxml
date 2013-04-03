@@ -7,14 +7,16 @@
 		<parameterDescription><![CDATA[The letterhead image]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="ACERVO" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select p.nm_peca,
        c.nm_classificacao,
        p.ds_material,
        p.vl_preco
 from tb_peca p inner join
-     tb_classificacao c using(id_classificacao)
+     tb_classificacao c using(id_classificacao) inner join        tb_acervo a on (p.id_acervo_atual = a.id_acervo)
 where p.in_ativo = 1
+  and a.nm_acervo ilike $P{ACERVO}
 order by p.nm_peca]]>
 	</queryString>
 	<field name="nm_peca" class="java.lang.String"/>

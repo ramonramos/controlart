@@ -12,6 +12,14 @@ public class AcervoT implements Serializable, Cloneable {
 	private String descricao;
 	private int ativo;
 
+	public AcervoT(int id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
+	
+	public AcervoT() {
+	}
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
@@ -56,4 +64,11 @@ public class AcervoT implements Serializable, Cloneable {
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
 	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+	
+	
 }

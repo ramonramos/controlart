@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,7 +24,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
+import com.controlart.dao.AcervoDao;
 import com.controlart.dao.RelatoriosDao;
+import com.controlart.transfer.AcervoT;
 
 @ManagedBean(name = "relatoriosBean")
 @ViewScoped
@@ -31,11 +35,45 @@ public class RelatoriosBean extends ControlArtBean {
 	private static final long serialVersionUID = 1L;
 	private static final String PATCH_LOGO = "/resources/image/logo_ireport.gif";
 	private FacesContext facesContext;
+	private List<AcervoT> listAcervo;
+	private String acervo;
+
+	public List<AcervoT> getListAcervo() {
+		try {
+			if (listAcervo == null) {
+				listAcervo = new ArrayList<AcervoT>();
+				AcervoDao acervoDao = new AcervoDao();
+				List<AcervoT> acervos = acervoDao.consultAll();
+				for (AcervoT a : acervos) {
+					listAcervo.add(new AcervoT(a.getId(), a.getNome()));				
+				}
+			}
+			return listAcervo;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	public void setListAcervo(List<AcervoT> listAcervo) {
+		this.listAcervo = listAcervo;
+	}
 	
+	public String getAcervo() {
+		return acervo;
+	}
+
+	public void setAcervo(String acervo) {
+		this.acervo = acervo;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void gerarRelatorio(String arquivoJasper, HashMap parametros, Connection connection, String titulo) throws JRException, IOException{
-		
-		JasperPrint jasperPrint = JasperFillManager.fillReport(arquivoJasper, parametros, connection);
+	private void gerarRelatorio(String arquivoJasper, HashMap parametros,
+			Connection connection, String titulo) throws JRException,
+			IOException {
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(arquivoJasper,
+				parametros, connection);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		JRPdfExporter exporter = new JRPdfExporter();
@@ -46,9 +84,11 @@ public class RelatoriosBean extends ControlArtBean {
 		byte[] bytes = baos.toByteArray();
 
 		if (bytes != null && bytes.length > 0) {
-			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
 			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition","inline; filename=\""+titulo+".pdf\"");
+			response.setHeader("Content-disposition", "inline; filename=\""
+					+ titulo + ".pdf\"");
 			response.setContentLength(bytes.length);
 			ServletOutputStream outputStream = response.getOutputStream();
 			outputStream.write(bytes, 0, bytes.length);
@@ -61,52 +101,57 @@ public class RelatoriosBean extends ControlArtBean {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioTabelaPreco() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_tabela_preco.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_tabela_preco.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Tabela de Preços";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
+			parametros.put("ACERVO", this.acervo);
+			parametros.put("LOGO", imagem);
 			
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-		
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioEntradaPeca() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_entrada_peca.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_entrada_peca.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Entrada de Peças";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
@@ -117,24 +162,26 @@ public class RelatoriosBean extends ControlArtBean {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioPecasAcervo() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_pecas_acervo.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_pecas_acervo.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Peças por Acervo";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
@@ -145,108 +192,116 @@ public class RelatoriosBean extends ControlArtBean {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioPecasClassificacao() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_pecas_classificacao.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_pecas_classificacao.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Peças por Classificação";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioPecasTransacao() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_pecas_transacao.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_pecas_transacao.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Peças por Transação";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioPrazoDevolucao() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_prazo_devolucao.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_prazo_devolucao.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Prazo para Devolução";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioSaidaPeca() {
 		try {
-			
+
 			RelatoriosDao relatoriosDao = new RelatoriosDao();
 			Connection connection = relatoriosDao.getConnection();
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
-			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+			ServletContext scontext = (ServletContext) facesContext
+					.getExternalContext().getContext();
 
-			String arquivoJasper = scontext.getRealPath("/resources/jasper/rel_saida_peca.jasper");
+			String arquivoJasper = scontext
+					.getRealPath("/resources/jasper/rel_saida_peca.jasper");
 			String arquivoLogo = scontext.getRealPath(PATCH_LOGO);
 			String titulo = "Saída de Peças";
-						
+
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("LOGO", imagem );
-			
+			parametros.put("LOGO", imagem);
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
-			
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (Exception e) {

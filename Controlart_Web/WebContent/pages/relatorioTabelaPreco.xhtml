@@ -18,21 +18,20 @@
 						value="#{resource['image:favicon.ico']}" />
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
-				<!--  
+
 				<h:outputLabel value="#{msgs.labelAcervo}" />
-				<p:selectOneMenu					
-					id="acervo" required="true"
-					value="#{acervoBean.acervo.id}">
+				<p:selectOneMenu id="acervo" required="true" 
+				    value="#{relatoriosBean.acervo}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
 						itemValue="#{null}" />
-					<f:selectItems value="#{acervoBean.listAcervo}" />
+					<f:selectItems value="#{relatoriosBean.listAcervo}" />
 				</p:selectOneMenu>
 				<p:message for="acervo" />
--->
-				<p:commandButton action="#{relatoriosBean.gerarRelatorioTabelaPreco}"
-					styleClass="botao" title="Gerar Report" 
-					value="Gerar Report" ajax="false"
-					onclick="this.form.target='_blank';" />
+
+				<p:commandButton
+					action="#{relatoriosBean.gerarRelatorioTabelaPreco}"
+					styleClass="botao" title="Gerar Report" value="Gerar Report"
+					ajax="false" onclick="this.form.target='_blank';" />
 			</p:panel>
 		</h:form>
 	</ui:define>
