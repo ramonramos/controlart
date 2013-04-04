@@ -62,9 +62,9 @@
 				<h:outputLabel value="#{msgs.labelDataTransacao}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="dataTransacao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataTransacao}" />
+					id="dataEntrada" locale="#{localeBean.locale}" pattern="dd/MM/yyyy"
+					readonlyInput="true" required="true" showOn="both"
+					value="#{transacaoBean.transacao.dataTransacao}" />
 				<p:message for="dataTransacao" />
 
 				<h:outputLabel value="#{msgs.labelDataPrevisao}" />

@@ -59,28 +59,28 @@
 				</p:selectOneMenu>
 				<p:message for="acervoDestino" />
 
-				<h:outputLabel value="#{msgs.labelDataTransacao}" />
+				<h:outputLabel value="#{msgs.labelDataEntrada}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="dataTransacao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataTransacao}" />
-				<p:message for="dataTransacao" />
+					id="dataEntrada" locale="#{localeBean.locale}" pattern="dd/MM/yyyy"
+					readonlyInput="true" required="true" showOn="both"
+					value="#{transacaoBean.transacao.dataTransacao}" />
+				<p:message for="dataEntrada" />
 
-				<h:outputLabel value="#{msgs.labelDataPrevisao}" />
+				<h:outputLabel value="#{msgs.labelDataSaida}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="dataPrevisao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataPrevisao}" />
-				<p:message for="dataPrevisao" />
+					id="dataSaida" locale="#{localeBean.locale}" pattern="dd/MM/yyyy"
+					readonlyInput="true" required="true" showOn="both"
+					value="#{transacaoBean.transacao.dataPrevisao}" />
+				<p:message for="dataSaida" />
 
 				<h:outputLabel value="#{msgs.labelDataDevolucao}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="dataDevolucao" locale="#{localeBean.locale}"
 					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataDevolucao}" />
+					showOn="both" value="#{transacaoBean.transacao.dataPrevisao}" />
 				<p:message for="dataDevolucao" />
 
 				<h:outputLabel value="#{msgs.labelPreco}" />

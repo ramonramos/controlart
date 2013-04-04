@@ -13,9 +13,8 @@ public class TransacaoT implements Cloneable, Serializable {
 	private int tipo;
 	private int acervoOrigem;
 	private int acervoDestino;
-	private Date dataTransacao;
-	private Date dataPrevisao;
-	private Date dataDevolucao;
+	private Date dataEntrada;
+	private Date dataSaida;
 	private BigDecimal preco;
 	private int online;
 
@@ -64,6 +63,22 @@ public class TransacaoT implements Cloneable, Serializable {
 		this.acervoDestino = acervoDestino;
 	}
 
+	public Date getDataEntrada() {
+		return dataEntrada;
+	}
+
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
+	}
+
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
 	public BigDecimal getPreco() {
 		return preco;
 	}
@@ -78,29 +93,5 @@ public class TransacaoT implements Cloneable, Serializable {
 
 	public void setOnline(int online) {
 		this.online = online;
-	}
-
-	public Date getDataTransacao() {
-		return dataTransacao;
-	}
-
-	public void setDataTransacao(Date dataTransacao) {
-		this.dataTransacao = dataTransacao;
-	}
-
-	public Date getDataPrevisao() {
-		return dataPrevisao;
-	}
-
-	public void setDataPrevisao(Date dataPrevisao) {
-		this.dataPrevisao = dataPrevisao;
-	}
-
-	public Date getDataDevolucao() {
-		return dataDevolucao;
-	}
-
-	public void setDataDevolucao(Date dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
 	}
 }
