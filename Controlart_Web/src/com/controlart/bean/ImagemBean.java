@@ -40,6 +40,26 @@ public class ImagemBean extends ControlArtBean {
 		listImagens = new ArrayList<ImagemT>(0);
 	}
 
+	public void consultAction() {
+		try {
+			ImagemT imagemT = new ImagemT();
+			imagemT.setPeca(idPeca);
+
+			ImagemDao imagemDao = new ImagemDao();
+			listImagens = imagemDao.consultByPeca(imagemT);
+
+			if (listImagens.size() > 0) {
+				FileUtils.copyDirectory(new File(pathAplicacao + PATH_IMAGENS
+						+ idPeca + File.separator), new File(pathAplicacao
+						+ PATH_IMAGENS_TEMPORARIAS));
+			}
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
+	}
+
 	private void checkTempDir() {
 		File file = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS);
 
@@ -92,17 +112,18 @@ public class ImagemBean extends ControlArtBean {
 				ImagemDao imagemDao = new ImagemDao();
 				imagemDao.insert(listImagens);
 
-				File file = new File(pathAplicacao + PATH_IMAGENS + idPeca
-						+ File.separator);
+				File fileOrigem = new File(pathAplicacao
+						+ PATH_IMAGENS_TEMPORARIAS);
+				File fileDestino = new File(pathAplicacao + PATH_IMAGENS
+						+ idPeca + File.separator);
 
-				if (!file.exists()) {
-					file.mkdirs();
+				if (!fileDestino.exists()) {
+					fileDestino.mkdirs();
 				} else {
-					FileUtils.cleanDirectory(file);
+					FileUtils.cleanDirectory(fileDestino);
 				}
 
-				FileUtils.copyDirectory(new File(pathAplicacao
-						+ PATH_IMAGENS_TEMPORARIAS), file);
+				FileUtils.copyDirectory(fileOrigem, fileDestino);
 			} catch (SQLException sql) {
 				sql.printStackTrace();
 			} catch (IOException io) {
@@ -112,7 +133,26 @@ public class ImagemBean extends ControlArtBean {
 	}
 
 	public void updateAction() {
+		try {
+			ImagemT imagemT = new ImagemT();
+			imagemT.setPeca(idPeca);
 
+			ImagemDao imagemDao = new ImagemDao();
+			imagemDao.inactivate(imagemT);
+
+			File fileDestino = new File(pathAplicacao + PATH_IMAGENS + idPeca
+					+ File.separator);
+
+			if (fileDestino.exists()) {
+				FileUtils.cleanDirectory(fileDestino);
+			}
+
+			insertAction();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
 	}
 
 	public void deleteFromList() {

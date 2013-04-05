@@ -16,8 +16,8 @@ public class PecaDao {
 
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_peca tp ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_ID_PECA = "SELECT tp.* FROM tb_peca tp WHERE tp.nm_peca = ?";
-	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_status, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_status = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
+	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_status, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, id_acervo_atual = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_status = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_peca SET in_ativo = 0 WHERE id_peca = ?";
 
 	public PecaDao() throws SQLException {
@@ -40,12 +40,13 @@ public class PecaDao {
 		}
 	}
 
-	public PecaT consultIdPeca(PecaT pecaT) throws SQLException {
+	public int consultIdPeca(PecaT pecaT) throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
 			pStmt = connection.prepareStatement(SQL_CONSULT_ID_PECA);
+			pStmt.setObject(1, pecaT.getNome());
 
 			rs = pStmt.executeQuery();
 
@@ -86,43 +87,42 @@ public class PecaDao {
 		return listaPecaT;
 	}
 
-	private PecaT resultsetToObjectT2(ResultSet rs) throws SQLException {
+	private int resultsetToObjectT2(ResultSet rs) throws SQLException {
 		PecaT pecaT = new PecaT();
 
 		while (rs.next()) {
 			pecaT.setId(rs.getInt("ID_PECA"));
 		}
 
-		return pecaT;
+		return pecaT.getId();
 	}
 
-	public int insert(PecaT pecaT) throws SQLException {
+	public void insert(PecaT pecaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INSERT);
 			pStmt.setObject(1, pecaT.getClassificacao());
-			pStmt.setObject(2, pecaT.getNome());
-			pStmt.setObject(3, pecaT.getDescricao());
-			pStmt.setObject(4, pecaT.getAutor());
-			pStmt.setObject(5, pecaT.getPeriodo());
-			pStmt.setObject(6, pecaT.getLargura());
-			pStmt.setObject(7, pecaT.getAltura());
-			pStmt.setObject(8, pecaT.getMaterial());
-			pStmt.setObject(9, pecaT.getNumeroRegistro());
-			pStmt.setObject(10, pecaT.getProfundidade());
-			pStmt.setObject(11, pecaT.getHistorico());
-			pStmt.setObject(12, pecaT.getStatus());
-			pStmt.setObject(13, pecaT.getEstado());
-			pStmt.setObject(14, pecaT.getPreco());
-			pStmt.setObject(15, pecaT.getDisponivelLeilao());
-			pStmt.setObject(16, pecaT.getAtivo());
+			pStmt.setObject(2, pecaT.getAcervo());
+			pStmt.setObject(3, pecaT.getNome());
+			pStmt.setObject(4, pecaT.getDescricao());
+			pStmt.setObject(5, pecaT.getAutor());
+			pStmt.setObject(6, pecaT.getPeriodo());
+			pStmt.setObject(7, pecaT.getLargura());
+			pStmt.setObject(8, pecaT.getAltura());
+			pStmt.setObject(9, pecaT.getMaterial());
+			pStmt.setObject(10, pecaT.getNumeroRegistro());
+			pStmt.setObject(11, pecaT.getProfundidade());
+			pStmt.setObject(12, pecaT.getHistorico());
+			pStmt.setObject(13, pecaT.getStatus());
+			pStmt.setObject(14, pecaT.getEstado());
+			pStmt.setObject(15, pecaT.getPreco());
+			pStmt.setObject(16, pecaT.getDisponivelLeilao());
+			pStmt.setObject(17, pecaT.getAtivo());
 
 			pStmt.execute();
 
-			PecaT _pecaT = consultIdPeca(pecaT);
-
-			return _pecaT.getId();
+			pecaT.setId(consultIdPeca(pecaT));
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
@@ -135,22 +135,23 @@ public class PecaDao {
 		try {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
 			pStmt.setObject(1, pecaT.getClassificacao());
-			pStmt.setObject(2, pecaT.getNome());
-			pStmt.setObject(3, pecaT.getDescricao());
-			pStmt.setObject(4, pecaT.getAutor());
-			pStmt.setObject(5, pecaT.getPeriodo());
-			pStmt.setObject(6, pecaT.getLargura());
-			pStmt.setObject(7, pecaT.getAltura());
-			pStmt.setObject(8, pecaT.getMaterial());
-			pStmt.setObject(9, pecaT.getNumeroRegistro());
-			pStmt.setObject(10, pecaT.getProfundidade());
-			pStmt.setObject(11, pecaT.getHistorico());
-			pStmt.setObject(12, pecaT.getStatus());
-			pStmt.setObject(13, pecaT.getEstado());
-			pStmt.setObject(14, pecaT.getPreco());
-			pStmt.setObject(15, pecaT.getDisponivelLeilao());
-			pStmt.setObject(16, pecaT.getAtivo());
-			pStmt.setObject(17, pecaT.getId());
+			pStmt.setObject(2, pecaT.getAcervo());
+			pStmt.setObject(3, pecaT.getNome());
+			pStmt.setObject(4, pecaT.getDescricao());
+			pStmt.setObject(5, pecaT.getAutor());
+			pStmt.setObject(6, pecaT.getPeriodo());
+			pStmt.setObject(7, pecaT.getLargura());
+			pStmt.setObject(8, pecaT.getAltura());
+			pStmt.setObject(9, pecaT.getMaterial());
+			pStmt.setObject(10, pecaT.getNumeroRegistro());
+			pStmt.setObject(11, pecaT.getProfundidade());
+			pStmt.setObject(12, pecaT.getHistorico());
+			pStmt.setObject(13, pecaT.getStatus());
+			pStmt.setObject(14, pecaT.getEstado());
+			pStmt.setObject(15, pecaT.getPreco());
+			pStmt.setObject(16, pecaT.getDisponivelLeilao());
+			pStmt.setObject(17, pecaT.getAtivo());
+			pStmt.setObject(18, pecaT.getId());
 
 			pStmt.executeUpdate();
 		} finally {

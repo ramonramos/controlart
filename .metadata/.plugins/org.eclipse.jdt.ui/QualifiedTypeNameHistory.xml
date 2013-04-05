@@ -49,15 +49,15 @@
 <fullyQualifiedTypeName name="com.lowagie.text.pdf.codec.Base64.InputStream"/>
 <fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="com.controlart.dao.ImagemDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
-<fullyQualifiedTypeName name="com.controlart.transfer.ImagemT"/>
-<fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileUtils"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
 <fullyQualifiedTypeName name="javax.faces.convert.Converter"/>
+<fullyQualifiedTypeName name="com.controlart.dao.ImagemDao"/>
+<fullyQualifiedTypeName name="com.controlart.transfer.ImagemT"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
 </qualifiedTypeNameHistroy>
