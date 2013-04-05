@@ -62,7 +62,6 @@ public class PecaDao {
 			PecaT pecaT = new PecaT();
 
 			pecaT.setId(rs.getInt("ID_PECA"));
-			pecaT.setAcervo(rs.getInt("ID_ACERVO_ATUAL"));
 			pecaT.setClassificacao(rs.getInt("ID_CLASSIFICACAO"));
 			pecaT.setNome(rs.getString("NM_PECA"));
 			pecaT.setDescricao(rs.getString("DS_PECA"));

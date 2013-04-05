@@ -16,7 +16,7 @@ public class TransacaoDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL = "SELECT tt.* FROM tb_transacao tt ORDER BY tt.id_peca";
-	private static final String SQL_INSERT = "INSERT INTO tb_transacao (id_peca, id_tipo_transacao, id_acervo_origem, id_acervo_destino, dt_transacao, dt_previsao, dt_devolucao, vl_preco, in_online) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_INSERT = "INSERT INTO tb_transacao (id_peca, id_tipo_transacao, id_acervo_origem, id_acervo_destino, dt_transacao, dt_previsao, dt_devolucao, vl_preco, in_online) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 	public TransacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
@@ -71,14 +71,14 @@ public class TransacaoDao {
 			pStmt.setObject(2, transacaoT.getTipo());
 			pStmt.setObject(3, transacaoT.getAcervoOrigem());
 			pStmt.setObject(4, transacaoT.getAcervoDestino());
-			pStmt.setObject(5, transacaoT.getDataTransacao() == null ? null
-					: new Date(transacaoT.getDataTransacao().getTime()));
-			pStmt.setObject(6, transacaoT.getDataPrevisao() == null ? null
-					: new Date(transacaoT.getDataPrevisao().getTime()));
-			pStmt.setObject(7, transacaoT.getDataDevolucao() == null ? null
-					: new Date(transacaoT.getDataDevolucao().getTime()));
-			pStmt.setObject(8, transacaoT.getPreco());
-			pStmt.setObject(9, transacaoT.getOnline());
+			pStmt.setObject(5, transacaoT.getDataEntrada() == null ? null
+					: new Date(transacaoT.getDataEntrada().getTime()));
+			pStmt.setObject(6, transacaoT.getDataSaida() == null ? null
+					: new Date(transacaoT.getDataSaida().getTime()));
+			pStmt.setObject(6, transacaoT.getDataSaida() == null ? null
+					: new Date(transacaoT.getDataSaida().getTime()));
+			pStmt.setObject(7, transacaoT.getPreco());
+			pStmt.setObject(8, transacaoT.getOnline());
 
 			pStmt.execute();
 		} finally {

@@ -75,10 +75,10 @@ public class TransacaoDao {
 					: new Date(transacaoT.getDataTransacao().getTime()));
 			pStmt.setObject(6, transacaoT.getDataPrevisao() == null ? null
 					: new Date(transacaoT.getDataPrevisao().getTime()));
-			pStmt.setObject(7, transacaoT.getDataDevolucao() == null ? null
-					: new Date(transacaoT.getDataDevolucao().getTime()));
-			pStmt.setObject(8, transacaoT.getPreco());
-			pStmt.setObject(9, transacaoT.getOnline());
+			pStmt.setObject(6, transacaoT.getDataSaida() == null ? null
+					: new Date(transacaoT.getDataSaida().getTime()));
+			pStmt.setObject(7, transacaoT.getPreco());
+			pStmt.setObject(8, transacaoT.getOnline());
 
 			pStmt.execute();
 		} finally {

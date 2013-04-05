@@ -79,28 +79,4 @@ public class TransacaoT implements Cloneable, Serializable {
 	public void setOnline(int online) {
 		this.online = online;
 	}
-
-	public Date getDataTransacao() {
-		return dataTransacao;
-	}
-
-	public void setDataTransacao(Date dataTransacao) {
-		this.dataTransacao = dataTransacao;
-	}
-
-	public Date getDataPrevisao() {
-		return dataPrevisao;
-	}
-
-	public void setDataPrevisao(Date dataPrevisao) {
-		this.dataPrevisao = dataPrevisao;
-	}
-
-	public Date getDataDevolucao() {
-		return dataDevolucao;
-	}
-
-	public void setDataDevolucao(Date dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
-	}
 }
