@@ -19,10 +19,20 @@
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
 
-				<p:commandButton action="#{relatoriosBean.gerarRelatorioPecasClassificacao}"
-					styleClass="botao" title="Gerar Report" 
-					value="Gerar Report" ajax="false"
-					onclick="this.form.target='_blank';" />
+				<h:outputLabel value="#{msgs.labelClassificacao}" />
+				<p:selectOneMenu id="classificacao" required="true"
+					converter="entityConverter" value="#{relatoriosBean.classificacaoT}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						noSelectionOption="true" />
+					<f:selectItems var="classificacao" itemValue="#{classificacao}"
+						itemLabel="#{classificacao.nome}" value="#{relatoriosBean.listClassificacao}" />
+				</p:selectOneMenu>
+				<p:message for="classificacao" />
+
+				<p:commandButton
+					action="#{relatoriosBean.gerarRelatorioPecasClassificacao}"
+					styleClass="botao" title="Gerar Report" value="Gerar Report"
+					ajax="false" onclick="this.form.target='_blank';" />
 			</p:panel>
 		</h:form>
 	</ui:define>

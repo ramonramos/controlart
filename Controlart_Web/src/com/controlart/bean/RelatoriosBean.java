@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,8 +24,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import com.controlart.dao.AcervoDao;
+import com.controlart.dao.ClassificacaoDao;
 import com.controlart.dao.RelatoriosDao;
 import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.ClassificacaoT;
 
 @ManagedBean(name = "relatoriosBean")
 @ViewScoped
@@ -36,35 +37,56 @@ public class RelatoriosBean extends ControlArtBean {
 	private static final String PATCH_LOGO = "/resources/image/logo_ireport.gif";
 	private FacesContext facesContext;
 	private List<AcervoT> listAcervo;
-	private String acervo;
+	private AcervoT acervoT;
+	private List<ClassificacaoT> listClassificacao;
+	private ClassificacaoT classificacaoT;
 
 	public List<AcervoT> getListAcervo() {
-		try {
-			if (listAcervo == null) {
-				listAcervo = new ArrayList<AcervoT>();
+		if (listAcervo == null) {
+			try {
 				AcervoDao acervoDao = new AcervoDao();
-				List<AcervoT> acervos = acervoDao.consultAll();
-				for (AcervoT a : acervos) {
-					listAcervo.add(new AcervoT(a.getId(), a.getNome()));				
-				}
+				listAcervo = acervoDao.consultAll();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			return listAcervo;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return null;
 		}
+		return listAcervo;
 	}
 
 	public void setListAcervo(List<AcervoT> listAcervo) {
 		this.listAcervo = listAcervo;
 	}
-	
-	public String getAcervo() {
-		return acervo;
+
+	public AcervoT getAcervoT() {
+		return acervoT;
 	}
 
-	public void setAcervo(String acervo) {
-		this.acervo = acervo;
+	public void setAcervoT(AcervoT acervoT) {
+		this.acervoT = acervoT;
+	}
+
+	public List<ClassificacaoT> getListClassificacao() {
+		if (listClassificacao == null) {
+			try {
+				ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+				listClassificacao = classificacaoDao.consultAll();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return listClassificacao;
+	}
+
+	public void setListClassificacao(List<ClassificacaoT> listClassificacao) {
+		this.listClassificacao = listClassificacao;
+	}
+
+	public ClassificacaoT getClassificacaoT() {
+		return classificacaoT;
+	}
+
+	public void setClassificacaoT(ClassificacaoT classificacaoT) {
+		this.classificacaoT = classificacaoT;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -117,9 +139,9 @@ public class RelatoriosBean extends ControlArtBean {
 
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
-			parametros.put("ACERVO", this.acervo);
+			parametros.put("ID_ACERVO", acervoT.getId());
 			parametros.put("LOGO", imagem);
-			
+
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
 
 		} catch (FileNotFoundException fnfe) {
@@ -178,6 +200,7 @@ public class RelatoriosBean extends ControlArtBean {
 
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
+			parametros.put("ID_ACERVO", acervoT.getId());
 			parametros.put("LOGO", imagem);
 
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);
@@ -208,6 +231,7 @@ public class RelatoriosBean extends ControlArtBean {
 
 			BufferedImage imagem = ImageIO.read(new File(arquivoLogo));
 			HashMap parametros = new HashMap();
+			parametros.put("ID_CLASSIFICACAO", classificacaoT.getId());
 			parametros.put("LOGO", imagem);
 
 			gerarRelatorio(arquivoJasper, parametros, connection, titulo);

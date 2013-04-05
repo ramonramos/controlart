@@ -20,11 +20,12 @@
 				</f:facet>
 
 				<h:outputLabel value="#{msgs.labelAcervo}" />
-				<p:selectOneMenu id="acervo" required="true" 
-				    value="#{relatoriosBean.acervo}">
+				<p:selectOneMenu id="acervo" required="true"
+					converter="entityConverter" value="#{relatoriosBean.acervoT}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
-						itemValue="#{null}" />
-					<f:selectItems value="#{relatoriosBean.listAcervo}" />
+						noSelectionOption="true" />
+					<f:selectItems var="acervo" itemValue="#{acervo}"
+						itemLabel="#{acervo.nome}" value="#{relatoriosBean.listAcervo}" />
 				</p:selectOneMenu>
 				<p:message for="acervo" />
 

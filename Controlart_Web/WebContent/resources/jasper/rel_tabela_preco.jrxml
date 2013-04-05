@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcd3f1d1-9934-4899-bae9-2ff03c943b0f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcd3f1d1-9934-4899-bae9-2ff03c943b0f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,16 +7,16 @@
 		<parameterDescription><![CDATA[The letterhead image]]></parameterDescription>
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="ACERVO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="ID_ACERVO" class="java.lang.Integer" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select p.nm_peca,
        c.nm_classificacao,
        p.ds_material,
        p.vl_preco
 from tb_peca p inner join
-     tb_classificacao c using(id_classificacao) inner join        tb_acervo a on (p.id_acervo_atual = a.id_acervo)
+     tb_classificacao c using(id_classificacao)
 where p.in_ativo = 1
-  and a.nm_acervo ilike $P{ACERVO}
+  and p.id_acervo_atual = $P{ID_ACERVO}
 order by p.nm_peca]]>
 	</queryString>
 	<field name="nm_peca" class="java.lang.String"/>

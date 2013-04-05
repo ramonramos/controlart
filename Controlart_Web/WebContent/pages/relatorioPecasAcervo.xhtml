@@ -18,6 +18,16 @@
 						value="#{resource['image:favicon.ico']}" />
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
+				
+				<h:outputLabel value="#{msgs.labelAcervo}" />
+				<p:selectOneMenu id="acervo" required="true"
+					converter="entityConverter" value="#{relatoriosBean.acervoT}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						noSelectionOption="true" />
+					<f:selectItems var="acervo" itemValue="#{acervo}"
+						itemLabel="#{acervo.nome}" value="#{relatoriosBean.listAcervo}" />
+				</p:selectOneMenu>
+				<p:message for="acervo" />
 
 				<p:commandButton action="#{relatoriosBean.gerarRelatorioPecasAcervo}"
 					styleClass="botao" title="Gerar Report" 
