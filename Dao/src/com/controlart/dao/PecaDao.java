@@ -164,7 +164,7 @@ public class PecaDao {
 			pecaT.setLargura(rs.getDouble("VL_LARGURA"));
 			pecaT.setAltura(rs.getDouble("VL_ALTURA"));
 			pecaT.setMaterial(rs.getString("DS_MATERIAL"));
-			pecaT.setNumeroRegistro(rs.getInt("NR_REGISTRO"));
+			pecaT.setNumeroRegistro(rs.getDouble("NR_REGISTRO"));
 			pecaT.setProfundidade(rs.getDouble("VL_PROFUNDIDADE"));
 			pecaT.setHistorico(rs.getString("DS_HISTORICA"));
 			pecaT.setStatus(rs.getString("DS_STATUS"));

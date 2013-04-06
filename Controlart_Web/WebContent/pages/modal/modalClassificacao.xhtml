@@ -16,22 +16,22 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelNome}" />
+				<h:outputLabel value="#{msgs.labelNome}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="nome" required="true"
 					value="#{classificacaoBean.classificacao.nome}">
-					<f:validateLength minimum="6" maximum="95" />
+					<f:validateLength minimum="4" maximum="100" />
 				</p:inputText>
 				<p:message for="nome" />
 
 				<h:outputLabel value="#{msgs.labelDescricao}" />
 				<p:inputText
 					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="descricao" value="#{classificacaoBean.classificacao.descricao}">
-					<f:validateLength minimum="6" />
-				</p:inputText>
-				<p:message for="descricao" />
+					value="#{classificacaoBean.classificacao.descricao}" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel
 					rendered="#{(classificacaoBean.usuarioLogado.idTipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"

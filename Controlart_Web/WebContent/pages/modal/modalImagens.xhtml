@@ -28,10 +28,13 @@
 			</h:panelGroup>
 
 			<h:panelGroup styleClass="fileupload" layout="block">
+
+				<!-- Extensões de Imagens Permitidas: - gif; - jpg; - jpeg; - png. -->
+
 				<p:fileUpload allowTypes="/(\.|\/)(gif|jpe?g|png)$/" auto="true"
 					disabled="#{pecaBean.imagemBean.qtdImagens eq 5}"
 					fileUploadListener="#{pecaBean.imagemBean.listener}"
-					mode="advanced" sizeLimit="512000"
+					mode="advanced" sizeLimit="1024000"
 					update=":formModalImagens, :formModalPeca:panelSwitchImagens" />
 			</h:panelGroup>
 		</h:form>

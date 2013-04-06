@@ -25,19 +25,25 @@
 				</f:facet>
 
 				<p:panelGrid columns="3">
-					<h:outputLabel value="#{msgs.labelSenhaAtual}" />
+					<h:outputLabel value="#{msgs.labelSenhaAtual}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
 					<p:password id="senhaAtual" label="#{msgs.labelSenhaAtual}"
 						required="true" value="#{alterarSenhaBean.usuario.cdSenha}" />
 					<p:message for="senhaAtual" />
 
-					<h:outputLabel value="#{msgs.labelNovaSenha}" />
+					<h:outputLabel value="#{msgs.labelNovaSenha}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
 					<p:password id="novaSenha" label="#{msgs.labelNovaSenha}"
 						required="true" value="#{alterarSenhaBean.usuario.cdNovaSenha}">
 						<f:validateLength minimum="6" maximum="15" />
 					</p:password>
 					<p:message for="novaSenha" />
 
-					<h:outputLabel value="#{msgs.labelConfirmNovaSenha}" />
+					<h:outputLabel value="#{msgs.labelConfirmNovaSenha}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
 					<p:password id="confirmNovaSenha"
 						label="#{msgs.labelConfirmNovaSenha}" required="true"
 						value="#{alterarSenhaBean.usuario.cdConfirmNovaSenha}">

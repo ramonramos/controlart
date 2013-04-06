@@ -16,7 +16,9 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelTipoUsuario}" />
+				<h:outputLabel value="#{msgs.labelTipoUsuario}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu id="tipoUsuario"
 					disabled="#{not usuariosBean.novoRegistro}" required="true"
 					value="#{usuariosBean.usuario.idTipoUsuario}">
@@ -26,7 +28,9 @@
 				</p:selectOneMenu>
 				<p:message for="tipoUsuario" />
 
-				<h:outputLabel value="#{msgs.labelPessoa}" />
+				<h:outputLabel value="#{msgs.labelPessoa}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu id="pessoa"
 					disabled="#{not usuariosBean.novoRegistro}" required="true"
 					value="#{usuariosBean.usuario.idPessoa}">
@@ -36,19 +40,25 @@
 				</p:selectOneMenu>
 				<p:message for="pessoa" />
 
-				<h:outputLabel value="#{msgs.labelLogin}" />
+				<h:outputLabel value="#{msgs.labelLogin}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText id="login" disabled="#{not usuariosBean.novoRegistro}"
 					required="true" value="#{usuariosBean.usuario.dsLogin}">
-					<f:validateLength minimum="6" maximum="20" />
+					<f:validateLength minimum="4" maximum="50" />
 				</p:inputText>
 				<p:message for="login" />
 
 				<h:outputLabel
 					rendered="#{(usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
-					value="#{msgs.labelSenha}" />
+					value="#{msgs.labelSenha}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<h:outputLabel
 					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
-					value="#{msgs.labelNovaSenha}" />
+					value="#{msgs.labelNovaSenha}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:password id="novasenha"
 					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
 					required="true" value="#{usuariosBean.usuario.cdNovaSenha}">
@@ -59,10 +69,14 @@
 
 				<h:outputLabel
 					rendered="#{usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
-					value="#{msgs.labelConfirmSenha}" />
+					value="#{msgs.labelConfirmSenha}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<h:outputLabel
 					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
-					value="#{msgs.labelConfirmNovaSenha}" />
+					value="#{msgs.labelConfirmNovaSenha}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:password id="confirmsenha"
 					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
 					required="true" value="#{usuariosBean.usuario.cdConfirmNovaSenha}">

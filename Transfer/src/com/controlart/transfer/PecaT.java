@@ -18,7 +18,7 @@ public class PecaT implements Cloneable, Serializable {
 	private double altura;
 	private double profundidade;
 	private String material;
-	private int numeroRegistro;
+	private double numeroRegistro;
 	private String historico;
 	private String status;
 	private String estado;
@@ -111,11 +111,11 @@ public class PecaT implements Cloneable, Serializable {
 		this.material = material;
 	}
 
-	public int getNumeroRegistro() {
+	public double getNumeroRegistro() {
 		return numeroRegistro;
 	}
 
-	public void setNumeroRegistro(int numeroRegistro) {
+	public void setNumeroRegistro(double numeroRegistro) {
 		this.numeroRegistro = numeroRegistro;
 	}
 
