@@ -14,39 +14,63 @@ import com.controlart.transfer.TipoTransacaoT;
 public class TipoTransacaoDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL = "SELECT ttt.* FROM tb_tipo_transacao ttt ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt ORDER BY ttt.nm_tipo_transacao";
 
 	public TipoTransacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
 
-	public List<TipoTransacaoT> consultAll() throws SQLException {
+	/*
+	 * Objetivo: Método utilizado para consultar todos os Tipos de Transação
+	 * (TipoTransacaoT) do sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<TipoTransacaoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<TipoTransacaoT> consultAllForView() throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL);
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT(rs);
+			return resultsetToObject(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	private List<TipoTransacaoT> resultsetToObjectT(ResultSet rs)
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Tipo de Transação (TipoTransacaoT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<TipoTransacaoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<TipoTransacaoT> resultsetToObject(ResultSet rs)
 			throws SQLException {
-		List<TipoTransacaoT> listaTipoTransacaoT = new ArrayList<TipoTransacaoT>(0);
+		List<TipoTransacaoT> listaTipoTransacaoT = new ArrayList<TipoTransacaoT>(
+				0);
 
 		while (rs.next()) {
 			TipoTransacaoT tipoTransacaoT = new TipoTransacaoT();
 
 			tipoTransacaoT.setId(rs.getInt("ID_TIPO_TRANSACAO"));
 			tipoTransacaoT.setNome(rs.getString("NM_TIPO_TRANSACAO"));
-			tipoTransacaoT.setOperacao(rs.getString("TP_OPERACAO").charAt(0));
-			tipoTransacaoT.setDescricao(rs.getString("DS_TIPO_TRANSACAO"));
 			tipoTransacaoT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaTipoTransacaoT.add(tipoTransacaoT);

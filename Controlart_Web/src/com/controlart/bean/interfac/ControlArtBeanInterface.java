@@ -1,6 +1,7 @@
 package com.controlart.bean.interfac;
 
 public interface ControlArtBeanInterface {
+
 	public void clearAction();
 
 	public void consultAction();

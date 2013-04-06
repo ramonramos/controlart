@@ -32,7 +32,7 @@
 				<h:outputLabel value="#{msgs.labelSenha} " />
 				<p:password id="senha" label="#{msgs.labelSenha}" required="true"
 					title="#{msgs.tooltipSenha}" value="#{loginBean.usuario.cdSenha}">
-					<f:validateLength minimum="3" />
+					<f:validateLength minimum="6" />
 				</p:password>
 				<p:message for="senha" />
 

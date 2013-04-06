@@ -14,8 +14,9 @@ import com.controlart.transfer.PecaT;
 public class PecaDao {
 	private Connection connection;
 
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_peca tp ORDER BY tp.nm_peca";
-	private static final String SQL_CONSULT_ID_PECA = "SELECT tp.* FROM tb_peca tp WHERE tp.nm_peca = ?";
+	private static final String SQL_CONSULT_ID = "SELECT tp.id_peca FROM tb_peca tp WHERE tp.nm_peca = ?";
 	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_status, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, id_acervo_atual = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_status = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_peca SET in_ativo = 0 WHERE id_peca = ?";
@@ -23,6 +24,45 @@ public class PecaDao {
 	public PecaDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Peças (PecaT) do
+	 * sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<PecaT>. Obs: Apenas as informações utilizadas por Converters
+	 * e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<PecaT> consultAllForView() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Peças (PecaT) do
+	 * sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<PecaT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
 	public List<PecaT> consultAll() throws SQLException {
 		PreparedStatement pStmt = null;
@@ -33,30 +73,82 @@ public class PecaDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT(rs);
+			return resultsetToObjectB(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	public int consultIdPeca(PecaT pecaT) throws SQLException {
+	/*
+	 * Objetivo: Método utilizado para consultar o Identificador (id) de uma
+	 * Peça (PecaT).
+	 * 
+	 * @param pecaT (id).
+	 * 
+	 * @return int. Obs: Apenas o identificador da Peça (PeçaT) será retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public int consultId(PecaT pecaT) throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ID_PECA);
+			pStmt = connection.prepareStatement(SQL_CONSULT_ID);
 			pStmt.setObject(1, pecaT.getNome());
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT2(rs);
+			return resultsetToObjectTC(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 		}
 	}
 
-	private List<PecaT> resultsetToObjectT(ResultSet rs) throws SQLException {
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Peça (PecaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<PecaT>. Obs: Apenas as informações utilizadas por Converters
+	 * e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<PecaT> resultsetToObjectA(ResultSet rs) throws SQLException {
+		List<PecaT> listaPecaT = new ArrayList<PecaT>();
+
+		while (rs.next()) {
+			PecaT pecaT = new PecaT();
+
+			pecaT.setId(rs.getInt("ID_PECA"));
+			pecaT.setNome(rs.getString("NM_PECA"));
+			pecaT.setAtivo(rs.getInt("IN_ATIVO"));
+
+			listaPecaT.add(pecaT);
+		}
+
+		return listaPecaT;
+	}
+
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Peça (PecaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<PecaT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<PecaT> resultsetToObjectB(ResultSet rs) throws SQLException {
 		List<PecaT> listaPecaT = new ArrayList<PecaT>();
 
 		while (rs.next()) {
@@ -87,7 +179,20 @@ public class PecaDao {
 		return listaPecaT;
 	}
 
-	private int resultsetToObjectT2(ResultSet rs) throws SQLException {
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Peça (PecaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return int. Obs: Apenas o Identificador (id) de Peça (pecaT) será
+	 * retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private int resultsetToObjectTC(ResultSet rs) throws SQLException {
 		PecaT pecaT = new PecaT();
 
 		while (rs.next()) {
@@ -122,7 +227,7 @@ public class PecaDao {
 
 			pStmt.execute();
 
-			pecaT.setId(consultIdPeca(pecaT));
+			pecaT.setId(consultId(pecaT));
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);

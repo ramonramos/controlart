@@ -66,7 +66,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		try {
 			AcervoDao acervoDao = new AcervoDao();
 
-			List<AcervoT> _listAcervo = acervoDao.consultAll();
+			List<AcervoT> _listAcervo = acervoDao.consultAllForView();
 
 			listAcervo = new ArrayList<SelectItem>(0);
 			hashAcervo = new HashMap<Integer, String>(0);
@@ -91,7 +91,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
 
 			List<ClassificacaoT> _listClassificacao = classificacaoDao
-					.consultAll();
+					.consultAllForView();
 
 			listClassificacao = new ArrayList<SelectItem>(0);
 			hashClassificacao = new HashMap<Integer, String>(0);
@@ -174,7 +174,6 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			PecaDao pecaDao = new PecaDao();
 			pecaDao.update(peca);
 
-			imagemBean.setIdPeca(peca.getId());
 			imagemBean.updateAction();
 
 			consultAction();
@@ -203,9 +202,31 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		}
 	}
 
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
 	public String getAcervo(int key) {
 		return hashAcervo.get(key);
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getClassificacao(int key) {
 		return hashClassificacao.get(key);

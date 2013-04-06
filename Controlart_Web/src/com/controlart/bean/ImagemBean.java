@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import com.controlart.bean.utils.BeanUtils;
 import com.controlart.dao.ImagemDao;
 import com.controlart.transfer.ImagemT;
 
@@ -34,10 +35,54 @@ public class ImagemBean extends ControlArtBean {
 	public ImagemBean() {
 		pathAplicacao = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/");
+		listImagens = new ArrayList<ImagemT>(0);
 
 		checkTempDir();
+	}
 
-		listImagens = new ArrayList<ImagemT>(0);
+	/*
+	 * Objetivo: Método utilizado para criar e validar o diretório temporário
+	 * utilizado para exibição e manipulação de Imagens.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
+
+	private void checkTempDir() {
+
+		/*
+		 * Passos para criar e validar o diretório temporário:
+		 * 
+		 * 1 - Criar um novo File para esse diretório...
+		 */
+
+		File tempDir = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS);
+
+		/*
+		 * 2 - Verificar se esse diretório já existe...
+		 */
+
+		if (tempDir.exists()) {
+			try {
+				/*
+				 * 3 - Caso positivo, ele será limpo (clean).
+				 */
+
+				FileUtils.cleanDirectory(tempDir);
+			} catch (IOException io) {
+				addFacesMessage(getObjectFromBundle("msErroProcesImagem"),
+						null, BeanUtils.SEVERITY_FATAL);
+			}
+		} else {
+			/*
+			 * 4 - Caso negativo, ele será criado (mkdirs).
+			 */
+
+			tempDir.mkdirs();
+		}
 	}
 
 	public void consultAction() {
@@ -46,45 +91,79 @@ public class ImagemBean extends ControlArtBean {
 			imagemT.setPeca(idPeca);
 
 			ImagemDao imagemDao = new ImagemDao();
+
+			/*
+			 * Passos para consulta de Imagens:
+			 * 
+			 * 1 - Consultar Todas as Imagens (ImagemT) de Uma Peça...
+			 */
+
 			listImagens = imagemDao.consultByPeca(imagemT);
 
 			if (listImagens.size() > 0) {
-				FileUtils.copyDirectory(new File(pathAplicacao + PATH_IMAGENS
-						+ idPeca + File.separator), new File(pathAplicacao
-						+ PATH_IMAGENS_TEMPORARIAS));
+				/*
+				 * 2 - Caso existam, verificar o diretório dessas Imagens...
+				 */
+
+				File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
+						+ File.separator);
+
+				if (pecaDir.exists()) {
+					/*
+					 * 3 - Caso ele exista, copiá-lo para a diretório
+					 * temporário...
+					 */
+
+					FileUtils.copyDirectory(pecaDir, new File(pathAplicacao
+							+ PATH_IMAGENS_TEMPORARIAS));
+				}
 			}
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		} catch (IOException io) {
-			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
-	private void checkTempDir() {
-		File file = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS);
-
-		if (file.exists()) {
-			try {
-				FileUtils.cleanDirectory(file);
-			} catch (IOException io) {
-				io.printStackTrace();
-			}
-		} else {
-			file.mkdirs();
-		}
-	}
+	/*
+	 * Objetivo: Método responsável por tratar o upload de Imagens salvando-as
+	 * no diretório temporário.
+	 * 
+	 * @param event (FileUploadEvent).
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
 
 	public void listener(FileUploadEvent event) {
+		/*
+		 * Passos para o Tratamento do Upload de Imagens:
+		 * 
+		 * 1 - Obter o arquivo upado..
+		 */
+
 		UploadedFile uploadedFile = event.getFile();
 
-		File file = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
+		/*
+		 * 2 - Criar um novo File para esse arquivo...
+		 */
+
+		File imagemFile = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
 				+ uploadedFile.getFileName());
 
 		try {
 			InputStream is = new BufferedInputStream(
 					uploadedFile.getInputstream());
 
-			OutputStream fos = new FileOutputStream(file);
+			/*
+			 * 3 - Escrever o arquivo no diretório temporário... Obs: Caso ele
+			 * já exista, será sobrescrito.
+			 */
+
+			OutputStream fos = new FileOutputStream(imagemFile);
 
 			while (is.available() != 0) {
 				fos.write(is.read());
@@ -93,46 +172,97 @@ public class ImagemBean extends ControlArtBean {
 			fos.close();
 			is.close();
 
+			/*
+			 * 4 - Guardar o arquivo na lista de Imagens (listImagens -
+			 * List<ImagemT>).
+			 */
+
 			ImagemT imagemT = new ImagemT();
 			imagemT.setNome(uploadedFile.getFileName());
 
 			listImagens.add(imagemT);
 		} catch (IOException io) {
-			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
 	public void insertAction() {
+
+		/*
+		 * Passos para a Inclusão de Imagens:
+		 * 
+		 * 1 - Verificar se a lista de imagens (ImagemT) não está zerada..
+		 */
+
 		if (listImagens.size() != 0) {
+
+			/*
+			 * 2 - Caso positivo, associar cada Imagem (ImagemT) a respectiva
+			 * Peça...
+			 */
+
 			for (ImagemT imagemT : listImagens) {
 				imagemT.setPeca(idPeca);
 			}
 
 			try {
+
+				/*
+				 * 3 - Salvar todas as Imagens (ImagemT) no Banco de Dados...
+				 */
+
 				ImagemDao imagemDao = new ImagemDao();
 				imagemDao.insert(listImagens);
 
-				File fileOrigem = new File(pathAplicacao
-						+ PATH_IMAGENS_TEMPORARIAS);
-				File fileDestino = new File(pathAplicacao + PATH_IMAGENS
-						+ idPeca + File.separator);
+				/*
+				 * 4 - Verificar se o diretório da Peça já existe...
+				 */
 
-				if (!fileDestino.exists()) {
-					fileDestino.mkdirs();
+				File tempDir = new File(pathAplicacao
+						+ PATH_IMAGENS_TEMPORARIAS);
+				File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
+						+ File.separator);
+
+				if (!pecaDir.exists()) {
+					/*
+					 * 5 - Caso negativo, ele será criado (mkdirs)...
+					 */
+
+					pecaDir.mkdirs();
 				} else {
-					FileUtils.cleanDirectory(fileDestino);
+					/*
+					 * 6 - Caso positivo, ele será limpo (clean)...
+					 */
+
+					FileUtils.cleanDirectory(pecaDir);
 				}
 
-				FileUtils.copyDirectory(fileOrigem, fileDestino);
+				/*
+				 * 7 - Copiar todas as Imagens (ImagemT) do diretório temporário
+				 * para o diretório da Peça.
+				 */
+
+				FileUtils.copyDirectory(tempDir, pecaDir);
 			} catch (SQLException sql) {
 				sql.printStackTrace();
+				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+						BeanUtils.SEVERITY_FATAL);
 			} catch (IOException io) {
-				io.printStackTrace();
+				addFacesMessage(getObjectFromBundle("msErroProcesImagem"),
+						null, BeanUtils.SEVERITY_FATAL);
 			}
 		}
 	}
 
 	public void updateAction() {
+
+		/*
+		 * Passos para a Atualização de Imagens:
+		 * 
+		 * 1 - Inativar todas as Imagens existentes no Banco de Dados..
+		 */
+
 		try {
 			ImagemT imagemT = new ImagemT();
 			imagemT.setPeca(idPeca);
@@ -140,29 +270,70 @@ public class ImagemBean extends ControlArtBean {
 			ImagemDao imagemDao = new ImagemDao();
 			imagemDao.inactivate(imagemT);
 
-			File fileDestino = new File(pathAplicacao + PATH_IMAGENS + idPeca
+			/*
+			 * 2 - Limpar o diretório da Peça, caso ele exista...
+			 */
+
+			File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
 					+ File.separator);
 
-			if (fileDestino.exists()) {
-				FileUtils.cleanDirectory(fileDestino);
+			if (pecaDir.exists()) {
+				FileUtils.cleanDirectory(pecaDir);
 			}
+
+			/*
+			 * 3 - Chamar o método de Inclusão de Imagens.
+			 */
 
 			insertAction();
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		} catch (IOException io) {
-			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
+	/*
+	 * Objetivo: Método responsável por remover determinada Imagem (ImagemT) das
+	 * lista de imagens.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
+
 	public void deleteFromList() {
+
+		/*
+		 * Passos para a Remoção de uma Imagem da lista de Imagens (listImagens
+		 * - List<ImagemT>):
+		 * 
+		 * 1 - Capturar a Imagem selecionada para remoção..
+		 */
+
 		ImagemT imagemT = getFacesObject("listaImagens");
+
+		/*
+		 * 2 - Remover a Imagem (ImagemT) da lista...
+		 */
 
 		listImagens.remove(imagemT);
 
-		File file = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
+		/*
+		 * 3 - Remover a Imagem do diretório temporário.
+		 */
+
+		File imagemFile = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
 				+ imagemT.getNome());
-		file.delete();
+
+		if (imagemFile.exists()) {
+			imagemFile.delete();
+		}
 	}
 
 	public int getQtdImagens() {

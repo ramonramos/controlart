@@ -39,6 +39,7 @@ public class ClassificacaoBean extends ControlArtBean implements
 	public void consultAction() {
 		try {
 			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+
 			listClassificacao = classificacaoDao.consultAll();
 		} catch (SQLException sql) {
 			sql.printStackTrace();

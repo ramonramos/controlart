@@ -54,6 +54,7 @@ public class TransacaoBean extends ControlArtBean {
 	private void consultAction() {
 		try {
 			TransacaoDao transacaoDao = new TransacaoDao();
+
 			listTransacao = transacaoDao.consultAll();
 		} catch (SQLException sql) {
 			sql.printStackTrace();
@@ -65,7 +66,8 @@ public class TransacaoBean extends ControlArtBean {
 	private void consultPeca() {
 		try {
 			PecaDao pecaDao = new PecaDao();
-			List<PecaT> _listPeca = pecaDao.consultAll();
+
+			List<PecaT> _listPeca = pecaDao.consultAllForView();
 
 			listPeca = new ArrayList<SelectItem>(0);
 			hashPeca = new HashMap<Integer, String>(0);
@@ -88,7 +90,7 @@ public class TransacaoBean extends ControlArtBean {
 		try {
 			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
 			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
-					.consultAll();
+					.consultAllForView();
 
 			listTipoTransacao = new ArrayList<SelectItem>(0);
 			hashTipoTransacao = new HashMap<Integer, String>(0);
@@ -112,7 +114,8 @@ public class TransacaoBean extends ControlArtBean {
 	private void consultAcervo() {
 		try {
 			AcervoDao acervoDao = new AcervoDao();
-			List<AcervoT> _listAcervo = acervoDao.consultAll();
+
+			List<AcervoT> _listAcervo = acervoDao.consultAllForView();
 
 			listAcervo = new ArrayList<SelectItem>(0);
 			hashAcervo = new HashMap<Integer, String>(0);
@@ -166,13 +169,46 @@ public class TransacaoBean extends ControlArtBean {
 		}
 	}
 
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
 	public String getPeca(int key) {
 		return hashPeca.get(key);
 	}
 
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
 	public String getTipoTransacao(int key) {
 		return hashTipoTransacao.get(key);
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getAcervo(int key) {
 		return hashAcervo.get(key);

@@ -22,6 +22,17 @@ public class ImagemDao {
 		connection = ConnFactory.getConnection();
 	}
 
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Imagens (ImagemT) de
+	 * uma Peça (PecaT).
+	 * 
+	 * @param imagemT (peca).
+	 * 
+	 * @return List<ImagemT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
 	public List<ImagemT> consultByPeca(ImagemT imagemT) throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -38,6 +49,18 @@ public class ImagemDao {
 			DaoUtils.closeConnection(connection);
 		}
 	}
+
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Imagem (ImagemT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<ImagemT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
 	private List<ImagemT> resultsetToObject(ResultSet rs) throws SQLException {
 		List<ImagemT> listaImagemT = new ArrayList<ImagemT>(0);

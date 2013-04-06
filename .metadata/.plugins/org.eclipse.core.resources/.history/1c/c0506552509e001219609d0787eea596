@@ -1,0 +1,21 @@
+package com.controlart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.controlart.dao.factory.ConnFactory;
+import com.controlart.dao.utils.DaoUtils;
+import com.controlart.transfer.UsuarioT;
+
+public class AlterarSenhaDao {
+	private Connection connection;
+
+	private final static String SQL_UPDATE = "UPDATE tb_usuario SET ds_senha = ? WHERE id_usuario = ?";
+
+	public AlterarSenhaDao() throws SQLException {
+		connection = ConnFactory.getConnection();
+	}
+
+	
+}

@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.controlart.bean.utils.BeanUtils;
-import com.controlart.dao.AlterarSenhaDao;
+import com.controlart.dao.UsuariosDao;
 import com.controlart.transfer.UsuarioT;
 
 @ManagedBean(name = "alterarSenhaBean")
@@ -43,8 +43,8 @@ public class AlterarSenhaBean extends ControlArtBean {
 				usuario.setCdSenha(BeanUtils.encryptPassword(usuario
 						.getCdNovaSenha()));
 
-				AlterarSenhaDao alterarSenhaDao = new AlterarSenhaDao();
-				alterarSenhaDao.update(usuario);
+				UsuariosDao usuariosDao = new UsuariosDao();
+				usuariosDao.updatePassword(usuario);
 
 				getUsuarioLogado().setCdSenha(usuario.getCdSenha());
 

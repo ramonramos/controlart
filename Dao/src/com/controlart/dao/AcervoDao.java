@@ -14,6 +14,7 @@ import com.controlart.transfer.AcervoT;
 public class AcervoDao {
 	private Connection connection;
 
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ta.id_acervo, ta.nm_acervo, ta.in_ativo FROM tb_acervo ta ORDER BY ta.nm_acervo";
 	private static final String SQL_CONSULT_ALL = "SELECT ta.* FROM tb_acervo ta ORDER BY ta.nm_acervo";
 	private static final String SQL_INSERT = "INSERT INTO tb_acervo (id_pessoa, nm_acervo, ds_acervo, in_ativo) VALUES (?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_acervo SET id_pessoa = ?, nm_acervo = ?, ds_acervo = ?, in_ativo = ? WHERE id_acervo = ?";
@@ -22,6 +23,45 @@ public class AcervoDao {
 	public AcervoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todos os Acervos (AcervoT) do
+	 * sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<AcervoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<AcervoT> consultAllForView() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todos os Acervos (AcervoT) do
+	 * sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<AcervoT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
 	public List<AcervoT> consultAll() throws SQLException {
 		PreparedStatement pStmt = null;
@@ -32,14 +72,55 @@ public class AcervoDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT(rs);
+			return resultsetToObjectB(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	private List<AcervoT> resultsetToObjectT(ResultSet rs) throws SQLException {
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Acervo (AcervoT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<AcervoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<AcervoT> resultsetToObjectA(ResultSet rs) throws SQLException {
+		List<AcervoT> listaAcervoT = new ArrayList<AcervoT>();
+
+		while (rs.next()) {
+			AcervoT acervoT = new AcervoT();
+
+			acervoT.setId(rs.getInt("ID_ACERVO"));
+			acervoT.setNome(rs.getString("NM_ACERVO"));
+			acervoT.setAtivo(rs.getInt("IN_ATIVO"));
+
+			listaAcervoT.add(acervoT);
+		}
+
+		return listaAcervoT;
+	}
+
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Acervo (AcervoT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<AcervoT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<AcervoT> resultsetToObjectB(ResultSet rs) throws SQLException {
 		List<AcervoT> listaAcervoT = new ArrayList<AcervoT>();
 
 		while (rs.next()) {

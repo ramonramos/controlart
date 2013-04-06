@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.controlart.bean.utils.BeanUtils;
-import com.controlart.dao.LoginDao;
+import com.controlart.dao.UsuariosDao;
 import com.controlart.transfer.UsuarioT;
 
 @ManagedBean(name = "loginBean")
@@ -19,7 +19,7 @@ public class LoginBean extends ControlArtBean {
 	private UsuarioT usuario;
 
 	public LoginBean() {
-		usuario = new UsuarioT();
+		clearAction();
 
 		if (getSessionAtribute(BeanUtils.LOGGEDUSER_SESSION_ATTRIBUTE) != null) {
 			removeSessionAtribute(BeanUtils.LOGGEDUSER_SESSION_ATTRIBUTE);
@@ -27,13 +27,17 @@ public class LoginBean extends ControlArtBean {
 		}
 	}
 
+	private void clearAction() {
+		usuario = new UsuarioT();
+	}
+
 	public String login() {
 		try {
 			usuario.setCdSenha(BeanUtils.encryptPassword(usuario.getCdSenha()));
 
-			LoginDao loginDao = new LoginDao();
+			UsuariosDao usuariosDao = new UsuariosDao();
 
-			setUsuarioLogado(loginDao.consult(usuario));
+			setUsuarioLogado(usuariosDao.consult(usuario));
 
 			if (getUsuarioLogado() == null) {
 				addFacesMessage(getObjectFromBundle("msUsuarioNaoEncontrado"),
@@ -48,8 +52,12 @@ public class LoginBean extends ControlArtBean {
 			}
 		} catch (NoSuchAlgorithmException nsa) {
 			nsa.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 
 		return null;
