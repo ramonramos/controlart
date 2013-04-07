@@ -18,7 +18,7 @@
 						value="#{resource['image:favicon.ico']}" />
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
-				
+
 				<h:outputLabel value="#{msgs.labelAcervo}" />
 				<p:selectOneMenu id="acervo" required="true"
 					converter="entityConverter" value="#{relatoriosBean.acervoT}">
@@ -29,10 +29,19 @@
 				</p:selectOneMenu>
 				<p:message for="acervo" />
 
-				<p:commandButton action="#{relatoriosBean.gerarRelatorioPecasAcervo}"
-					styleClass="botao" title="Gerar Report" 
-					value="Gerar Report" ajax="false"
-					onclick="this.form.target='_blank';" />
+				<p:commandButton
+					action="#{relatoriosBean.gerarRelatorioPecasAcervo}"
+					styleClass="botao" title="Gerar Report" value="Gerar Report"
+					ajax="false" onclick="notEmpty(this)" />
+
+				<script type="text/javascript">
+					function notEmpty(obj) {
+						var myTextField = document
+								.getElementById('formPesquisa:acervo');
+						if (myTextField.innerText.trim() != "Selecione...")
+							obj.form.target = '_blank';
+					}
+				</script>
 			</p:panel>
 		</h:form>
 	</ui:define>

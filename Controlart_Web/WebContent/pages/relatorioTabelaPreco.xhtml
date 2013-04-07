@@ -32,7 +32,16 @@
 				<p:commandButton
 					action="#{relatoriosBean.gerarRelatorioTabelaPreco}"
 					styleClass="botao" title="Gerar Report" value="Gerar Report"
-					ajax="false" onclick="this.form.target='_blank';" />
+					ajax="false" onclick="notEmpty(this)"/>
+
+				<script type="text/javascript">
+					function notEmpty(obj) {
+						var myTextField = document
+								.getElementById('formPesquisa:acervo');
+						if (myTextField.innerText.trim() != "Selecione...")
+							obj.form.target='_blank';					
+					}
+				</script>
 			</p:panel>
 		</h:form>
 	</ui:define>

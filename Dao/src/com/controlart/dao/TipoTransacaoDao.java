@@ -15,6 +15,8 @@ public class TipoTransacaoDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL = "SELECT ttt.* FROM tb_tipo_transacao ttt ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.id_tipo_transacao IN (3,5) ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_TIPO_TRANSACAO_ENTRADA = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' ORDER BY ttt.nm_tipo_transacao";
 
 	public TipoTransacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
@@ -26,6 +28,38 @@ public class TipoTransacaoDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_CONSULT_ALL);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectT(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	public List<TipoTransacaoT> consultTipoTransacaoComDevolucao() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectT(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	public List<TipoTransacaoT> consultTipoTransacaoEntrada() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_ENTRADA);
 
 			rs = pStmt.executeQuery();
 

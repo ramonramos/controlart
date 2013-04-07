@@ -19,10 +19,41 @@
 					<h:outputLabel value="Pesquisar" />
 				</f:facet>
 
-				<p:commandButton action="#{relatoriosBean.gerarRelatorioPecasTransacao}"
-					styleClass="botao" title="Gerar Report" 
-					value="Gerar Report" ajax="false"
-					onclick="this.form.target='_blank';" />
+				<h:outputLabel value="#{msgs.labelTipoTransacao}" />
+				<p:selectOneMenu id="tipoTransacao" required="true"
+					converter="entityConverter"
+					value="#{relatoriosBean.tipoTransacaoT}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						noSelectionOption="true" />
+					<f:selectItems var="tipoTransacao" itemValue="#{tipoTransacao}"
+						itemLabel="#{tipoTransacao.nome}"
+						value="#{relatoriosBean.listTipoTransacaoEntrada}" />
+				</p:selectOneMenu>
+				<p:message for="tipoTransacao" />
+				
+				<h:outputLabel value="Periodo" />
+				De: <p:calendar					
+					id="dataInicial" locale="#{localeBean.locale}"
+					pattern="dd/MM/yyyy" readonlyInput="true"
+					showOn="both" value="#{relatoriosBean.dataInicial}" />
+				Ate: <p:calendar					
+					id="dataFinal" locale="#{localeBean.locale}"
+					pattern="dd/MM/yyyy" readonlyInput="true"
+					showOn="both" value="#{relatoriosBean.dataFinal}" />
+
+				<p:commandButton
+					action="#{relatoriosBean.gerarRelatorioPecasTransacao}"
+					styleClass="botao" title="Gerar Report" value="Gerar Report"
+					ajax="false" onclick="notEmpty(this)" />
+
+				<script type="text/javascript">
+					function notEmpty(obj) {
+						var myTextField = document
+								.getElementById('formPesquisa:tipoTransacao');
+						if (myTextField.innerText.trim() != "Selecione...")
+							obj.form.target = '_blank';
+					}
+				</script>
 			</p:panel>
 		</h:form>
 	</ui:define>
