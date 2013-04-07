@@ -61,7 +61,8 @@ public class PessoaBean extends ControlArtBean implements
 		try {
 			TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
 
-			List<TipoPessoaT> _listTipoPessoa = tipoPessoaDao.consultAll();
+			List<TipoPessoaT> _listTipoPessoa = tipoPessoaDao
+					.consultAllForView();
 
 			listTipoPessoa = new ArrayList<SelectItem>(0);
 			hashTipoPessoa = new HashMap<Integer, String>(0);
@@ -149,6 +150,17 @@ public class PessoaBean extends ControlArtBean implements
 		}
 	}
 
+	/*
+	 * Objetivo: Método utilizado para atualizar os dados do Usuário (UsuarioT)
+	 * logado no sistema, caso seus dados tenham sofrido quaisquer modificações.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
+
 	private void atualizarDadosUsuarioLogado() {
 		getUsuarioLogado().setIdTipoPessoa(pessoa.getIdTipoPessoa());
 		getUsuarioLogado().setNmPessoa(pessoa.getNmPessoa());
@@ -177,6 +189,17 @@ public class PessoaBean extends ControlArtBean implements
 			sqlEx.printStackTrace();
 		}
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getTipoPessoa(int key) {
 		return hashTipoPessoa.get(key);

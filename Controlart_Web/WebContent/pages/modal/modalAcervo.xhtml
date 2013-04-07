@@ -16,7 +16,9 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelDono}" />
+				<h:outputLabel value="#{msgs.labelDono}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}" id="dono"
 					required="true" value="#{acervoBean.acervo.dono}">
@@ -26,21 +28,21 @@
 				</p:selectOneMenu>
 				<p:message for="dono" />
 
-				<h:outputLabel value="#{msgs.labelNome}" />
+				<h:outputLabel value="#{msgs.labelNome}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}" id="nome"
 					required="true" value="#{acervoBean.acervo.nome}">
-					<f:validateLength minimum="6" maximum="95" />
+					<f:validateLength minimum="4" maximum="100" />
 				</p:inputText>
 				<p:message for="nome" />
 
 				<h:outputLabel value="#{msgs.labelDescricao}" />
 				<p:inputText
 					disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="descricao" value="#{acervoBean.acervo.descricao}">
-					<f:validateLength minimum="6" />
-				</p:inputText>
-				<p:message for="descricao" />
+					value="#{acervoBean.acervo.descricao}" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel
 					rendered="#{(acervoBean.usuarioLogado.idTipoUsuario eq 2) or ((acervoBean.novoRegistro) or ((not acervoBean.novoRegistro) and (acervoBean.acervo.ativo eq 0)))}"

@@ -16,7 +16,9 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelTipoPessoa}" />
+				<h:outputLabel value="#{msgs.labelTipoPessoa}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="tipoPessoa" required="true"
@@ -27,39 +29,43 @@
 				</p:selectOneMenu>
 				<p:message for="tipoPessoa" />
 
-				<h:outputLabel value="#{msgs.labelNome}" />
+				<h:outputLabel value="#{msgs.labelNome}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}" id="nome"
 					required="true" value="#{pessoaBean.pessoa.nmPessoa}">
-					<f:validateLength minimum="6" maximum="145" />
+					<f:validateLength minimum="4" maximum="150" />
 				</p:inputText>
 				<p:message for="nome" />
 
 				<h:outputLabel value="#{msgs.labelTelefone}" />
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="telefone" required="true" value="#{pessoaBean.pessoa.nrFone}">
-					<f:validateLength minimum="14" maximum="15" />
+					value="#{pessoaBean.pessoa.nrFone}">
 				</p:inputText>
-				<p:message for="telefone" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel value="#{msgs.labelEmail}" />
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="email" required="true" value="#{pessoaBean.pessoa.dsEmail}">
-					<f:validateLength minimum="6" maximum="95" />
+					value="#{pessoaBean.pessoa.dsEmail}">
 				</p:inputText>
-				<p:message for="email" />
+				<h:outputLabel value="" />
 
-				<h:outputLabel value="#{msgs.labelLogradouro}" />
+				<h:outputLabel value="#{msgs.labelLogradouro}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}" id="rua"
 					required="true" value="#{pessoaBean.pessoa.nmRua}">
-					<f:validateLength minimum="6" maximum="145" />
+					<f:validateLength minimum="4" maximum="150" />
 				</p:inputText>
 				<p:message for="rua" />
 
-				<h:outputLabel value="#{msgs.labelNumeroLograd}" />
+				<h:outputLabel value="#{msgs.labelNumeroLograd}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:spinner disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="numeroImovel" required="true"
 					value="#{pessoaBean.pessoa.nrImovel}">
@@ -67,19 +73,23 @@
 				</p:spinner>
 				<p:message for="numeroImovel" />
 
-				<h:outputLabel value="#{msgs.labelBairro}" />
+				<h:outputLabel value="#{msgs.labelBairro}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="bairro" required="true" value="#{pessoaBean.pessoa.nmBairro}">
-					<f:validateLength minimum="6" maximum="95" />
+					<f:validateLength minimum="4" maximum="100" />
 				</p:inputText>
 				<p:message for="bairro" />
 
-				<h:outputLabel value="#{msgs.labelCidade}" />
+				<h:outputLabel value="#{msgs.labelCidade}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="cidade" required="true" value="#{pessoaBean.pessoa.nmCidade}">
-					<f:validateLength minimum="6" maximum="95" />
+					<f:validateLength minimum="4" maximum="100" />
 				</p:inputText>
 				<p:message for="cidade" />
 

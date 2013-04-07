@@ -47,6 +47,7 @@ public class AcervoBean extends ControlArtBean implements
 	public void consultAction() {
 		try {
 			AcervoDao acervoDao = new AcervoDao();
+
 			listAcervo = acervoDao.consultAll();
 		} catch (SQLException sql) {
 			sql.printStackTrace();
@@ -59,7 +60,7 @@ public class AcervoBean extends ControlArtBean implements
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
 
-			List<PessoaT> _listPessoa = pessoaDao.consultAll();
+			List<PessoaT> _listPessoa = pessoaDao.consultAllForView();
 
 			listPessoa = new ArrayList<SelectItem>(0);
 			hashPessoa = new HashMap<Integer, String>(0);
@@ -158,6 +159,17 @@ public class AcervoBean extends ControlArtBean implements
 			sqlEx.printStackTrace();
 		}
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getPessoa(int key) {
 		return hashPessoa.get(key);

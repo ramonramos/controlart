@@ -66,7 +66,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		try {
 			AcervoDao acervoDao = new AcervoDao();
 
-			List<AcervoT> _listAcervo = acervoDao.consultAll();
+			List<AcervoT> _listAcervo = acervoDao.consultAllForView();
 
 			listAcervo = new ArrayList<SelectItem>(0);
 			hashAcervo = new HashMap<Integer, String>(0);
@@ -91,7 +91,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
 
 			List<ClassificacaoT> _listClassificacao = classificacaoDao
-					.consultAll();
+					.consultAllForView();
 
 			listClassificacao = new ArrayList<SelectItem>(0);
 			hashClassificacao = new HashMap<Integer, String>(0);
@@ -134,6 +134,10 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
 		}
+
+		imagemBean = new ImagemBean();
+		imagemBean.setIdPeca(peca.getId());
+		imagemBean.consultAction();
 	}
 
 	@Override
@@ -149,7 +153,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	public void insertAction() {
 		try {
 			PecaDao pecaDao = new PecaDao();
-			peca.setId(pecaDao.insert(peca));
+			pecaDao.insert(peca);
 
 			imagemBean.setIdPeca(peca.getId());
 			imagemBean.insertAction();
@@ -169,6 +173,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		try {
 			PecaDao pecaDao = new PecaDao();
 			pecaDao.update(peca);
+
+			imagemBean.updateAction();
 
 			consultAction();
 
@@ -196,9 +202,31 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		}
 	}
 
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
 	public String getAcervo(int key) {
 		return hashAcervo.get(key);
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getClassificacao(int key) {
 		return hashClassificacao.get(key);

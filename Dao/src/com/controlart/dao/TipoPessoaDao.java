@@ -14,8 +14,8 @@ import com.controlart.transfer.TipoPessoaT;
 public class TipoPessoaDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_tipo_pessoa tp ORDER BY tp.nm_tipo_pessoa";
-	private static final String SQL_CONSULT_ALL_ATIVOS = "SELECT tp.* FROM tb_tipo_pessoa tp WHERE tp.in_ativo = 1 ORDER BY tp.nm_tipo_pessoa";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttp.id_tipo_pessoa, ttp.nm_tipo_pessoa, ttp.in_ativo FROM tb_tipo_pessoa ttp ORDER BY ttp.nm_tipo_pessoa";
+	private static final String SQL_CONSULT_ALL = "SELECT ttp.* FROM tb_tipo_pessoa ttp ORDER BY ttp.nm_tipo_pessoa";
 	private static final String SQL_INSERT = "INSERT INTO tb_tipo_pessoa (nm_tipo_pessoa, ds_tipo_pessoa, in_ativo) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_tipo_pessoa SET nm_tipo_pessoa = ?, ds_tipo_pessoa = ?, in_ativo = ? WHERE id_tipo_pessoa = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_tipo_pessoa SET in_ativo = 0 WHERE id_tipo_pessoa = ?";
@@ -23,6 +23,45 @@ public class TipoPessoaDao {
 	public TipoPessoaDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todos os Tipos de Pessoa
+	 * (TipoPessoaT) do sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<TipoPessoaT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<TipoPessoaT> consultAllForView() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todos os Tipos de Pessoa
+	 * (TipoPessoaT) do sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<TipoPessoaT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
 	public List<TipoPessoaT> consultAll() throws SQLException {
 		PreparedStatement pStmt = null;
@@ -33,30 +72,56 @@ public class TipoPessoaDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectTipoPessoaT(rs);
+			return resultsetToObjectB(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	public List<TipoPessoaT> consultAllAtivos() throws SQLException {
-		PreparedStatement pStmt = null;
-		ResultSet rs = null;
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Tipos de Pessoa (TipoPessoaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<TipoPessoaT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
-		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_ATIVOS);
+	private List<TipoPessoaT> resultsetToObjectA(ResultSet rs)
+			throws SQLException {
+		List<TipoPessoaT> listaTipoPessoaT = new ArrayList<TipoPessoaT>();
 
-			rs = pStmt.executeQuery();
+		while (rs.next()) {
+			TipoPessoaT tipoPessoaT = new TipoPessoaT();
 
-			return resultsetToObjectTipoPessoaT(rs);
-		} finally {
-			DaoUtils.closeStatementAndResultSet(pStmt, rs);
-			DaoUtils.closeConnection(connection);
+			tipoPessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
+			tipoPessoaT.setNmTipoPessoa(rs.getString("NM_TIPO_PESSOA"));
+			tipoPessoaT.setSituacao(rs.getInt("IN_ATIVO"));
+
+			listaTipoPessoaT.add(tipoPessoaT);
 		}
+
+		return listaTipoPessoaT;
 	}
 
-	private List<TipoPessoaT> resultsetToObjectTipoPessoaT(ResultSet rs)
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Tipos de Pessoa (TipoPessoaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<TipoPessoaT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<TipoPessoaT> resultsetToObjectB(ResultSet rs)
 			throws SQLException {
 		List<TipoPessoaT> listaTipoPessoaT = new ArrayList<TipoPessoaT>();
 

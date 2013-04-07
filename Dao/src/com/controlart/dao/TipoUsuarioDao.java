@@ -29,14 +29,14 @@ public class TipoUsuarioDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectTipoUsuarioT(rs);
+			return resultsetToObject(rs);
 		} finally {
 			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	private List<TipoUsuarioT> resultsetToObjectTipoUsuarioT(ResultSet rs)
+	private List<TipoUsuarioT> resultsetToObject(ResultSet rs)
 			throws SQLException {
 		List<TipoUsuarioT> listaTipoUsuarioT = new ArrayList<TipoUsuarioT>(0);
 

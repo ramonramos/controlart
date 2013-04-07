@@ -93,7 +93,7 @@ public class UsuariosBean extends ControlArtBean implements
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
 
-			List<PessoaT> _listPessoaT = pessoaDao.consultAll();
+			List<PessoaT> _listPessoaT = pessoaDao.consultAllForView();
 
 			hashPessoas = new HashMap<Integer, String>(0);
 
@@ -107,11 +107,11 @@ public class UsuariosBean extends ControlArtBean implements
 		}
 	}
 
-	private void consultPessoasSemUsuario() {
+	private void consultPessoaNaoUsuario() {
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
 
-			List<PessoaT> _listPessoas = pessoaDao.consultAllWithoutUser();
+			List<PessoaT> _listPessoas = pessoaDao.consultAllNoUsers();
 
 			listPessoas = new ArrayList<SelectItem>(0);
 
@@ -126,11 +126,11 @@ public class UsuariosBean extends ControlArtBean implements
 		}
 	}
 
-	private void consultPessoasComUsuario() {
+	private void consultPessoaUsuario() {
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
 
-			List<PessoaT> _listPessoas = pessoaDao.consultAllWithUser();
+			List<PessoaT> _listPessoas = pessoaDao.consultAllUsers();
 
 			listPessoas = new ArrayList<SelectItem>(0);
 
@@ -153,7 +153,7 @@ public class UsuariosBean extends ControlArtBean implements
 
 		usuario.setSituacao(1);
 
-		consultPessoasSemUsuario();
+		consultPessoaNaoUsuario();
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class UsuariosBean extends ControlArtBean implements
 			usuario = (UsuarioT) ((UsuarioT) getFacesObject("listaUsuarios"))
 					.clone();
 
-			consultPessoasComUsuario();
+			consultPessoaUsuario();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
@@ -184,7 +184,7 @@ public class UsuariosBean extends ControlArtBean implements
 	@Override
 	public void insertAction() {
 		try {
-			if (senhaConfirmada()) {
+			if (validarSenha()) {
 				UsuariosDao usuariosDao = new UsuariosDao();
 				usuariosDao.insert(usuario);
 
@@ -210,7 +210,7 @@ public class UsuariosBean extends ControlArtBean implements
 	@Override
 	public void updateAction() {
 		try {
-			if (senhaConfirmada()) {
+			if (validarSenha()) {
 				UsuariosDao usuariosDao = new UsuariosDao();
 				usuariosDao.update(usuario);
 
@@ -253,7 +253,18 @@ public class UsuariosBean extends ControlArtBean implements
 		}
 	}
 
-	private boolean senhaConfirmada() throws NoSuchAlgorithmException {
+	/*
+	 * Objetivo: Método utilizado para validar se uma Senha e sua Confirmação
+	 * conferem.
+	 * 
+	 * @param
+	 * 
+	 * @return boolean.
+	 * 
+	 * @throws NoSuchAlgorithmException.
+	 */
+
+	private boolean validarSenha() throws NoSuchAlgorithmException {
 		String novaSenha = BeanUtils.encryptPassword(usuario.getCdNovaSenha());
 		String confirmNovaSenha = BeanUtils.encryptPassword(usuario
 				.getCdConfirmNovaSenha());
@@ -267,9 +278,31 @@ public class UsuariosBean extends ControlArtBean implements
 		return false;
 	}
 
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
 	public String getTipoUsuario(int key) {
 		return hashTipoUsuario.get(key);
 	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
 
 	public String getPessoa(int key) {
 		return hashPessoas.get(key);

@@ -16,7 +16,9 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelPeca}" />
+				<h:outputLabel value="#{msgs.labelPeca}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="peca" required="true" value="#{transacaoBean.transacao.peca}">
@@ -26,7 +28,9 @@
 				</p:selectOneMenu>
 				<p:message for="peca" />
 
-				<h:outputLabel value="#{msgs.labelTipoTransacao}" />
+				<h:outputLabel value="#{msgs.labelTipoTransacao}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="tipoTransacao" required="true"
@@ -37,7 +41,9 @@
 				</p:selectOneMenu>
 				<p:message for="tipoTransacao" />
 
-				<h:outputLabel value="#{msgs.labelAcervoOrigem}" />
+				<h:outputLabel value="#{msgs.labelAcervoOrigem}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="acervoOrigem" required="true"
@@ -48,7 +54,9 @@
 				</p:selectOneMenu>
 				<p:message for="acervoOrigem" />
 
-				<h:outputLabel value="#{msgs.labelAcervoDestino}" />
+				<h:outputLabel value="#{msgs.labelAcervoDestino}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
 				<p:selectOneMenu
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="acervoDestino" required="true"
@@ -62,32 +70,32 @@
 				<h:outputLabel value="#{msgs.labelDataTransacao}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					id="dataTransacao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataTransacao}" />
-				<p:message for="dataTransacao" />
+					locale="#{localeBean.locale}" pattern="dd/MM/yyyy"
+					readonlyInput="true" showOn="both"
+					value="#{transacaoBean.transacao.dataTransacao}" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel value="#{msgs.labelDataPrevisao}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="dataPrevisao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataPrevisao}" />
-				<p:message for="dataPrevisao" />
+					pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
+					value="#{transacaoBean.transacao.dataPrevisao}" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel value="#{msgs.labelDataDevolucao}" />
 				<p:calendar
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="dataDevolucao" locale="#{localeBean.locale}"
-					pattern="dd/MM/yyyy" readonlyInput="true" required="true"
-					showOn="both" value="#{transacaoBean.transacao.dataDevolucao}" />
-				<p:message for="dataDevolucao" />
+					pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
+					value="#{transacaoBean.transacao.dataDevolucao}" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel value="#{msgs.labelPreco}" />
 				<p:inputText
 					disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="preco" value="#{transacaoBean.transacao.preco}" />
-				<p:message for="preco" />
+				<h:outputLabel value="" />
 
 				<h:outputLabel value="#{msgs.labelDisponivelOnline}" />
 				<p:selectOneRadio

@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p:dialog id="modalUsuarios" appendToBody="false" modal="true"
+		resizable="false" styleClass="dialog" widgetVar="modalUsuariosWV">
+		<f:facet name="header">
+			<h:outputLabel value="#{msgs.labelNovoUsuario}"
+				rendered="#{usuariosBean.novoRegistro}" />
+			<h:outputLabel value="#{msgs.labelEditarUsuario}"
+				rendered="#{not usuariosBean.novoRegistro}" />
+		</f:facet>
+
+		<h:form id="formModalUsuarios">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panelGrid columns="3">
+				<h:outputLabel value="#{msgs.labelTipoUsuario}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
+				<p:selectOneMenu id="tipoUsuario"
+					disabled="#{not usuariosBean.novoRegistro}" required="true"
+					value="#{usuariosBean.usuario.idTipoUsuario}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						itemValue="#{null}" />
+					<f:selectItems value="#{usuariosBean.listTipoUsuario}" />
+				</p:selectOneMenu>
+				<p:message for="tipoUsuario" />
+
+				<h:outputLabel value="#{msgs.labelPessoa}" />
+				<p:selectOneMenu id="pessoa"
+					disabled="#{not usuariosBean.novoRegistro}" required="true"
+					value="#{usuariosBean.usuario.idPessoa}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						itemValue="#{null}" />
+					<f:selectItems value="#{usuariosBean.listPessoas}" />
+				</p:selectOneMenu>
+				<p:message for="pessoa" />
+
+				<h:outputLabel value="#{msgs.labelLogin}" />
+				<p:inputText id="login" disabled="#{not usuariosBean.novoRegistro}"
+					required="true" value="#{usuariosBean.usuario.dsLogin}">
+					<f:validateLength minimum="4" maximum="50" />
+				</p:inputText>
+				<p:message for="login" />
+
+				<h:outputLabel
+					rendered="#{(usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					value="#{msgs.labelSenha}" />
+				<h:outputLabel
+					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					value="#{msgs.labelNovaSenha}" />
+				<p:password id="novasenha"
+					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
+					required="true" value="#{usuariosBean.usuario.cdNovaSenha}">
+					<f:validateLength minimum="6" maximum="15" />
+				</p:password>
+				<p:message for="novasenha"
+					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}" />
+
+				<h:outputLabel
+					rendered="#{usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					value="#{msgs.labelConfirmSenha}" />
+				<h:outputLabel
+					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					value="#{msgs.labelConfirmNovaSenha}" />
+				<p:password id="confirmsenha"
+					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
+					required="true" value="#{usuariosBean.usuario.cdConfirmNovaSenha}">
+					<f:validateLength minimum="6" maximum="15" />
+				</p:password>
+				<p:message for="confirmsenha"
+					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}" />
+
+				<h:outputLabel
+					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
+					value="#{msgs.labelSituacao}" />
+				<p:selectOneRadio
+					disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
+					value="#{usuariosBean.usuario.situacao}">
+					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
+					<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
+				</p:selectOneRadio>
+				<h:outputLabel
+					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
+					value="" />
+			</p:panelGrid>
+
+			<p:commandButton action="#{usuariosBean.saveAction}"
+				disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+				styleClass="botao"
+				update=":formUsuarios:dataTableUsuarios, :formModalUsuarios"
+				title="#{msgs.labelSalvar}" value="#{msgs.labelSalvar}" />
+		</h:form>
+	</p:dialog>
+</ui:composition>

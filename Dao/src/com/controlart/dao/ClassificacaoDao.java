@@ -14,6 +14,7 @@ import com.controlart.transfer.ClassificacaoT;
 public class ClassificacaoDao {
 	private Connection connection;
 
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tc.id_classificacao, tc.nm_classificacao, tc.in_ativo FROM tb_classificacao tc ORDER BY tc.nm_classificacao";
 	private static final String SQL_CONSULT_ALL = "SELECT tc.* FROM tb_classificacao tc ORDER BY tc.nm_classificacao";
 	private static final String SQL_INSERT = "INSERT INTO tb_classificacao (nm_classificacao, ds_classificacao, in_ativo) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_classificacao SET nm_classificacao = ?, ds_classificacao = ?, in_ativo = ? WHERE id_classificacao = ?";
@@ -22,6 +23,45 @@ public class ClassificacaoDao {
 	public ClassificacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Classificações
+	 * (ClassificacaoT) do sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<ClassificacaoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<ClassificacaoT> consultAllForView() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Classificações
+	 * (ClassificacaoT) do sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<ClassificacaoT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
 
 	public List<ClassificacaoT> consultAll() throws SQLException {
 		PreparedStatement pStmt = null;
@@ -32,14 +72,56 @@ public class ClassificacaoDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT(rs);
+			return resultsetToObjectB(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	private List<ClassificacaoT> resultsetToObjectT(ResultSet rs)
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Classificação (ClassificacaoT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<ClassificacaoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e Selecitems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<ClassificacaoT> resultsetToObjectA(ResultSet rs)
+			throws SQLException {
+		List<ClassificacaoT> listaClassificacaoT = new ArrayList<ClassificacaoT>();
+
+		while (rs.next()) {
+			ClassificacaoT classificacaoT = new ClassificacaoT();
+
+			classificacaoT.setId(rs.getInt("ID_CLASSIFICACAO"));
+			classificacaoT.setNome(rs.getString("NM_CLASSIFICACAO"));
+			classificacaoT.setAtivo(rs.getInt("IN_ATIVO"));
+
+			listaClassificacaoT.add(classificacaoT);
+		}
+
+		return listaClassificacaoT;
+	}
+
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Classificação (ClassificacaoT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return List<ClassificacaoT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private List<ClassificacaoT> resultsetToObjectB(ResultSet rs)
 			throws SQLException {
 		List<ClassificacaoT> listaClassificacaoT = new ArrayList<ClassificacaoT>();
 
