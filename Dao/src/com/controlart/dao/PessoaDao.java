@@ -15,9 +15,10 @@ public class PessoaDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp ORDER BY tp.nm_pessoa";
-	private static final String SQL_CONSULT_ALL_NO_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.in_ativo = 1 AND tp.id_pessoa NOT IN (SELECT tu.id_pessoa FROM tb_usuario tu)";
+	private static final String SQL_CONSULT_ALL_NO_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.in_ativo = 1 AND tp.id_pessoa NOT IN (SELECT tu.id_pessoa FROM tb_usuario tu WHERE tu.in_ativo = 1)";
 	private static final String SQL_CONSULT_ALL_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.id_pessoa IN (SELECT tu.id_pessoa FROM tb_usuario tu)";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_pessoa tp ORDER BY tp.nm_pessoa";
+	private static final String SQL_CONSULT_LAST_ID = "SELECT MAX(tp.id_pessoa) as id_pessoa FROM tb_pessoa tp";
 	private static final String SQL_INSERT = "INSERT INTO tb_pessoa (id_tipo_pessoa, nm_pessoa, nr_fone, ds_email, nm_rua, nr_imovel, nm_bairro, nm_cidade, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_pessoa SET id_tipo_pessoa = ?, nm_pessoa = ?, nr_fone = ?, ds_email = ?, nm_rua = ?, nr_imovel = ?, nm_bairro = ?, nm_cidade = ?, in_ativo = ? WHERE id_pessoa = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_pessoa SET in_ativo = 0 WHERE id_pessoa = ?";
@@ -33,7 +34,7 @@ public class PessoaDao {
 	 * @param
 	 * 
 	 * @return List<PessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -88,7 +89,7 @@ public class PessoaDao {
 	 * @param
 	 * 
 	 * @return List<PessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -116,7 +117,7 @@ public class PessoaDao {
 	 * @param
 	 * 
 	 * @return List<PessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -138,6 +139,33 @@ public class PessoaDao {
 	}
 
 	/*
+	 * Objetivo: Método utilizado para consultar o Identificador (id) da última
+	 * Pessoa (PessoaT) cadastrada no sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return int. Obs: Apenas o identificador da Pessoa (PessoaT) será
+	 * retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public int consultLastId() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_LAST_ID);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectTC(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+		}
+	}
+
+	/*
 	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
 	 * armazena resultados de consultas em uma Base de Dados) em informações de
 	 * Pessoa (PessoaT).
@@ -145,7 +173,7 @@ public class PessoaDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<PessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -201,6 +229,29 @@ public class PessoaDao {
 		return listaPessoaT;
 	}
 
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Pessoa (PessoaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return int. Obs: Apenas o Identificador (id) da Pessoa (PessoaT) será
+	 * retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private int resultsetToObjectTC(ResultSet rs) throws SQLException {
+		PessoaT pessoaT = new PessoaT();
+
+		while (rs.next()) {
+			pessoaT.setIdPessoa(rs.getInt("ID_PESSOA"));
+		}
+
+		return pessoaT.getIdPessoa();
+	}
+
 	public void insert(PessoaT pessoaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
@@ -217,6 +268,8 @@ public class PessoaDao {
 			pStmt.setObject(9, pessoaT.getSituacao());
 
 			pStmt.execute();
+
+			pessoaT.setIdPessoa(consultLastId());
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
@@ -246,7 +299,7 @@ public class PessoaDao {
 		}
 	}
 
-	public void inativate(PessoaT pessoaT) throws SQLException {
+	public void inactivate(PessoaT pessoaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

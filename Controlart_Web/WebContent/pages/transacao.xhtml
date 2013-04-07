@@ -34,24 +34,24 @@
 					paginatorAlwaysVisible="false" rows="6"
 					styleClass="data-table-transacao"
 					value="#{transacaoBean.listTransacao}" var="listaTransacao">
+					<p:column headerText="#{msgs.labelAcervoDestino}">
+						<h:outputLabel converter="acervoTransacaoConverter"
+							value="#{listaTransacao.acervoDestino}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelTipoTransacao}">
+						<h:outputLabel converter="tipoTransacaoConverter"
+							value="#{listaTransacao.tipo}" />
+					</p:column>
+
 					<p:column headerText="#{msgs.labelPeca}">
 						<h:outputLabel converter="pecaConverter"
 							value="#{listaTransacao.peca}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelTipoTransacao}">
-						<h:outputLabel converter="tipoTransacaoConverter"
-							value="#{listaTransacao.id}" />
-					</p:column>
-
 					<p:column headerText="#{msgs.labelAcervoOrigem}">
 						<h:outputLabel converter="acervoTransacaoConverter"
 							value="#{listaTransacao.acervoOrigem}" />
-					</p:column>
-
-					<p:column headerText="#{msgs.labelAcervoDestino}">
-						<h:outputLabel converter="acervoTransacaoConverter"
-							value="#{listaTransacao.acervoDestino}" />
 					</p:column>
 
 					<p:column>

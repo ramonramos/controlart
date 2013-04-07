@@ -15,8 +15,9 @@ import com.controlart.transfer.TransacaoT;
 public class TransacaoDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL = "SELECT tt.* FROM tb_transacao tt ORDER BY tt.id_peca";
+	private static final String SQL_CONSULT_ALL = "SELECT tt.* FROM tb_transacao tt JOIN tb_tipo_transacao ttt ON tt.id_tipo_transacao = ttt.id_tipo_transacao WHERE ttt.tp_operacao = 'E' ORDER BY tt.dt_transacao DESC";
 	private static final String SQL_INSERT = "INSERT INTO tb_transacao (id_peca, id_tipo_transacao, id_acervo_origem, id_acervo_destino, dt_transacao, dt_previsao, dt_devolucao, vl_preco, in_online) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE tb_transacao SET dt_devolucao = ? WHERE id_transacao = ?";
 
 	public TransacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
@@ -31,14 +32,14 @@ public class TransacaoDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectT(rs);
+			return resultsetToObject(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
 		}
 	}
 
-	private List<TransacaoT> resultsetToObjectT(ResultSet rs)
+	private List<TransacaoT> resultsetToObject(ResultSet rs)
 			throws SQLException {
 		List<TransacaoT> listaTransacaoT = new ArrayList<TransacaoT>();
 
@@ -81,6 +82,22 @@ public class TransacaoDao {
 			pStmt.setObject(9, transacaoT.getOnline());
 
 			pStmt.execute();
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	public void update(TransacaoT transacaoT) throws SQLException {
+		PreparedStatement pStmt = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_UPDATE);
+			pStmt.setObject(1, transacaoT.getDataDevolucao() == null ? null
+					: new Date(transacaoT.getDataDevolucao().getTime()));
+			pStmt.setObject(2, transacaoT.getId());
+
+			pStmt.executeUpdate();
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);

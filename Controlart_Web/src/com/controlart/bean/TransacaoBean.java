@@ -154,6 +154,14 @@ public class TransacaoBean extends ControlArtBean {
 		}
 	}
 
+	public void saveAction() {
+		if (novoRegistro) {
+			insertAction();
+		} else {
+			updateAction();
+		}
+	}
+
 	public void insertAction() {
 		try {
 			TransacaoDao transacaoDao = new TransacaoDao();
@@ -163,6 +171,20 @@ public class TransacaoBean extends ControlArtBean {
 			consultAction();
 
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		}
+	}
+
+	public void updateAction() {
+		try {
+			TransacaoDao transacaoDao = new TransacaoDao();
+			transacaoDao.update(transacao);
+
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
@@ -212,6 +234,37 @@ public class TransacaoBean extends ControlArtBean {
 
 	public String getAcervo(int key) {
 		return hashAcervo.get(key);
+	}
+
+	/*
+	 * Objetivo: Método utilizado para atualizar o Acervo Origem de uma
+	 * Transação, dado a escolha de uma Peça.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
+
+	public void updateAcervoOrigem() {
+		if (transacao.getPeca() != 0) {
+			PecaT pecaT = new PecaT();
+			pecaT.setId(transacao.getPeca());
+
+			try {
+				PecaDao pecaDao = new PecaDao();
+				pecaT.setAcervo(pecaDao.consultIdAcervo(pecaT));
+
+				transacao.setAcervoOrigem(pecaT.getAcervo());
+			} catch (SQLException sql) {
+				sql.printStackTrace();
+				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+						BeanUtils.SEVERITY_FATAL);
+			}
+		} else {
+			transacao.setAcervoOrigem(0);
+		}
 	}
 
 	public TransacaoT getTransacao() {

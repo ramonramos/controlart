@@ -20,7 +20,6 @@ public class PecaT implements Cloneable, Serializable {
 	private String material;
 	private double numeroRegistro;
 	private String historico;
-	private String status;
 	private String estado;
 	private BigDecimal preco;
 	private int disponivelLeilao;
@@ -133,14 +132,6 @@ public class PecaT implements Cloneable, Serializable {
 
 	public void setHistorico(String historico) {
 		this.historico = historico;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getEstado() {

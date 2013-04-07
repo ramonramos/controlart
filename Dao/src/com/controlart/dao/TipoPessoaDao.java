@@ -31,7 +31,7 @@ public class TipoPessoaDao {
 	 * @param
 	 * 
 	 * @return List<TipoPessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -87,7 +87,7 @@ public class TipoPessoaDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<TipoPessoaT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -172,7 +172,7 @@ public class TipoPessoaDao {
 		}
 	}
 
-	public void inativate(TipoPessoaT tipoPessoaT) throws SQLException {
+	public void inactivate(TipoPessoaT tipoPessoaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

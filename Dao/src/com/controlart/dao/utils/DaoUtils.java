@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DaoUtils {
 	public static final String SERVER_NAME = "localhost";
 	public static final int PORT_NUMBER = 5432;
-	public static final String DATABASE_NAME = "desbd_controlart";
+	public static final String DATABASE_NAME = "probd_controlart";
 	public static final String USER = "postgres";
 	public static final String PASSWORD = "postgres";
 

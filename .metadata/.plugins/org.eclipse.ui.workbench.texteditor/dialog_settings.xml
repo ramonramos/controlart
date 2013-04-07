@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Acervo" key="selection"/>
+		<item value="labelTra" key="selection"/>
 		<list key="findhistory">
+			<item value="labeltra"/>
+			<item value="labelpo"/>
+			<item value="numeroRegistr"/>
 			<item value="acervo"/>
 			<item value="acervoa"/>
 			<item value="msErroGenerico"/>
 			<item value="PATH_APLICACAO"/>
 			<item value="labelImagem"/>
-			<item value="labelPreco"/>
-			<item value="labelSim"/>
-			<item value="labelEstado"/>
 		</list>
 		<list key="replacehistory">
 			<item value="pathAplicacao"/>

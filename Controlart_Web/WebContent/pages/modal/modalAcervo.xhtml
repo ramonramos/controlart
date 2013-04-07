@@ -64,6 +64,10 @@
 				styleClass="botao"
 				update=":formAcervo:dataTableAcervo, :formModalAcervo"
 				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalAcervoWV.hide();" styleClass="botao-cancelar"
+				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

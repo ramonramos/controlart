@@ -31,7 +31,7 @@ public class ClassificacaoDao {
 	 * @param
 	 * 
 	 * @return List<ClassificacaoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -87,7 +87,7 @@ public class ClassificacaoDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<ClassificacaoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */

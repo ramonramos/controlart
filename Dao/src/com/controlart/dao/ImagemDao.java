@@ -15,7 +15,7 @@ public class ImagemDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_BY_PECA = "SELECT tp.* FROM tb_imagem tp WHERE tp.id_peca = ? AND in_ativo = 1";
-	private static final String SQL_INSERT = "INSERT INTO tb_imagem (id_peca, nm_imagem, ds_caminho) VALUES (?, ?, ?)";
+	private static final String SQL_INSERT = "INSERT INTO tb_imagem (id_peca, nm_imagem) VALUES (?, ?)";
 	private static final String SQL_INACTIVATE = "UPDATE tb_imagem SET in_ativo = 0 WHERE id_peca = ?";
 
 	public ImagemDao() throws SQLException {
@@ -87,7 +87,6 @@ public class ImagemDao {
 				pStmt = connection.prepareStatement(SQL_INSERT);
 				pStmt.setObject(1, imagemT.getPeca());
 				pStmt.setObject(2, imagemT.getNome());
-				pStmt.setObject(3, imagemT.getNome());
 
 				pStmt.execute();
 			}

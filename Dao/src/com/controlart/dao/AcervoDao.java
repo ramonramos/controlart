@@ -31,7 +31,7 @@ public class AcervoDao {
 	 * @param
 	 * 
 	 * @return List<AcervoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -87,7 +87,7 @@ public class AcervoDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<AcervoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */

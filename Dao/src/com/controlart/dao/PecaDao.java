@@ -16,9 +16,10 @@ public class PecaDao {
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_peca tp ORDER BY tp.nm_peca";
-	private static final String SQL_CONSULT_ID = "SELECT tp.id_peca FROM tb_peca tp WHERE tp.nm_peca = ?";
-	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_status, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, id_acervo_atual = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_status = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
+	private static final String SQL_CONSULT_LAST_ID = "SELECT MAX(tp.id_peca) as id_peca FROM tb_peca tp";
+	private static final String SQL_CONSULT_ACERVO = "SELECT tp.id_acervo_atual as id_acervo_atual FROM tb_peca tp WHERE tp.id_peca = ?";
+	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, id_acervo_atual = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_peca SET in_ativo = 0 WHERE id_peca = ?";
 
 	public PecaDao() throws SQLException {
@@ -32,7 +33,7 @@ public class PecaDao {
 	 * @param
 	 * 
 	 * @return List<PecaT>. Obs: Apenas as informações utilizadas por Converters
-	 * e Selecitems serão retornadas.
+	 * e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -81,29 +82,57 @@ public class PecaDao {
 	}
 
 	/*
-	 * Objetivo: Método utilizado para consultar o Identificador (id) de uma
-	 * Peça (PecaT).
+	 * Objetivo: Método utilizado para consultar o Identificador (id) da última
+	 * Peça (PecaT) cadastrada no sistema.
 	 * 
-	 * @param pecaT (id).
+	 * @param
 	 * 
 	 * @return int. Obs: Apenas o identificador da Peça (PeçaT) será retornado.
 	 * 
 	 * @throws SQLException.
 	 */
 
-	public int consultId(PecaT pecaT) throws SQLException {
+	public int consultLastId() throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ID);
-			pStmt.setObject(1, pecaT.getNome());
+			pStmt = connection.prepareStatement(SQL_CONSULT_LAST_ID);
 
 			rs = pStmt.executeQuery();
 
 			return resultsetToObjectTC(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar o Acervo de uma Peça (PecaT)
+	 * cadastrada no sistema.
+	 * 
+	 * @param pecaT (id).
+	 * 
+	 * @return int. Obs: Apenas o identificador do acervo da Peça (PeçaT) será
+	 * retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public int consultIdAcervo(PecaT pecaT) throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ACERVO);
+			pStmt.setObject(1, pecaT.getId());
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectTD(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
 		}
 	}
 
@@ -115,7 +144,7 @@ public class PecaDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<PecaT>. Obs: Apenas as informações utilizadas por Converters
-	 * e Selecitems serão retornadas.
+	 * e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -167,7 +196,6 @@ public class PecaDao {
 			pecaT.setNumeroRegistro(rs.getDouble("NR_REGISTRO"));
 			pecaT.setProfundidade(rs.getDouble("VL_PROFUNDIDADE"));
 			pecaT.setHistorico(rs.getString("DS_HISTORICA"));
-			pecaT.setStatus(rs.getString("DS_STATUS"));
 			pecaT.setEstado(rs.getString("DS_ESTADO"));
 			pecaT.setPreco(rs.getBigDecimal("VL_PRECO"));
 			pecaT.setDisponivelLeilao(rs.getInt("IN_LEILAO"));
@@ -202,6 +230,29 @@ public class PecaDao {
 		return pecaT.getId();
 	}
 
+	/*
+	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
+	 * armazena resultados de consultas em uma Base de Dados) em informações de
+	 * Peça (PecaT).
+	 * 
+	 * @param ResultSet.
+	 * 
+	 * @return int. Obs: Apenas o Identificador (acervo) do acervo da Peça
+	 * (pecaT) será retornado.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	private int resultsetToObjectTD(ResultSet rs) throws SQLException {
+		PecaT pecaT = new PecaT();
+
+		while (rs.next()) {
+			pecaT.setId(rs.getInt("ID_ACERVO_ATUAL"));
+		}
+
+		return pecaT.getId();
+	}
+
 	public void insert(PecaT pecaT) throws SQLException {
 		PreparedStatement pStmt = null;
 
@@ -219,15 +270,14 @@ public class PecaDao {
 			pStmt.setObject(10, pecaT.getNumeroRegistro());
 			pStmt.setObject(11, pecaT.getProfundidade());
 			pStmt.setObject(12, pecaT.getHistorico());
-			pStmt.setObject(13, pecaT.getStatus());
-			pStmt.setObject(14, pecaT.getEstado());
-			pStmt.setObject(15, pecaT.getPreco());
-			pStmt.setObject(16, pecaT.getDisponivelLeilao());
-			pStmt.setObject(17, pecaT.getAtivo());
+			pStmt.setObject(13, pecaT.getEstado());
+			pStmt.setObject(14, pecaT.getPreco());
+			pStmt.setObject(15, pecaT.getDisponivelLeilao());
+			pStmt.setObject(16, pecaT.getAtivo());
 
 			pStmt.execute();
 
-			pecaT.setId(consultId(pecaT));
+			pecaT.setId(consultLastId());
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
@@ -251,12 +301,11 @@ public class PecaDao {
 			pStmt.setObject(10, pecaT.getNumeroRegistro());
 			pStmt.setObject(11, pecaT.getProfundidade());
 			pStmt.setObject(12, pecaT.getHistorico());
-			pStmt.setObject(13, pecaT.getStatus());
-			pStmt.setObject(14, pecaT.getEstado());
-			pStmt.setObject(15, pecaT.getPreco());
-			pStmt.setObject(16, pecaT.getDisponivelLeilao());
-			pStmt.setObject(17, pecaT.getAtivo());
-			pStmt.setObject(18, pecaT.getId());
+			pStmt.setObject(13, pecaT.getEstado());
+			pStmt.setObject(14, pecaT.getPreco());
+			pStmt.setObject(15, pecaT.getDisponivelLeilao());
+			pStmt.setObject(16, pecaT.getAtivo());
+			pStmt.setObject(17, pecaT.getId());
 
 			pStmt.executeUpdate();
 		} finally {

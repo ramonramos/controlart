@@ -242,7 +242,7 @@ public class UsuariosBean extends ControlArtBean implements
 
 		try {
 			UsuariosDao usuariosDao = new UsuariosDao();
-			usuariosDao.inativate(usuario);
+			usuariosDao.inactivate(usuario);
 
 			consultAction();
 

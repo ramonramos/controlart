@@ -53,6 +53,10 @@
 				styleClass="botao"
 				update=":formClassificacao:dataTableClassificacao, :formModalClassificacao"
 				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalClassificacaoWV.hide();" styleClass="botao-cancelar"
+				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

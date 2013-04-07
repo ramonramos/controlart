@@ -11,8 +11,10 @@ import javax.faces.model.SelectItem;
 
 import com.controlart.bean.interfac.ControlArtBeanInterface;
 import com.controlart.bean.utils.BeanUtils;
+import com.controlart.dao.AcervoDao;
 import com.controlart.dao.PessoaDao;
 import com.controlart.dao.TipoPessoaDao;
+import com.controlart.transfer.AcervoT;
 import com.controlart.transfer.PessoaT;
 import com.controlart.transfer.TipoPessoaT;
 
@@ -121,6 +123,16 @@ public class PessoaBean extends ControlArtBean implements
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoaDao.insert(pessoa);
 
+			if (pessoa.isPossuiAcervo()) {
+				AcervoT acervoT = new AcervoT();
+				acervoT.setDono(pessoa.getIdPessoa());
+				acervoT.setNome(pessoa.getNmAcervo());
+				acervoT.setAtivo(1);
+
+				AcervoDao acervoDao = new AcervoDao();
+				acervoDao.insert(acervoT);
+			}
+
 			definirNovo();
 			consultAction();
 
@@ -179,7 +191,7 @@ public class PessoaBean extends ControlArtBean implements
 
 		try {
 			PessoaDao pessoaDao = new PessoaDao();
-			pessoaDao.inativate(pessoa);
+			pessoaDao.inactivate(pessoa);
 
 			consultAction();
 

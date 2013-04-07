@@ -14,7 +14,7 @@ import com.controlart.transfer.UsuarioT;
 public class UsuariosDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT = "SELECT tu.id_usuario, tu.id_tipo_usuario, tu.id_pessoa, tu.ds_login, tu.ds_senha, tu.in_primeiro_acesso, tu.in_ativo, tp.id_tipo_pessoa, tp.nm_pessoa, tp.nr_fone, tp.ds_email, nm_rua, nr_imovel, nm_bairro, nm_cidade FROM tb_usuario tu JOIN tb_pessoa tp on tp.id_pessoa = tu.id_pessoa WHERE tu.ds_login = ? AND tu.ds_senha = ? AND tu.in_ativo = 1";
+	private static final String SQL_CONSULT = "SELECT tu.id_usuario, tu.id_tipo_usuario, tu.id_pessoa, tu.ds_login, tu.ds_senha, tu.in_ativo, tp.id_tipo_pessoa, tp.nm_pessoa, tp.nr_fone, tp.ds_email, nm_rua, nr_imovel, nm_bairro, nm_cidade FROM tb_usuario tu JOIN tb_pessoa tp on tp.id_pessoa = tu.id_pessoa WHERE tu.ds_login = ? AND tu.ds_senha = ? AND tu.in_ativo = 1";
 	private static final String SQL_CONSULT_ALL = "SELECT tu.id_usuario, tu.id_tipo_usuario, tu.id_pessoa, tu.ds_login, tu.in_ativo FROM tb_usuario tu ORDER BY tu.ds_login";
 	private static final String SQL_INSERT = "INSERT INTO tb_usuario (id_tipo_usuario, id_pessoa, ds_login, ds_senha, in_ativo) VALUES (?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE_PASSWORD = "UPDATE tb_usuario SET ds_senha = ? WHERE id_usuario = ?";
@@ -107,8 +107,6 @@ public class UsuariosDao {
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
 			usuarioT.setDsLogin(rs.getString("DS_LOGIN"));
 			usuarioT.setCdSenha(rs.getString("DS_SENHA"));
-			usuarioT.setPrimeiroAcesso(rs.getInt("IN_PRIMEIRO_ACESSO") == 0 ? true
-					: false);
 			usuarioT.setSituacao(rs.getInt("IN_ATIVO"));
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
 			usuarioT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
@@ -188,7 +186,7 @@ public class UsuariosDao {
 		PreparedStatement pStmt = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_UPDATE);
+			pStmt = connection.prepareStatement(SQL_UPDATE_PASSWORD);
 			pStmt.setObject(1, usuarioT.getCdSenha());
 			pStmt.setObject(2, usuarioT.getIdPessoa());
 
@@ -215,7 +213,7 @@ public class UsuariosDao {
 		PreparedStatement pStmt = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_UPDATE_PASSWORD);
+			pStmt = connection.prepareStatement(SQL_UPDATE);
 			pStmt.setObject(1, usuarioT.getCdSenha());
 			pStmt.setObject(2, usuarioT.getSituacao());
 			pStmt.setObject(3, usuarioT.getIdUsuario());
@@ -227,7 +225,7 @@ public class UsuariosDao {
 		}
 	}
 
-	public void inativate(UsuarioT usuarioT) throws SQLException {
+	public void inactivate(UsuarioT usuarioT) throws SQLException {
 		PreparedStatement pStmt = null;
 
 		try {

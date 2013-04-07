@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<p:dialog id="modalPeca" appendToBody="false" modal="true"
 		resizable="false" styleClass="dialog" widgetVar="modalPecaWV"
-		width="710">
+		width="730">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovaPeca}"
 				rendered="#{pecaBean.novoRegistro}" />
@@ -39,18 +39,11 @@
 						update=":formModalImagens" />
 
 					<p:panelGrid styleClass="sub-panel-left-grid" columns="3">
-						<h:outputLabel value="#{msgs.labelNumeroRegistro}" />
-						<p:spinner disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-							value="#{pecaBean.peca.numeroRegistro}" />
-						<h:outputLabel value="" />
-
-						<h:outputLabel value="#{msgs.labelStatus}" />
+						<h:outputLabel value="#{msgs.labelMaterial}" />
 						<p:inputText
 							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-							id="status" value="#{pecaBean.peca.status}">
-							<f:validateLength maximum="50" />
-						</p:inputText>
-						<p:message for="status" />
+							value="#{pecaBean.peca.material}" />
+						<h:outputLabel value="" />
 
 						<h:outputLabel value="#{msgs.labelEstado}" />
 						<p:inputText
@@ -59,6 +52,12 @@
 							<f:validateLength maximum="50" />
 						</p:inputText>
 						<p:message for="estado" />
+
+						<h:outputLabel value="#{msgs.labelHistorico}" />
+						<p:inputText
+							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+							value="#{pecaBean.peca.historico}" />
+						<h:outputLabel value="" />
 
 						<h:outputLabel value="#{msgs.labelDisponivelLeilao}" />
 						<p:selectOneRadio
@@ -77,7 +76,7 @@
 							<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 						</h:outputLabel>
 						<p:selectOneMenu
-							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+							disabled="#{(pecaBean.usuarioLogado.idTipoUsuario eq 2) or (not pecaBean.novoRegistro)}"
 							id="acervo" required="true" value="#{pecaBean.peca.acervo}">
 							<f:selectItem itemLabel="#{msgs.labelSelecione}"
 								itemValue="#{null}" />
@@ -145,17 +144,10 @@
 							value="#{pecaBean.peca.profundidade}" />
 						<h:outputLabel value="" />
 
-						<h:outputLabel value="#{msgs.labelMaterial}" />
-						<p:inputText
-							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-							value="#{pecaBean.peca.material}" />
-						<h:outputLabel value="" />
-
-						<h:outputLabel value="#{msgs.labelHistorico}" />
-						<p:inputText
-							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-							value="#{pecaBean.peca.historico}" />
-						<h:outputLabel value="" />
+						<h:outputLabel value="#{msgs.labelNumeroRegistro}" />
+						<p:spinner disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+							id="numeroRegistro" value="#{pecaBean.peca.numeroRegistro}" />
+						<p:message for="numeroRegistro" />
 
 						<h:outputLabel value="#{msgs.labelPreco}">
 							<h:outputLabel value="*" styleClass="campo-obrigatorio" />
@@ -188,6 +180,10 @@
 				disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
 				styleClass="botao" update=":formPeca:dataTablePeca, :formModalPeca"
 				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalPecaWV.hide();" styleClass="botao-cancelar"
+				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

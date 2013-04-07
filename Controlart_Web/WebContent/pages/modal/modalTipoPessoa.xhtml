@@ -49,10 +49,14 @@
 			</p:panelGrid>
 
 			<p:commandButton action="#{tipoPessoaBean.saveAction}"
-				disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 				styleClass="botao"
 				update=":formTipoPessoa:dataTableTipoPessoa, :formModalTipoPessoa"
 				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalTipoPessoaWV.hide();" styleClass="botao-cancelar"
+				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

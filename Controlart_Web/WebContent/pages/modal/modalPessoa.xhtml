@@ -29,6 +29,37 @@
 				</p:selectOneMenu>
 				<p:message for="tipoPessoa" />
 
+				<h:outputLabel rendered="#{pessoaBean.novoRegistro}"
+					value="#{msgs.labelPossuiAcervo}" />
+				<p:selectBooleanCheckbox rendered="#{pessoaBean.novoRegistro}"
+					value="#{pessoaBean.pessoa.possuiAcervo}">
+					<p:ajax event="change" process="@this"
+						update="labelNomeAcervo, inputNomeAcervo, messageNomeAcervo" />
+				</p:selectBooleanCheckbox>
+				<h:outputLabel rendered="#{pessoaBean.novoRegistro}" value="" />
+
+				<h:panelGroup id="labelNomeAcervo"
+					rendered="#{pessoaBean.novoRegistro}">
+					<h:outputLabel rendered="#{pessoaBean.pessoa.possuiAcervo}"
+						value="#{msgs.labelNomeAcervo}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
+				</h:panelGroup>
+				<h:panelGroup id="inputNomeAcervo"
+					rendered="#{pessoaBean.novoRegistro}">
+					<p:inputText rendered="#{pessoaBean.pessoa.possuiAcervo}"
+						disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+						id="nomeAcervo" required="true"
+						value="#{pessoaBean.pessoa.nmAcervo}">
+						<f:validateLength minimum="4" maximum="100" />
+					</p:inputText>
+				</h:panelGroup>
+				<h:panelGroup id="messageNomeAcervo"
+					rendered="#{pessoaBean.novoRegistro}">
+					<p:message rendered="#{pessoaBean.pessoa.possuiAcervo}"
+						for="nomeAcervo" />
+				</h:panelGroup>
+
 				<h:outputLabel value="#{msgs.labelNome}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
@@ -113,6 +144,10 @@
 				styleClass="botao"
 				update=":formPessoa:dataTablePessoa, :formModalPessoa, :formPainelInformativo"
 				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalPessoaWV.hide();" styleClass="botao-cancelar"
+				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

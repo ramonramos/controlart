@@ -14,13 +14,9 @@ import com.controlart.transfer.TipoTransacaoT;
 public class TipoTransacaoDao {
 	private Connection connection;
 
-
-	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' AND ttt.nm_tipo_transacao NOT LIKE 'Devolução%' ORDER BY ttt.nm_tipo_transacao";
 	private static final String SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.id_tipo_transacao IN (3,5) ORDER BY ttt.nm_tipo_transacao";
 	private static final String SQL_CONSULT_TIPO_TRANSACAO_ENTRADA = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' ORDER BY ttt.nm_tipo_transacao";
-
-	
-
 
 	public TipoTransacaoDao() throws SQLException {
 		connection = ConnFactory.getConnection();
@@ -33,7 +29,7 @@ public class TipoTransacaoDao {
 	 * @param
 	 * 
 	 * @return List<TipoTransacaoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */
@@ -54,12 +50,14 @@ public class TipoTransacaoDao {
 		}
 	}
 
-	public List<TipoTransacaoT> consultTipoTransacaoComDevolucao() throws SQLException {
+	public List<TipoTransacaoT> consultTipoTransacaoComDevolucao()
+			throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO);
+			pStmt = connection
+					.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO);
 
 			rs = pStmt.executeQuery();
 
@@ -70,12 +68,14 @@ public class TipoTransacaoDao {
 		}
 	}
 
-	public List<TipoTransacaoT> consultTipoTransacaoEntrada() throws SQLException {
+	public List<TipoTransacaoT> consultTipoTransacaoEntrada()
+			throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_ENTRADA);
+			pStmt = connection
+					.prepareStatement(SQL_CONSULT_TIPO_TRANSACAO_ENTRADA);
 
 			rs = pStmt.executeQuery();
 
@@ -85,7 +85,7 @@ public class TipoTransacaoDao {
 			DaoUtils.closeConnection(connection);
 		}
 	}
-	
+
 	/*
 	 * Objetivo: Método utilizado para mapear dados de um ResultSet (Que
 	 * armazena resultados de consultas em uma Base de Dados) em informações de
@@ -94,7 +94,7 @@ public class TipoTransacaoDao {
 	 * @param ResultSet.
 	 * 
 	 * @return List<TipoTransacaoT>. Obs: Apenas as informações utilizadas por
-	 * Converters e Selecitems serão retornadas.
+	 * Converters e SelecItems serão retornadas.
 	 * 
 	 * @throws SQLException.
 	 */

@@ -8,6 +8,8 @@ public class PessoaT implements Serializable, Cloneable {
 
 	private int idPessoa;
 	private int idTipoPessoa;
+	private boolean possuiAcervo;
+	private String nmAcervo;
 	private String nmPessoa;
 	private String nrFone;
 	private String dsEmail;
@@ -100,5 +102,21 @@ public class PessoaT implements Serializable, Cloneable {
 
 	public void setSituacao(int situacao) {
 		this.situacao = situacao;
+	}
+
+	public boolean isPossuiAcervo() {
+		return possuiAcervo;
+	}
+
+	public void setPossuiAcervo(boolean possuiAcervo) {
+		this.possuiAcervo = possuiAcervo;
+	}
+
+	public String getNmAcervo() {
+		return nmAcervo;
+	}
+
+	public void setNmAcervo(String nmAcervo) {
+		this.nmAcervo = nmAcervo;
 	}
 }
