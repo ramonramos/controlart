@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="titulo">
-	#{msgs.tituloSistema} - #{msgs.labelPeca}
+	#{msgs.tituloSistema} - #{msgs.labelPecas}
 	</ui:define>
 
 	<ui:define name="estiloCSS">
@@ -20,7 +20,7 @@
 				<f:facet name="header">
 					<p:graphicImage styleClass="header-image"
 						value="#{resource['image:favicon.ico']}" />
-					<h:outputLabel value="#{msgs.labelPeca}" />
+					<h:outputLabel value="#{msgs.labelPecas}" />
 				</f:facet>
 
 				<p:spacer height="18" />
@@ -50,7 +50,8 @@
 
 					<p:column>
 						<p:commandLink action="#{pecaBean.definirEditar}"
-							oncomplete="modalPecaWV.show();" update=":modalPeca">
+							oncomplete="modalPecaWV.show();" title="#{msgs.labelEditar}"
+							update=":modalPeca">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalPeca" />
 						</p:commandLink>
@@ -60,7 +61,7 @@
 						<p:commandLink action="#{pecaBean.inactivateAction}"
 							disabled="#{(listaPeca.ativo eq 0) or (pecaBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							update=":formPeca">
+							title="#{msgs.labelInativar}" update=":formPeca">
 							<p:graphicImage url="#{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -69,8 +70,8 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{pecaBean.definirNovo}"
 						disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalPecaWV.show();" update=":modalPeca"
-						value="#{msgs.labelNovo}">
+						oncomplete="modalPecaWV.show();" title="#{msgs.labelNovo}"
+						update=":modalPeca" value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalPeca" />
 					</p:commandButton>
 				</h:panelGroup>

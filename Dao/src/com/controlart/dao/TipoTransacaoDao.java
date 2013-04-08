@@ -14,7 +14,8 @@ import com.controlart.transfer.TipoTransacaoT;
 public class TipoTransacaoDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' AND ttt.nm_tipo_transacao NOT LIKE 'Devolução%' ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E'ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_TRANSACAO_NEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' AND ttt.nm_tipo_transacao NOT LIKE 'Devolução%' ORDER BY ttt.nm_tipo_transacao";
 	private static final String SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.id_tipo_transacao IN (3,5) ORDER BY ttt.nm_tipo_transacao";
 	private static final String SQL_CONSULT_TIPO_TRANSACAO_ENTRADA = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' ORDER BY ttt.nm_tipo_transacao";
 
@@ -23,8 +24,8 @@ public class TipoTransacaoDao {
 	}
 
 	/*
-	 * Objetivo: Método utilizado para consultar todos os Tipos de Transação
-	 * (TipoTransacaoT) do sistema.
+	 * Objetivo: Método utilizado para consultar os Tipos de Transação
+	 * (TipoTransacaoT) do sistema que possuem tp_operacao = 'E' (Entrada).
 	 * 
 	 * @param
 	 * 
@@ -40,6 +41,35 @@ public class TipoTransacaoDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObject(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar os Tipos de Transação
+	 * (TipoTransacaoT) do sistema que possuem tp_operacao = 'E' (Entrada) e não
+	 * incluem Devolução (Tanto de Empréstimo como de Consignação).
+	 * 
+	 * @param
+	 * 
+	 * @return List<TipoTransacaoT>. Obs: Apenas as informações utilizadas por
+	 * Converters e SelecItems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<TipoTransacaoT> consultForInsert() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_TRANSACAO_NEW);
 
 			rs = pStmt.executeQuery();
 

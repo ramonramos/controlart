@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="titulo">
-	#{msgs.tituloSistema} - #{msgs.labelTipoPessoa}
+	#{msgs.tituloSistema} - #{msgs.labelTiposPessoa}
 	</ui:define>
 
 	<ui:define name="estiloCSS">
@@ -20,7 +20,7 @@
 				<f:facet name="header">
 					<p:graphicImage styleClass="header-image"
 						value="#{resource['image:favicon.ico']}" />
-					<h:outputLabel value="#{msgs.labelTipoPessoa}" />
+					<h:outputLabel value="#{msgs.labelTiposPessoa}" />
 				</f:facet>
 
 				<p:spacer height="18" />
@@ -45,7 +45,8 @@
 
 					<p:column>
 						<p:commandLink action="#{tipoPessoaBean.definirEditar}"
-							oncomplete="modalTipoPessoaWV.show();" update=":modalTipoPessoa">
+							oncomplete="modalTipoPessoaWV.show();"
+							title="#{msgs.labelEditar}" update=":modalTipoPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalTipoPessoa" />
 						</p:commandLink>
@@ -55,7 +56,7 @@
 						<p:commandLink action="#{tipoPessoaBean.inactivateAction}"
 							disabled="#{(listaTipoPessoa.situacao eq 0) or (tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							update=":formTipoPessoa">
+							title="#{msgs.labelInativar}" update=":formTipoPessoa">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -64,8 +65,8 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{tipoPessoaBean.definirNovo}"
 						disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalTipoPessoaWV.show();" update=":modalTipoPessoa"
-						value="#{msgs.labelNovo}">
+						oncomplete="modalTipoPessoaWV.show();" title="#{msgs.labelNovo}"
+						update=":modalTipoPessoa" value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalTipoPessoa" />
 					</p:commandButton>
 				</h:panelGroup>

@@ -34,9 +34,11 @@
 						</p:imageSwitch>
 					</h:panelGroup>
 
-					<p:commandButton styleClass="sub-panel-left-botao-imagens"
-						value="#{msgs.labelImagens}" onclick="modalImagensWV.show();"
-						update=":formModalImagens" />
+					<p:commandButton
+						disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+						onclick="modalImagensWV.show();"
+						styleClass="sub-panel-left-botao-imagens"
+						update=":formModalImagens" value="#{msgs.labelImagens}" />
 
 					<p:panelGrid styleClass="sub-panel-left-grid" columns="3">
 						<h:outputLabel value="#{msgs.labelMaterial}" />

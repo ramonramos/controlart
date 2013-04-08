@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ui:define name="titulo">
-	#{msgs.tituloSistema} - #{msgs.labelClassificacao}
+	#{msgs.tituloSistema} - #{msgs.labelClassificacoes}
 	</ui:define>
 
 	<ui:define name="estiloCSS">
@@ -20,7 +20,7 @@
 				<f:facet name="header">
 					<p:graphicImage styleClass="header-image"
 						value="#{resource['image:favicon.ico']}" />
-					<h:outputLabel value="#{msgs.labelClassificacao}" />
+					<h:outputLabel value="#{msgs.labelClassificacoes}" />
 				</f:facet>
 
 				<p:spacer height="18" />
@@ -43,7 +43,7 @@
 					<p:column>
 						<p:commandLink action="#{classificacaoBean.definirEditar}"
 							oncomplete="modalClassificacaoWV.show();"
-							update=":modalClassificacao">
+							title="#{msgs.labelEditar}" update=":modalClassificacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalClassificacao" />
 						</p:commandLink>
@@ -53,7 +53,7 @@
 						<p:commandLink action="#{classificacaoBean.inactivateAction}"
 							disabled="#{(listaClassificacao.ativo eq 0) or (classificacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							update=":formClassificacao">
+							title="#{msgs.labelInativar}" update=":formClassificacao">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -63,7 +63,8 @@
 					<p:commandButton action="#{classificacaoBean.definirNovo}"
 						disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
 						oncomplete="modalClassificacaoWV.show();"
-						update=":modalClassificacao" value="#{msgs.labelNovo}">
+						title="#{msgs.labelNovo}" update=":modalClassificacao"
+						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalClassificacao" />
 					</p:commandButton>
 				</h:panelGroup>

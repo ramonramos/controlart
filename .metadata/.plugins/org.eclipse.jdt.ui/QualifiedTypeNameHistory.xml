@@ -24,7 +24,6 @@
 <fullyQualifiedTypeName name="com.controlart.transfer.TransacaoT"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TipoTransacaoDao"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
 <fullyQualifiedTypeName name="javax.print.attribute.HashAttributeSet"/>
 <fullyQualifiedTypeName name="java.sql.Timestamp"/>
 <fullyQualifiedTypeName name="java.lang.Cloneable"/>
@@ -40,7 +39,6 @@
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
 <fullyQualifiedTypeName name="org.primefaces.event.FileUploadEvent"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.primefaces.model.UploadedFile"/>
 <fullyQualifiedTypeName name="com.lowagie.text.pdf.codec.Base64.InputStream"/>
 <fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.controlart.dao.PecaDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
 </qualifiedTypeNameHistroy>

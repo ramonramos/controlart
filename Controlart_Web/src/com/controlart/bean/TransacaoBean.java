@@ -92,17 +92,49 @@ public class TransacaoBean extends ControlArtBean {
 			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
 					.consultAllForView();
 
-			listTipoTransacao = new ArrayList<SelectItem>(0);
 			hashTipoTransacao = new HashMap<Integer, String>(0);
 
 			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
-				if (tipoTransacaoT.getAtivo() == 1) {
-					listTipoTransacao.add(new SelectItem(
-							tipoTransacaoT.getId(), tipoTransacaoT.getNome()));
-				}
-
 				hashTipoTransacao.put(tipoTransacaoT.getId(),
 						tipoTransacaoT.getNome());
+			}
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	private void consultTipoTransacaoForInsert() {
+		try {
+			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
+			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
+					.consultForInsert();
+
+			listTipoTransacao = new ArrayList<SelectItem>(0);
+
+			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
+				listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
+						tipoTransacaoT.getNome()));
+			}
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	private void consultTipoTransacaoEntrada() {
+		try {
+			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
+			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
+					.consultAllForView();
+
+			listTipoTransacao = new ArrayList<SelectItem>(0);
+
+			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
+				listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
+						tipoTransacaoT.getNome()));
 			}
 		} catch (SQLException sql) {
 			sql.printStackTrace();
@@ -139,6 +171,8 @@ public class TransacaoBean extends ControlArtBean {
 		novoRegistro = true;
 
 		clearAction();
+
+		consultTipoTransacaoForInsert();
 	}
 
 	public void definirEditar() {
@@ -152,6 +186,8 @@ public class TransacaoBean extends ControlArtBean {
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
 		}
+
+		consultTipoTransacaoEntrada();
 	}
 
 	public void saveAction() {

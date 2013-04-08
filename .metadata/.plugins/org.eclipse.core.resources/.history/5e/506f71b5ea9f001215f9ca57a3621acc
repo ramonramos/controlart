@@ -1,0 +1,81 @@
+<ui:composition template="template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="titulo">
+	#{msgs.tituloSistema} - #{msgs.labelAcervos}
+	</ui:define>
+
+	<ui:define name="estiloCSS">
+		<h:outputStylesheet library="css" name="acervo.css" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formAcervo">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panel closable="true" closeSpeed="600" styleClass="panel">
+				<f:facet name="header">
+					<p:graphicImage styleClass="header-image"
+						value="#{resource['image:favicon.ico']}" />
+					<h:outputLabel value="#{msgs.labelAcervos}" />
+				</f:facet>
+
+				<p:spacer height="18" />
+
+				<p:dataTable id="dataTableAcervo"
+					emptyMessage="#{msgs.msNenhumRegistro}" paginator="true"
+					paginatorAlwaysVisible="false" rows="6"
+					styleClass="data-table-acervo" value="#{acervoBean.listAcervo}"
+					var="listaAcervo">
+					<p:column headerText="#{msgs.labelNome}">
+						<h:outputLabel value="#{listaAcervo.nome}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelDono}">
+						<h:outputLabel converter="pessoaAcervoConverter"
+							value="#{listaAcervo.dono}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelSituacao}">
+						<h:outputLabel converter="statusConverter"
+							value="#{listaAcervo.ativo}" />
+					</p:column>
+
+					<p:column>
+						<p:commandLink action="#{acervoBean.definirEditar}"
+							oncomplete="modalAcervoWV.show();" title="#{msgs.labelEditar}"
+							update=":modalAcervo">
+							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalAcervo" />
+						</p:commandLink>
+
+						<p:spacer height="20" />
+
+						<p:commandLink action="#{acervoBean.inactivateAction}"
+							disabled="#{(listaAcervo.ativo eq 0) or (acervoBean.usuarioLogado.idTipoUsuario eq 2)}"
+							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
+							title="#{msgs.labelInativar}" update=":formAcervo">
+							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{acervoBean.definirNovo}"
+						disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
+						oncomplete="modalAcervoWV.show();" update=":modalAcervo"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalAcervo" />
+					</p:commandButton>
+				</h:panelGroup>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="painelFlutuante">
+		<ui:include src="/pages/modal/modalAcervo.xhtml" />
+	</ui:define>
+</ui:composition>
