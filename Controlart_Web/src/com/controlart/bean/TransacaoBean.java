@@ -40,130 +40,124 @@ public class TransacaoBean extends ControlArtBean {
 	public TransacaoBean() {
 		listTransacao = new ArrayList<TransacaoT>(0);
 
-		clearAction();
-		consultAction();
-		consultPeca();
-		consultTipoTransacao();
-		consultAcervo();
+		try {
+			clearAction();
+			consultAction();
+			consultPeca();
+			consultTipoTransacao();
+			consultAcervo();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	private void clearAction() {
 		transacao = new TransacaoT();
 	}
 
-	private void consultAction() {
-		try {
-			TransacaoDao transacaoDao = new TransacaoDao();
+	private void consultAction() throws SQLException {
+		TransacaoDao transacaoDao = new TransacaoDao();
 
-			listTransacao = transacaoDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		listTransacao = transacaoDao.consultAll();
+	}
+
+	private void consultPeca() throws SQLException {
+		PecaDao pecaDao = new PecaDao();
+
+		List<PecaT> _listPeca = pecaDao.consultAllForView();
+
+		listPeca = new ArrayList<SelectItem>(0);
+		hashPeca = new HashMap<Integer, String>(0);
+
+		for (PecaT pecaT : _listPeca) {
+			if (pecaT.getAtivo() == 1) {
+				listPeca.add(new SelectItem(pecaT.getId(), pecaT.getNome()));
+			}
+
+			hashPeca.put(pecaT.getId(), pecaT.getNome());
 		}
 	}
 
-	private void consultPeca() {
-		try {
-			PecaDao pecaDao = new PecaDao();
+	private void consultTipoTransacao() throws SQLException {
+		TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
+		List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
+				.consultAllForView();
 
-			List<PecaT> _listPeca = pecaDao.consultAllForView();
+		hashTipoTransacao = new HashMap<Integer, String>(0);
 
-			listPeca = new ArrayList<SelectItem>(0);
-			hashPeca = new HashMap<Integer, String>(0);
-
-			for (PecaT pecaT : _listPeca) {
-				if (pecaT.getAtivo() == 1) {
-					listPeca.add(new SelectItem(pecaT.getId(), pecaT.getNome()));
-				}
-
-				hashPeca.put(pecaT.getId(), pecaT.getNome());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
+			hashTipoTransacao.put(tipoTransacaoT.getId(),
+					tipoTransacaoT.getNome());
 		}
 	}
 
-	private void consultTipoTransacao() {
-		try {
-			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
-			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
-					.consultAllForView();
+	/*
+	 * Objetivo: Método que preenche combo com Tipos de Transação de Entrada (E)
+	 * que não incluem Devolução (Tanto Empréstimo como Consignação). Útil para
+	 * criar novas Transações.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 
-			hashTipoTransacao = new HashMap<Integer, String>(0);
+	private void consultTipoTransacaoNovo() throws SQLException {
+		TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
+		List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
+				.consultAllForViewNoDev();
 
-			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
-				hashTipoTransacao.put(tipoTransacaoT.getId(),
-						tipoTransacaoT.getNome());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		listTipoTransacao = new ArrayList<SelectItem>(0);
+
+		for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
+			listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
+					tipoTransacaoT.getNome()));
 		}
 	}
 
-	private void consultTipoTransacaoForInsert() {
-		try {
-			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
-			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
-					.consultForInsert();
+	/*
+	 * Objetivo: Método que preenche combo com Tipos de Transação de Entrada (E)
+	 * que incluem Devolução (Tanto Empréstimo como Consignação). Útil para
+	 * editar/visualizar Transações.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 
-			listTipoTransacao = new ArrayList<SelectItem>(0);
+	private void consultTipoTransacaoEditar() throws SQLException {
+		TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
+		List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
+				.consultAllForView();
 
-			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
-				listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
-						tipoTransacaoT.getNome()));
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		listTipoTransacao = new ArrayList<SelectItem>(0);
+
+		for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
+			listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
+					tipoTransacaoT.getNome()));
 		}
 	}
 
-	private void consultTipoTransacaoEntrada() {
-		try {
-			TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
-			List<TipoTransacaoT> _listTipoTransacao = tipoTransacaoDao
-					.consultAllForView();
+	private void consultAcervo() throws SQLException {
+		AcervoDao acervoDao = new AcervoDao();
 
-			listTipoTransacao = new ArrayList<SelectItem>(0);
+		List<AcervoT> _listAcervo = acervoDao.consultAllForView();
 
-			for (TipoTransacaoT tipoTransacaoT : _listTipoTransacao) {
-				listTipoTransacao.add(new SelectItem(tipoTransacaoT.getId(),
-						tipoTransacaoT.getNome()));
+		listAcervo = new ArrayList<SelectItem>(0);
+		hashAcervo = new HashMap<Integer, String>(0);
+
+		for (AcervoT acervoT : _listAcervo) {
+			if (acervoT.getAtivo() == 1) {
+				listAcervo.add(new SelectItem(acervoT.getId(), acervoT
+						.getNome()));
 			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
-	}
 
-	private void consultAcervo() {
-		try {
-			AcervoDao acervoDao = new AcervoDao();
-
-			List<AcervoT> _listAcervo = acervoDao.consultAllForView();
-
-			listAcervo = new ArrayList<SelectItem>(0);
-			hashAcervo = new HashMap<Integer, String>(0);
-
-			for (AcervoT acervoT : _listAcervo) {
-				if (acervoT.getAtivo() == 1) {
-					listAcervo.add(new SelectItem(acervoT.getId(), acervoT
-							.getNome()));
-				}
-
-				hashAcervo.put(acervoT.getId(), acervoT.getNome());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+			hashAcervo.put(acervoT.getId(), acervoT.getNome());
 		}
 	}
 
@@ -172,7 +166,13 @@ public class TransacaoBean extends ControlArtBean {
 
 		clearAction();
 
-		consultTipoTransacaoForInsert();
+		try {
+			consultTipoTransacaoNovo();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	public void definirEditar() {
@@ -181,13 +181,17 @@ public class TransacaoBean extends ControlArtBean {
 		try {
 			transacao = (TransacaoT) ((TransacaoT) getFacesObject("listaTransacao"))
 					.clone();
+
+			consultTipoTransacaoEditar();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
-
-		consultTipoTransacaoEntrada();
 	}
 
 	public void saveAction() {

@@ -39,10 +39,16 @@ public class UsuariosBean extends ControlArtBean implements
 	public UsuariosBean() {
 		listUsuarios = new ArrayList<UsuarioT>(0);
 
-		clearAction();
-		consultAction();
-		consultTipoUsuario();
-		consultPessoas();
+		try {
+			clearAction();
+			consultAction();
+			consultTipoUsuario();
+			consultPessoas();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -51,97 +57,88 @@ public class UsuariosBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void consultAction() {
-		try {
-			UsuariosDao usuariosDao = new UsuariosDao();
+	public void consultAction() throws SQLException {
+		UsuariosDao usuariosDao = new UsuariosDao();
 
-			listUsuarios = usuariosDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		listUsuarios = usuariosDao.consultAll();
+	}
+
+	private void consultTipoUsuario() throws SQLException {
+		TipoUsuarioDao tipoUsuarioDao = new TipoUsuarioDao();
+
+		List<TipoUsuarioT> _listTipoUsuarioT = tipoUsuarioDao.consultAll();
+
+		listTipoUsuario = new ArrayList<SelectItem>(0);
+		hashTipoUsuario = new HashMap<Integer, String>(0);
+
+		for (TipoUsuarioT tipoUsuarioT : _listTipoUsuarioT) {
+			if (tipoUsuarioT.getSituacao() == 1) {
+				listTipoUsuario.add(new SelectItem(tipoUsuarioT
+						.getIdTipoUsuario(), tipoUsuarioT.getNmTipoUsuario()));
+			}
+
+			hashTipoUsuario.put(tipoUsuarioT.getIdTipoUsuario(),
+					tipoUsuarioT.getNmTipoUsuario());
 		}
 	}
 
-	private void consultTipoUsuario() {
-		try {
-			TipoUsuarioDao tipoUsuarioDao = new TipoUsuarioDao();
+	private void consultPessoas() throws SQLException {
+		PessoaDao pessoaDao = new PessoaDao();
 
-			List<TipoUsuarioT> _listTipoUsuarioT = tipoUsuarioDao.consultAll();
+		List<PessoaT> _listPessoaT = pessoaDao.consultAllForView();
 
-			listTipoUsuario = new ArrayList<SelectItem>(0);
-			hashTipoUsuario = new HashMap<Integer, String>(0);
+		hashPessoas = new HashMap<Integer, String>(0);
 
-			for (TipoUsuarioT tipoUsuarioT : _listTipoUsuarioT) {
-				if (tipoUsuarioT.getSituacao() == 1) {
-					listTipoUsuario.add(new SelectItem(tipoUsuarioT
-							.getIdTipoUsuario(), tipoUsuarioT
-							.getNmTipoUsuario()));
-				}
-
-				hashTipoUsuario.put(tipoUsuarioT.getIdTipoUsuario(),
-						tipoUsuarioT.getNmTipoUsuario());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		for (PessoaT pessoaT : _listPessoaT) {
+			hashPessoas.put(pessoaT.getIdPessoa(), pessoaT.getNmPessoa());
 		}
 	}
 
-	private void consultPessoas() {
-		try {
-			PessoaDao pessoaDao = new PessoaDao();
+	/*
+	 * Objetivo: Método que preenche combo com Pessoas que não possuem Usuário.
+	 * Útil para criar novos Usuários.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 
-			List<PessoaT> _listPessoaT = pessoaDao.consultAllForView();
+	private void consultPessoaNovo() throws SQLException {
+		PessoaDao pessoaDao = new PessoaDao();
 
-			hashPessoas = new HashMap<Integer, String>(0);
+		List<PessoaT> _listPessoas = pessoaDao.consultAllNoUsers();
 
-			for (PessoaT pessoaT : _listPessoaT) {
-				hashPessoas.put(pessoaT.getIdPessoa(), pessoaT.getNmPessoa());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		listPessoas = new ArrayList<SelectItem>(0);
+
+		for (PessoaT pessoaT : _listPessoas) {
+			listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
+					.getNmPessoa()));
 		}
 	}
 
-	private void consultPessoaNaoUsuario() {
-		try {
-			PessoaDao pessoaDao = new PessoaDao();
+	/*
+	 * Objetivo: Método que preenche combo com Pessoas que possuem Usuário. Útil
+	 * para editar Usuários.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 */
 
-			List<PessoaT> _listPessoas = pessoaDao.consultAllNoUsers();
+	private void consultPessoaEditar() throws SQLException {
+		PessoaDao pessoaDao = new PessoaDao();
 
-			listPessoas = new ArrayList<SelectItem>(0);
+		List<PessoaT> _listPessoas = pessoaDao.consultAllUsers();
 
-			for (PessoaT pessoaT : _listPessoas) {
-				listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
-						.getNmPessoa()));
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
-	}
+		listPessoas = new ArrayList<SelectItem>(0);
 
-	private void consultPessoaUsuario() {
-		try {
-			PessoaDao pessoaDao = new PessoaDao();
-
-			List<PessoaT> _listPessoas = pessoaDao.consultAllUsers();
-
-			listPessoas = new ArrayList<SelectItem>(0);
-
-			for (PessoaT pessoaT : _listPessoas) {
-				listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
-						.getNmPessoa()));
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+		for (PessoaT pessoaT : _listPessoas) {
+			listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
+					.getNmPessoa()));
 		}
 	}
 
@@ -153,7 +150,13 @@ public class UsuariosBean extends ControlArtBean implements
 
 		usuario.setSituacao(1);
 
-		consultPessoaNaoUsuario();
+		try {
+			consultPessoaNovo();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -164,9 +167,13 @@ public class UsuariosBean extends ControlArtBean implements
 			usuario = (UsuarioT) ((UsuarioT) getFacesObject("listaUsuarios"))
 					.clone();
 
-			consultPessoaUsuario();
+			consultPessoaEditar();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
 		}
@@ -198,12 +205,12 @@ public class UsuariosBean extends ControlArtBean implements
 						getObjectFromBundle("msNovaSenhaConfirmDiferem"), null,
 						BeanUtils.SEVERITY_ERROR);
 			}
-		} catch (NoSuchAlgorithmException nsae) {
-			nsae.printStackTrace();
+		} catch (NoSuchAlgorithmException nsa) {
+			nsa.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -227,12 +234,12 @@ public class UsuariosBean extends ControlArtBean implements
 						getObjectFromBundle("msNovaSenhaConfirmDiferem"), null,
 						BeanUtils.SEVERITY_ERROR);
 			}
-		} catch (NoSuchAlgorithmException nsae) {
-			nsae.printStackTrace();
+		} catch (NoSuchAlgorithmException nsa) {
+			nsa.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -248,8 +255,8 @@ public class UsuariosBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 

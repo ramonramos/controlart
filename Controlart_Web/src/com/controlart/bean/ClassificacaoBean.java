@@ -26,8 +26,14 @@ public class ClassificacaoBean extends ControlArtBean implements
 	public ClassificacaoBean() {
 		listClassificacao = new ArrayList<ClassificacaoT>(0);
 
-		clearAction();
-		consultAction();
+		try {
+			clearAction();
+			consultAction();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -36,16 +42,10 @@ public class ClassificacaoBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void consultAction() {
-		try {
-			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
+	public void consultAction() throws SQLException {
+		ClassificacaoDao classificacaoDao = new ClassificacaoDao();
 
-			listClassificacao = classificacaoDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
+		listClassificacao = classificacaoDao.consultAll();
 	}
 
 	@Override
@@ -91,8 +91,8 @@ public class ClassificacaoBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -106,8 +106,8 @@ public class ClassificacaoBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -123,8 +123,8 @@ public class ClassificacaoBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 

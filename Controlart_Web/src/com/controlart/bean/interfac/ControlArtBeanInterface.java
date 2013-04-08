@@ -1,10 +1,12 @@
 package com.controlart.bean.interfac;
 
+import java.sql.SQLException;
+
 public interface ControlArtBeanInterface {
 
 	public void clearAction();
 
-	public void consultAction();
+	public void consultAction() throws SQLException;
 
 	public void definirNovo();
 

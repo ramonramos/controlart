@@ -26,8 +26,14 @@ public class TipoPessoaBean extends ControlArtBean implements
 	public TipoPessoaBean() {
 		listTipoPessoa = new ArrayList<TipoPessoaT>(0);
 
-		clearAction();
-		consultAction();
+		try {
+			clearAction();
+			consultAction();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -36,15 +42,10 @@ public class TipoPessoaBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void consultAction() {
-		try {
-			TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
-			listTipoPessoa = tipoPessoaDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
+	public void consultAction() throws SQLException {
+		TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
+
+		listTipoPessoa = tipoPessoaDao.consultAll();
 	}
 
 	@Override
@@ -90,8 +91,8 @@ public class TipoPessoaBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -105,8 +106,8 @@ public class TipoPessoaBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -122,8 +123,8 @@ public class TipoPessoaBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 

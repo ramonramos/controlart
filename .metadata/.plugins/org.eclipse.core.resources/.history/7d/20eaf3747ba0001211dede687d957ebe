@@ -1,0 +1,221 @@
+package com.controlart.bean;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
+
+import com.controlart.bean.interfac.ControlArtBeanInterface;
+import com.controlart.bean.utils.BeanUtils;
+import com.controlart.dao.AcervoDao;
+import com.controlart.dao.PessoaDao;
+import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.PessoaT;
+
+@ManagedBean(name = "acervoBean")
+@ViewScoped
+public class AcervoBean extends ControlArtBean implements
+		ControlArtBeanInterface {
+	private static final long serialVersionUID = 1L;
+
+	private AcervoT acervo;
+	private List<AcervoT> listAcervo;
+	private boolean novoRegistro;
+
+	private List<SelectItem> listPessoa;
+
+	private HashMap<Integer, String> hashPessoa;
+
+	public AcervoBean() {
+		listAcervo = new ArrayList<AcervoT>(0);
+
+		try {
+			clearAction();
+			consultAction();
+			consultPessoas();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		}
+	}
+
+	@Override
+	public void clearAction() {
+		acervo = new AcervoT();
+	}
+
+	@Override
+	public void consultAction() {
+		try {
+			AcervoDao acervoDao = new AcervoDao();
+
+			listAcervo = acervoDao.consultAll();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	private void consultPessoas() {
+		try {
+			PessoaDao pessoaDao = new PessoaDao();
+
+			List<PessoaT> _listPessoa = pessoaDao.consultAllForView();
+
+			listPessoa = new ArrayList<SelectItem>(0);
+			hashPessoa = new HashMap<Integer, String>(0);
+
+			for (PessoaT pessoaT : _listPessoa) {
+				if (pessoaT.getSituacao() == 1) {
+					listPessoa.add(new SelectItem(pessoaT.getIdPessoa(),
+							pessoaT.getNmPessoa()));
+				}
+
+				hashPessoa.put(pessoaT.getIdPessoa(), pessoaT.getNmPessoa());
+			}
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	@Override
+	public void definirNovo() {
+		novoRegistro = true;
+
+		clearAction();
+
+		acervo.setAtivo(1);
+	}
+
+	@Override
+	public void definirEditar() {
+		novoRegistro = false;
+
+		try {
+			acervo = (AcervoT) ((AcervoT) getFacesObject("listaAcervo"))
+					.clone();
+		} catch (CloneNotSupportedException cns) {
+			cns.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
+	}
+
+	@Override
+	public void saveAction() {
+		if (novoRegistro) {
+			insertAction();
+		} else {
+			updateAction();
+		}
+	}
+
+	@Override
+	public void insertAction() {
+		try {
+			AcervoDao acervoDao = new AcervoDao();
+			acervoDao.insert(acervo);
+
+			definirNovo();
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateAction() {
+		try {
+			AcervoDao acervoDao = new AcervoDao();
+			acervoDao.update(acervo);
+
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void inactivateAction() {
+		acervo = (AcervoT) getFacesObject("listaAcervo");
+
+		try {
+			AcervoDao acervoDao = new AcervoDao();
+			acervoDao.inactivate(acervo);
+
+			consultAction();
+
+			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
+					BeanUtils.SEVERITY_INFO);
+		} catch (SQLException sqlEx) {
+			sqlEx.printStackTrace();
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado por Converters para Transformar
+	 * Identificadores (id's) em representações String (nomes).
+	 * 
+	 * @param key.
+	 * 
+	 * @return String.
+	 * 
+	 * @throws
+	 */
+
+	public String getPessoa(int key) {
+		return hashPessoa.get(key);
+	}
+
+	public AcervoT getAcervo() {
+		return acervo;
+	}
+
+	public void setAcervo(AcervoT acervo) {
+		this.acervo = acervo;
+	}
+
+	public List<AcervoT> getListAcervo() {
+		return listAcervo;
+	}
+
+	public void setListAcervo(List<AcervoT> listAcervo) {
+		this.listAcervo = listAcervo;
+	}
+
+	public boolean isNovoRegistro() {
+		return novoRegistro;
+	}
+
+	public void setNovoRegistro(boolean novoRegistro) {
+		this.novoRegistro = novoRegistro;
+	}
+
+	public List<SelectItem> getListPessoa() {
+		return listPessoa;
+	}
+
+	public void setListPessoa(List<SelectItem> listPessoa) {
+		this.listPessoa = listPessoa;
+	}
+
+	public HashMap<Integer, String> getHashPessoa() {
+		return hashPessoa;
+	}
+
+	public void setHashPessoa(HashMap<Integer, String> hashPessoa) {
+		this.hashPessoa = hashPessoa;
+	}
+}

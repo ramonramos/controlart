@@ -39,10 +39,16 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	public PecaBean() {
 		listPeca = new ArrayList<PecaT>(0);
 
-		clearAction();
-		consultAction();
-		consultAcervo();
-		consultClassificacao();
+		try {
+			clearAction();
+			consultAction();
+			consultAcervo();
+			consultClassificacao();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -51,64 +57,47 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	}
 
 	@Override
-	public void consultAction() {
-		try {
-			PecaDao pecaDao = new PecaDao();
-			listPeca = pecaDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+	public void consultAction() throws SQLException {
+		PecaDao pecaDao = new PecaDao();
+
+		listPeca = pecaDao.consultAll();
+	}
+
+	private void consultAcervo() throws SQLException {
+		AcervoDao acervoDao = new AcervoDao();
+
+		List<AcervoT> _listAcervo = acervoDao.consultAllForView();
+
+		listAcervo = new ArrayList<SelectItem>(0);
+		hashAcervo = new HashMap<Integer, String>(0);
+
+		for (AcervoT acervoT : _listAcervo) {
+			if (acervoT.getAtivo() == 1) {
+				listAcervo.add(new SelectItem(acervoT.getId(), acervoT
+						.getNome()));
+			}
+
+			hashAcervo.put(acervoT.getId(), acervoT.getNome());
 		}
 	}
 
-	private void consultAcervo() {
-		try {
-			AcervoDao acervoDao = new AcervoDao();
+	private void consultClassificacao() throws SQLException {
+		ClassificacaoDao classificacaoDao = new ClassificacaoDao();
 
-			List<AcervoT> _listAcervo = acervoDao.consultAllForView();
+		List<ClassificacaoT> _listClassificacao = classificacaoDao
+				.consultAllForView();
 
-			listAcervo = new ArrayList<SelectItem>(0);
-			hashAcervo = new HashMap<Integer, String>(0);
+		listClassificacao = new ArrayList<SelectItem>(0);
+		hashClassificacao = new HashMap<Integer, String>(0);
 
-			for (AcervoT acervoT : _listAcervo) {
-				if (acervoT.getAtivo() == 1) {
-					listAcervo.add(new SelectItem(acervoT.getId(), acervoT
-							.getNome()));
-				}
-
-				hashAcervo.put(acervoT.getId(), acervoT.getNome());
+		for (ClassificacaoT classificacaoT : _listClassificacao) {
+			if (classificacaoT.getAtivo() == 1) {
+				listClassificacao.add(new SelectItem(classificacaoT.getId(),
+						classificacaoT.getNome()));
 			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
-	}
 
-	private void consultClassificacao() {
-		try {
-			ClassificacaoDao classificacaoDao = new ClassificacaoDao();
-
-			List<ClassificacaoT> _listClassificacao = classificacaoDao
-					.consultAllForView();
-
-			listClassificacao = new ArrayList<SelectItem>(0);
-			hashClassificacao = new HashMap<Integer, String>(0);
-
-			for (ClassificacaoT classificacaoT : _listClassificacao) {
-				if (classificacaoT.getAtivo() == 1) {
-					listClassificacao.add(new SelectItem(
-							classificacaoT.getId(), classificacaoT.getNome()));
-				}
-
-				hashClassificacao.put(classificacaoT.getId(),
-						classificacaoT.getNome());
-			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+			hashClassificacao.put(classificacaoT.getId(),
+					classificacaoT.getNome());
 		}
 	}
 
@@ -163,8 +152,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -180,8 +169,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -197,8 +186,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 

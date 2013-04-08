@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.TipoUsuarioT"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TipoUsuarioDao"/>
 <fullyQualifiedTypeName name="com.controlart.dao.factory.ConnFactory"/>
@@ -57,7 +56,8 @@
 <fullyQualifiedTypeName name="com.controlart.dao.AcervoDao"/>
 <fullyQualifiedTypeName name="com.controlart.dao.PecaDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
-<fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
+<fullyQualifiedTypeName name="com.sun.javadoc.ThrowsTag"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
 </qualifiedTypeNameHistroy>

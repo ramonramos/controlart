@@ -36,9 +36,15 @@ public class PessoaBean extends ControlArtBean implements
 	public PessoaBean() {
 		listPessoa = new ArrayList<PessoaT>(0);
 
-		clearAction();
-		consultAction();
-		consultTipoPessoa();
+		try {
+			clearAction();
+			consultAction();
+			consultTipoPessoa();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -47,41 +53,29 @@ public class PessoaBean extends ControlArtBean implements
 	}
 
 	@Override
-	public void consultAction() {
-		try {
-			PessoaDao pessoaDao = new PessoaDao();
+	public void consultAction() throws SQLException {
+		PessoaDao pessoaDao = new PessoaDao();
 
-			listPessoa = pessoaDao.consultAll();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		}
+		listPessoa = pessoaDao.consultAll();
 	}
 
-	public void consultTipoPessoa() {
-		try {
-			TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
+	public void consultTipoPessoa() throws SQLException {
+		TipoPessoaDao tipoPessoaDao = new TipoPessoaDao();
 
-			List<TipoPessoaT> _listTipoPessoa = tipoPessoaDao
-					.consultAllForView();
+		List<TipoPessoaT> _listTipoPessoa = tipoPessoaDao.consultAllForView();
 
-			listTipoPessoa = new ArrayList<SelectItem>(0);
-			hashTipoPessoa = new HashMap<Integer, String>(0);
+		listTipoPessoa = new ArrayList<SelectItem>(0);
+		hashTipoPessoa = new HashMap<Integer, String>(0);
 
-			for (TipoPessoaT tipoPessoaT : _listTipoPessoa) {
-				if (tipoPessoaT.getSituacao() == 1) {
-					listTipoPessoa.add(new SelectItem(tipoPessoaT
-							.getIdTipoPessoa(), tipoPessoaT.getNmTipoPessoa()));
-				}
-
-				hashTipoPessoa.put(tipoPessoaT.getIdTipoPessoa(),
-						tipoPessoaT.getNmTipoPessoa());
+		for (TipoPessoaT tipoPessoaT : _listTipoPessoa) {
+			if (tipoPessoaT.getSituacao() == 1) {
+				listTipoPessoa.add(new SelectItem(
+						tipoPessoaT.getIdTipoPessoa(), tipoPessoaT
+								.getNmTipoPessoa()));
 			}
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+
+			hashTipoPessoa.put(tipoPessoaT.getIdTipoPessoa(),
+					tipoPessoaT.getNmTipoPessoa());
 		}
 	}
 
@@ -157,8 +151,8 @@ public class PessoaBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
@@ -197,8 +191,8 @@ public class PessoaBean extends ControlArtBean implements
 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
-		} catch (SQLException sqlEx) {
-			sqlEx.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
 		}
 	}
 
