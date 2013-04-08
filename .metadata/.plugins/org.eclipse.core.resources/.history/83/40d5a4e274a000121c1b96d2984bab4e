@@ -70,8 +70,7 @@
 				</p:selectOneMenu>
 				<p:message for="acervoOrigem" />
 
-				<h:outputLabel
-					rendered="#{(transacaoBean.transacao.tipo ne 4) and (transacaoBean.transacao.tipo ne 6)}"
+				<h:outputLabel rendered="#{transacaoBean.transacao.tipo ne 6}"
 					value="#{msgs.labelDataTransacao}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
@@ -79,11 +78,9 @@
 					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 					id="dataTransacao" locale="#{localeBean.locale}"
 					pattern="dd/MM/yyyy" readonlyInput="true"
-					rendered="#{(transacaoBean.transacao.tipo ne 4) and (transacaoBean.transacao.tipo ne 6)}"
-					required="true" showOn="both"
-					value="#{transacaoBean.transacao.dataTransacao}" />
-				<p:message
-					rendered="#{(transacaoBean.transacao.tipo ne 4) and (transacaoBean.transacao.tipo ne 6)}"
+					rendered="#{transacaoBean.transacao.tipo ne 6}" required="true"
+					showOn="both" value="#{transacaoBean.transacao.dataTransacao}" />
+				<p:message rendered="#{transacaoBean.transacao.tipo ne 6}"
 					for="dataTransacao" />
 
 				<h:panelGroup id="labelDtPrev">
@@ -108,7 +105,7 @@
 				</h:panelGroup>
 
 				<h:outputLabel
-					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6) or (transacaoBean.transacao.tipo eq 4))}"
+					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6))}"
 					value="#{msgs.labelDataDevolucao}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
@@ -116,10 +113,10 @@
 					disabled="#{((not transacaoBean.novoRegistro) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 					id="dataDevolucao" locale="#{localeBean.locale}"
 					pattern="dd/MM/yyyy" readonlyInput="true"
-					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6)  or (transacaoBean.transacao.tipo eq 4))}"
+					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6))}"
 					showOn="both" value="#{transacaoBean.transacao.dataDevolucao}" />
 				<h:outputLabel
-					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6) or (transacaoBean.transacao.tipo eq 4))}"
+					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6))}"
 					value="" />
 
 				<h:panelGroup id="labelPreco">
@@ -150,7 +147,7 @@
 			</p:panelGrid>
 
 			<p:commandButton action="#{transacaoBean.saveAction}"
-				disabled="#{(((not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo ne 5) and (transacaoBean.transacao.tipo ne 3))) or (((transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 3)) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2))}"
+				disabled="#{(((not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo ne 5))) or ((transacaoBean.transacao.tipo eq 5) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2))}"
 				styleClass="botao"
 				update=":formTransacao:dataTableTransacao, :formModalTransacao"
 				value="#{msgs.labelSalvar}" />
