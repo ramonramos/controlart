@@ -38,14 +38,14 @@
 				</p:selectBooleanCheckbox>
 				<h:outputLabel rendered="#{pessoaBean.novoRegistro}" value="" />
 
-				<h:panelGroup id="labelNomeAcervo"
+				<h:panelGroup id="labelNomeAcervo" layout="block"
 					rendered="#{pessoaBean.novoRegistro}">
 					<h:outputLabel rendered="#{pessoaBean.pessoa.possuiAcervo}"
 						value="#{msgs.labelNomeAcervo}">
 						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 					</h:outputLabel>
 				</h:panelGroup>
-				<h:panelGroup id="inputNomeAcervo"
+				<h:panelGroup id="inputNomeAcervo" layout="block"
 					rendered="#{pessoaBean.novoRegistro}">
 					<p:inputText rendered="#{pessoaBean.pessoa.possuiAcervo}"
 						disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
@@ -54,7 +54,7 @@
 						<f:validateLength minimum="4" maximum="100" />
 					</p:inputText>
 				</h:panelGroup>
-				<h:panelGroup id="messageNomeAcervo"
+				<h:panelGroup id="messageNomeAcervo" layout="block"
 					rendered="#{pessoaBean.novoRegistro}">
 					<p:message rendered="#{pessoaBean.pessoa.possuiAcervo}"
 						for="nomeAcervo" />
@@ -66,7 +66,7 @@
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}" id="nome"
 					required="true" value="#{pessoaBean.pessoa.nmPessoa}">
-					<f:validateLength minimum="4" maximum="150" />
+					<f:validateLength minimum="3" maximum="150" />
 				</p:inputText>
 				<p:message for="nome" />
 
@@ -90,7 +90,7 @@
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}" id="rua"
 					required="true" value="#{pessoaBean.pessoa.nmRua}">
-					<f:validateLength minimum="4" maximum="150" />
+					<f:validateLength minimum="2" maximum="150" />
 				</p:inputText>
 				<p:message for="rua" />
 
@@ -110,7 +110,7 @@
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="bairro" required="true" value="#{pessoaBean.pessoa.nmBairro}">
-					<f:validateLength minimum="4" maximum="100" />
+					<f:validateLength minimum="2" maximum="100" />
 				</p:inputText>
 				<p:message for="bairro" />
 
@@ -120,7 +120,7 @@
 				<p:inputText
 					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					id="cidade" required="true" value="#{pessoaBean.pessoa.nmCidade}">
-					<f:validateLength minimum="4" maximum="100" />
+					<f:validateLength minimum="2" maximum="100" />
 				</p:inputText>
 				<p:message for="cidade" />
 

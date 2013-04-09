@@ -45,7 +45,7 @@
 				</h:outputLabel>
 				<p:inputText id="login" disabled="#{not usuariosBean.novoRegistro}"
 					required="true" value="#{usuariosBean.usuario.dsLogin}">
-					<f:validateLength minimum="4" maximum="50" />
+					<f:validateLength minimum="3" maximum="50" />
 				</p:inputText>
 				<p:message for="login" />
 

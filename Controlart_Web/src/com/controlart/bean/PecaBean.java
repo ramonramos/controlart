@@ -1,5 +1,6 @@
 package com.controlart.bean;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +110,13 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 		peca.setAtivo(1);
 
-		imagemBean = new ImagemBean();
+		try {
+			imagemBean = new ImagemBean();
+		} catch (IOException io) {
+			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
+		}
 	}
 
 	@Override
@@ -118,15 +125,23 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 
 		try {
 			peca = (PecaT) ((PecaT) getFacesObject("listaPeca")).clone();
+
+			imagemBean = new ImagemBean();
+			imagemBean.setIdPeca(peca.getId());
+			imagemBean.consultAction();
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+					BeanUtils.SEVERITY_FATAL);
+		} catch (IOException io) {
+			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
-
-		imagemBean = new ImagemBean();
-		imagemBean.setIdPeca(peca.getId());
-		imagemBean.consultAction();
 	}
 
 	@Override
@@ -154,6 +169,10 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+		} catch (IOException io) {
+			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -171,6 +190,10 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+		} catch (IOException io) {
+			io.printStackTrace();
+			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
+					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 

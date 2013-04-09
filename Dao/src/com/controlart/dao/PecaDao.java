@@ -16,6 +16,7 @@ public class PecaDao {
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_peca tp ORDER BY tp.nm_peca";
+	private static final String SQL_CONSULT_ALL_NOT_IN_ACERVO = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp WHERE tp.id_acervo_atual <> ? AND tp.in_ativo = 1 ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_LAST_ID = "SELECT MAX(tp.id_peca) as id_peca FROM tb_peca tp";
 	private static final String SQL_CONSULT_ACERVO = "SELECT tp.id_acervo_atual as id_acervo_atual FROM tb_peca tp WHERE tp.id_peca = ?";
 	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -44,6 +45,35 @@ public class PecaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar Peças (PecaT) que não fazem
+	 * parte de um dado Acervo.
+	 * 
+	 * @param pecaT (acervo).
+	 * 
+	 * @return List<PecaT>. Obs: Apenas as informações utilizadas por Converters
+	 * e SelecItems serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<PecaT> consultAllNotInAcervo(PecaT pecaT) throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_NOT_IN_ACERVO);
+			pStmt.setObject(1, pecaT.getAcervo());
 
 			rs = pStmt.executeQuery();
 
@@ -101,7 +131,7 @@ public class PecaDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectTC(rs);
+			return resultsetToObjectC(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 		}
@@ -129,7 +159,7 @@ public class PecaDao {
 
 			rs = pStmt.executeQuery();
 
-			return resultsetToObjectTD(rs);
+			return resultsetToObjectD(rs);
 		} finally {
 			DaoUtils.closePreparedStatement(pStmt);
 			DaoUtils.closeConnection(connection);
@@ -220,7 +250,7 @@ public class PecaDao {
 	 * @throws SQLException.
 	 */
 
-	private int resultsetToObjectTC(ResultSet rs) throws SQLException {
+	private int resultsetToObjectC(ResultSet rs) throws SQLException {
 		PecaT pecaT = new PecaT();
 
 		while (rs.next()) {
@@ -243,7 +273,7 @@ public class PecaDao {
 	 * @throws SQLException.
 	 */
 
-	private int resultsetToObjectTD(ResultSet rs) throws SQLException {
+	private int resultsetToObjectD(ResultSet rs) throws SQLException {
 		PecaT pecaT = new PecaT();
 
 		while (rs.next()) {

@@ -26,6 +26,8 @@
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
 						itemValue="#{null}" />
 					<f:selectItems value="#{transacaoBean.listAcervo}" />
+					<p:ajax event="change" listener="#{transacaoBean.updatePeca}"
+						update="growl, peca, acervoOrigem" />
 				</p:selectOneMenu>
 				<p:message for="acervoDestino" />
 
@@ -86,14 +88,14 @@
 					rendered="#{(transacaoBean.transacao.tipo ne 4) and (transacaoBean.transacao.tipo ne 6)}"
 					for="dataTransacao" />
 
-				<h:panelGroup id="labelDtPrev">
+				<h:panelGroup id="labelDtPrev" layout="block">
 					<h:outputLabel
 						rendered="#{(transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5)}"
 						value="#{msgs.labelDataPrevisao}">
 						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 					</h:outputLabel>
 				</h:panelGroup>
-				<h:panelGroup id="calenDtPrev">
+				<h:panelGroup id="calenDtPrev" layout="block">
 					<p:calendar
 						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 						id="dataPrevisao" locale="#{localeBean.locale}"
@@ -101,7 +103,7 @@
 						rendered="#{(transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5)}"
 						showOn="both" value="#{transacaoBean.transacao.dataPrevisao}" />
 				</h:panelGroup>
-				<h:panelGroup id="empLabDtPrev">
+				<h:panelGroup id="empLabDtPrev" layout="block">
 					<h:outputLabel
 						rendered="#{(transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5)}"
 						value="" />
@@ -122,19 +124,19 @@
 					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6) or (transacaoBean.transacao.tipo eq 4))}"
 					value="" />
 
-				<h:panelGroup id="labelPreco">
+				<h:panelGroup id="labelPreco" layout="block">
 					<h:outputLabel rendered="#{transacaoBean.transacao.tipo eq 1}"
 						value="#{msgs.labelPreco}">
 						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 					</h:outputLabel>
 				</h:panelGroup>
-				<h:panelGroup id="inputPreco">
+				<h:panelGroup id="inputPreco" layout="block">
 					<p:inputText
 						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 						id="preco" rendered="#{transacaoBean.transacao.tipo eq 1}"
 						value="#{transacaoBean.transacao.preco}" />
 				</h:panelGroup>
-				<h:panelGroup id="empLabPreco">
+				<h:panelGroup id="empLabPreco" layout="block">
 					<h:outputLabel rendered="#{transacaoBean.transacao.tipo eq 1}"
 						value="" />
 				</h:panelGroup>

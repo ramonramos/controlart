@@ -105,7 +105,7 @@
 						<p:inputText
 							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}" id="nome"
 							required="true" value="#{pecaBean.peca.nome}">
-							<f:validateLength minimum="4" maximum="100" />
+							<f:validateLength minimum="2" maximum="100" />
 						</p:inputText>
 						<p:message for="nome" />
 
@@ -121,7 +121,7 @@
 						<p:inputText
 							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
 							id="autor" required="true" value="#{pecaBean.peca.autor}">
-							<f:validateLength minimum="4" maximum="100" />
+							<f:validateLength minimum="2" maximum="100" />
 						</p:inputText>
 						<p:message for="autor" />
 

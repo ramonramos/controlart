@@ -15,7 +15,7 @@ import com.controlart.transfer.TransacaoT;
 public class TransacaoDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL = "SELECT tt.* FROM tb_transacao tt JOIN tb_tipo_transacao ttt ON tt.id_tipo_transacao = ttt.id_tipo_transacao WHERE ttt.tp_operacao = 'E' ORDER BY tt.dt_transacao DESC";
+	private static final String SQL_CONSULT_ALL = "SELECT tt.* FROM tb_transacao tt JOIN tb_tipo_transacao ttt ON tt.id_tipo_transacao = ttt.id_tipo_transacao WHERE ttt.tp_operacao = 'E' ORDER BY tt.dt_transacao DESC, tt.id_transacao DESC";
 	private static final String SQL_INSERT = "INSERT INTO tb_transacao (id_peca, id_tipo_transacao, id_acervo_origem, id_acervo_destino, dt_transacao, dt_previsao, dt_devolucao, vl_preco, in_online) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_transacao SET dt_devolucao = ? WHERE id_transacao = ?";
 

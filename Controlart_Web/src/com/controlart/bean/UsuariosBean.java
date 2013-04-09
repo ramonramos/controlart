@@ -210,7 +210,7 @@ public class UsuariosBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 
@@ -239,7 +239,7 @@ public class UsuariosBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
 					BeanUtils.SEVERITY_FATAL);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 
@@ -256,7 +256,7 @@ public class UsuariosBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 

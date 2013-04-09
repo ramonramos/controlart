@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.controlart.transfer.TipoUsuarioT"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TipoUsuarioDao"/>
 <fullyQualifiedTypeName name="com.controlart.dao.factory.ConnFactory"/>
 <fullyQualifiedTypeName name="com.controlart.utils.ControlArtUtils"/>
@@ -15,7 +14,6 @@
 <fullyQualifiedTypeName name="java.lang.CloneNotSupportedException"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TipoPessoaDao"/>
 <fullyQualifiedTypeName name="com.controlart.dao.utils.DaoUtils"/>
-<fullyQualifiedTypeName name="com.controlart.bean.utils.BeanUtils"/>
 <fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.controlart.bean.interfac.ControlArtBeanInterface"/>
@@ -49,7 +47,6 @@
 <fullyQualifiedTypeName name="javax.faces.convert.Converter"/>
 <fullyQualifiedTypeName name="com.controlart.dao.ImagemDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.ImagemT"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
 <fullyQualifiedTypeName name="com.controlart.bean.AlterarSenhaBean"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.AcervoT"/>
@@ -57,7 +54,10 @@
 <fullyQualifiedTypeName name="com.controlart.dao.PecaDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.PecaT"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
 <fullyQualifiedTypeName name="com.sun.javadoc.ThrowsTag"/>
+<fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="com.controlart.bean.utils.BeanUtils"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

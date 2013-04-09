@@ -1,6 +1,7 @@
 package com.controlart.bean;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -76,6 +77,27 @@ public class ControlArtBean implements Serializable {
 		ControlArtBundle text = new ControlArtBundle();
 
 		return text.getString(key);
+	}
+
+	protected final void processSQLError(SQLException sql) {
+		String message = null;
+
+		sql.printStackTrace();
+		if (sql.getMessage() != null) {
+			message = sql.getMessage().replace("ERROR: ", "");
+		} else {
+			if (sql.getErrorCode() != 0) {
+				message = getObjectFromBundle("" + sql.getErrorCode());
+
+				if (message == null || message.isEmpty()) {
+					message = getObjectFromBundle("msErroGenerico");
+				}
+			} else {
+				message = getObjectFromBundle("msErroGenerico");
+			}
+		}
+
+		addFacesMessage(message, null, BeanUtils.SEVERITY_ERROR);
 	}
 
 	public UsuarioT getUsuarioLogado() {

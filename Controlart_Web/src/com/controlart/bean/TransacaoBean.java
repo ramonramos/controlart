@@ -277,6 +277,46 @@ public class TransacaoBean extends ControlArtBean {
 	}
 
 	/*
+	 * Objetivo: Método utilizado para atualizar as Peças disponíveis para uma
+	 * Transação, dado a escolha de um Acervo Destino.
+	 * 
+	 * @param
+	 * 
+	 * @return
+	 * 
+	 * @throws
+	 */
+
+	public void updatePeca() {
+		if (transacao.getAcervoDestino() != 0) {
+			PecaT pecaT = new PecaT();
+			pecaT.setAcervo(transacao.getAcervoDestino());
+
+			try {
+				PecaDao pecaDao = new PecaDao();
+				List<PecaT> _listPeca = pecaDao.consultAllNotInAcervo(pecaT);
+
+				listPeca.clear();
+
+				for (PecaT _pecaT : _listPeca) {
+					listPeca.add(new SelectItem(_pecaT.getId(), _pecaT
+							.getNome()));
+				}
+
+				transacao.setPeca(0);
+				transacao.setAcervoOrigem(0);
+			} catch (SQLException sql) {
+				sql.printStackTrace();
+				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
+						BeanUtils.SEVERITY_FATAL);
+			}
+		} else {
+			transacao.setPeca(0);
+			transacao.setAcervoOrigem(0);
+		}
+	}
+
+	/*
 	 * Objetivo: Método utilizado para atualizar o Acervo Origem de uma
 	 * Transação, dado a escolha de uma Peça.
 	 * 

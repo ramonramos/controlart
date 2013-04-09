@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import com.controlart.bean.utils.BeanUtils;
 import com.controlart.dao.ImagemDao;
 import com.controlart.transfer.ImagemT;
 
@@ -32,7 +31,7 @@ public class ImagemBean extends ControlArtBean {
 	private int idPeca;
 	private List<ImagemT> listImagens;
 
-	public ImagemBean() {
+	public ImagemBean() throws IOException {
 		pathAplicacao = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath("/");
 		listImagens = new ArrayList<ImagemT>(0);
@@ -51,7 +50,7 @@ public class ImagemBean extends ControlArtBean {
 	 * @throws
 	 */
 
-	private void checkTempDir() {
+	private void checkTempDir() throws IOException {
 
 		/*
 		 * Passos para criar e validar o diretório temporário:
@@ -66,16 +65,11 @@ public class ImagemBean extends ControlArtBean {
 		 */
 
 		if (tempDir.exists()) {
-			try {
-				/*
-				 * 3 - Caso positivo, ele será limpo (clean).
-				 */
+			/*
+			 * 3 - Caso positivo, ele será limpo (clean).
+			 */
 
-				FileUtils.cleanDirectory(tempDir);
-			} catch (IOException io) {
-				addFacesMessage(getObjectFromBundle("msErroProcesImagem"),
-						null, BeanUtils.SEVERITY_FATAL);
-			}
+			FileUtils.cleanDirectory(tempDir);
 		} else {
 			/*
 			 * 4 - Caso negativo, ele será criado (mkdirs).
@@ -85,45 +79,36 @@ public class ImagemBean extends ControlArtBean {
 		}
 	}
 
-	public void consultAction() {
-		try {
-			ImagemT imagemT = new ImagemT();
-			imagemT.setPeca(idPeca);
+	public void consultAction() throws SQLException, IOException {
+		ImagemT imagemT = new ImagemT();
+		imagemT.setPeca(idPeca);
 
-			ImagemDao imagemDao = new ImagemDao();
+		ImagemDao imagemDao = new ImagemDao();
 
+		/*
+		 * Passos para consulta de Imagens:
+		 * 
+		 * 1 - Consultar Todas as Imagens (ImagemT) de Uma Peça...
+		 */
+
+		listImagens = imagemDao.consultByPeca(imagemT);
+
+		if (listImagens.size() > 0) {
 			/*
-			 * Passos para consulta de Imagens:
-			 * 
-			 * 1 - Consultar Todas as Imagens (ImagemT) de Uma Peça...
+			 * 2 - Caso existam, verificar o diretório dessas Imagens...
 			 */
 
-			listImagens = imagemDao.consultByPeca(imagemT);
+			File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
+					+ File.separator);
 
-			if (listImagens.size() > 0) {
+			if (pecaDir.exists()) {
 				/*
-				 * 2 - Caso existam, verificar o diretório dessas Imagens...
+				 * 3 - Caso ele exista, copiá-lo para a diretório temporário...
 				 */
 
-				File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
-						+ File.separator);
-
-				if (pecaDir.exists()) {
-					/*
-					 * 3 - Caso ele exista, copiá-lo para a diretório
-					 * temporário...
-					 */
-
-					FileUtils.copyDirectory(pecaDir, new File(pathAplicacao
-							+ PATH_IMAGENS_TEMPORARIAS));
-				}
+				FileUtils.copyDirectory(pecaDir, new File(pathAplicacao
+						+ PATH_IMAGENS_TEMPORARIAS));
 			}
-		} catch (SQLException sql) {
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		} catch (IOException io) {
-			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
 		}
 	}
 
@@ -138,7 +123,7 @@ public class ImagemBean extends ControlArtBean {
 	 * @throws
 	 */
 
-	public void listener(FileUploadEvent event) {
+	public void listener(FileUploadEvent event) throws IOException {
 		/*
 		 * Passos para o Tratamento do Upload de Imagens:
 		 * 
@@ -154,40 +139,34 @@ public class ImagemBean extends ControlArtBean {
 		File imagemFile = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
 				+ uploadedFile.getFileName());
 
-		try {
-			InputStream is = new BufferedInputStream(
-					uploadedFile.getInputstream());
+		InputStream is = new BufferedInputStream(uploadedFile.getInputstream());
 
-			/*
-			 * 3 - Escrever o arquivo no diretório temporário... Obs: Caso ele
-			 * já exista, será sobrescrito.
-			 */
+		/*
+		 * 3 - Escrever o arquivo no diretório temporário... Obs: Caso ele já
+		 * exista, será sobrescrito.
+		 */
 
-			OutputStream fos = new FileOutputStream(imagemFile);
+		OutputStream fos = new FileOutputStream(imagemFile);
 
-			while (is.available() != 0) {
-				fos.write(is.read());
-			}
-
-			fos.close();
-			is.close();
-
-			/*
-			 * 4 - Guardar o arquivo na lista de Imagens (listImagens -
-			 * List<ImagemT>).
-			 */
-
-			ImagemT imagemT = new ImagemT();
-			imagemT.setNome(uploadedFile.getFileName());
-
-			listImagens.add(imagemT);
-		} catch (IOException io) {
-			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+		while (is.available() != 0) {
+			fos.write(is.read());
 		}
+
+		fos.close();
+		is.close();
+
+		/*
+		 * 4 - Guardar o arquivo na lista de Imagens (listImagens -
+		 * List<ImagemT>).
+		 */
+
+		ImagemT imagemT = new ImagemT();
+		imagemT.setNome(uploadedFile.getFileName());
+
+		listImagens.add(imagemT);
 	}
 
-	public void insertAction() {
+	public void insertAction() throws SQLException, IOException {
 
 		/*
 		 * Passos para a Inclusão de Imagens:
@@ -206,56 +185,45 @@ public class ImagemBean extends ControlArtBean {
 				imagemT.setPeca(idPeca);
 			}
 
-			try {
+			/*
+			 * 3 - Salvar todas as Imagens (ImagemT) no Banco de Dados...
+			 */
 
+			ImagemDao imagemDao = new ImagemDao();
+			imagemDao.insert(listImagens);
+
+			/*
+			 * 4 - Verificar se o diretório da Peça já existe...
+			 */
+
+			File tempDir = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS);
+			File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
+					+ File.separator);
+
+			if (!pecaDir.exists()) {
 				/*
-				 * 3 - Salvar todas as Imagens (ImagemT) no Banco de Dados...
+				 * 5 - Caso negativo, ele será criado (mkdirs)...
 				 */
 
-				ImagemDao imagemDao = new ImagemDao();
-				imagemDao.insert(listImagens);
-
+				pecaDir.mkdirs();
+			} else {
 				/*
-				 * 4 - Verificar se o diretório da Peça já existe...
+				 * 6 - Caso positivo, ele será limpo (clean)...
 				 */
 
-				File tempDir = new File(pathAplicacao
-						+ PATH_IMAGENS_TEMPORARIAS);
-				File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
-						+ File.separator);
-
-				if (!pecaDir.exists()) {
-					/*
-					 * 5 - Caso negativo, ele será criado (mkdirs)...
-					 */
-
-					pecaDir.mkdirs();
-				} else {
-					/*
-					 * 6 - Caso positivo, ele será limpo (clean)...
-					 */
-
-					FileUtils.cleanDirectory(pecaDir);
-				}
-
-				/*
-				 * 7 - Copiar todas as Imagens (ImagemT) do diretório temporário
-				 * para o diretório da Peça.
-				 */
-
-				FileUtils.copyDirectory(tempDir, pecaDir);
-			} catch (SQLException sql) {
-				sql.printStackTrace();
-				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-						BeanUtils.SEVERITY_FATAL);
-			} catch (IOException io) {
-				addFacesMessage(getObjectFromBundle("msErroProcesImagem"),
-						null, BeanUtils.SEVERITY_FATAL);
+				FileUtils.cleanDirectory(pecaDir);
 			}
+
+			/*
+			 * 7 - Copiar todas as Imagens (ImagemT) do diretório temporário
+			 * para o diretório da Peça.
+			 */
+
+			FileUtils.copyDirectory(tempDir, pecaDir);
 		}
 	}
 
-	public void updateAction() {
+	public void updateAction() throws SQLException, IOException {
 
 		/*
 		 * Passos para a Atualização de Imagens:
@@ -263,37 +231,28 @@ public class ImagemBean extends ControlArtBean {
 		 * 1 - Inativar todas as Imagens existentes no Banco de Dados..
 		 */
 
-		try {
-			ImagemT imagemT = new ImagemT();
-			imagemT.setPeca(idPeca);
+		ImagemT imagemT = new ImagemT();
+		imagemT.setPeca(idPeca);
 
-			ImagemDao imagemDao = new ImagemDao();
-			imagemDao.inactivate(imagemT);
+		ImagemDao imagemDao = new ImagemDao();
+		imagemDao.inactivate(imagemT);
 
-			/*
-			 * 2 - Limpar o diretório da Peça, caso ele exista...
-			 */
+		/*
+		 * 2 - Limpar o diretório da Peça, caso ele exista...
+		 */
 
-			File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
-					+ File.separator);
+		File pecaDir = new File(pathAplicacao + PATH_IMAGENS + idPeca
+				+ File.separator);
 
-			if (pecaDir.exists()) {
-				FileUtils.cleanDirectory(pecaDir);
-			}
-
-			/*
-			 * 3 - Chamar o método de Inclusão de Imagens.
-			 */
-
-			insertAction();
-		} catch (SQLException sql) {
-			sql.printStackTrace();
-			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
-		} catch (IOException io) {
-			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+		if (pecaDir.exists()) {
+			FileUtils.cleanDirectory(pecaDir);
 		}
+
+		/*
+		 * 3 - Chamar o método de Inclusão de Imagens.
+		 */
+
+		insertAction();
 	}
 
 	/*
