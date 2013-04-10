@@ -2,6 +2,7 @@ package com.controlart.bean;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.MissingResourceException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -81,23 +82,30 @@ public class ControlArtBean implements Serializable {
 
 	protected final void processSQLError(SQLException sql) {
 		String message = null;
+		int severity = 0;
 
 		sql.printStackTrace();
-		if (sql.getMessage() != null) {
-			message = sql.getMessage().replace("ERROR: ", "");
-		} else {
-			if (sql.getErrorCode() != 0) {
-				message = getObjectFromBundle("" + sql.getErrorCode());
-
-				if (message == null || message.isEmpty()) {
-					message = getObjectFromBundle("msErroGenerico");
-				}
+		if (sql.getSQLState() != null
+				&& sql.getSQLState().equalsIgnoreCase(
+						BeanUtils.RAISE_EXCEPTION_CODE)) {
+			if (sql.getMessage() != null) {
+				message = sql.getMessage().replace("ERROR: ", "");
+				severity = BeanUtils.SEVERITY_WARN;
 			} else {
 				message = getObjectFromBundle("msErroGenerico");
+				severity = BeanUtils.SEVERITY_ERROR;
+			}
+		} else {
+			try {
+				message = getObjectFromBundle("ms" + sql.getSQLState());
+				severity = BeanUtils.SEVERITY_WARN;
+			} catch (MissingResourceException mr) {
+				message = getObjectFromBundle("msErroGenerico");
+				severity = BeanUtils.SEVERITY_ERROR;
 			}
 		}
 
-		addFacesMessage(message, null, BeanUtils.SEVERITY_ERROR);
+		addFacesMessage(message, null, severity);
 	}
 
 	public UsuarioT getUsuarioLogado() {

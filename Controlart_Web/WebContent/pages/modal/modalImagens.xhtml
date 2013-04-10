@@ -5,12 +5,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<p:dialog id="modalImagens" appendToBody="false" modal="true"
 		resizable="false" styleClass="dialog" widgetVar="modalImagensWV"
-		width="595">
+		width="660">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelImagens}" />
 		</f:facet>
 
 		<h:form id="formModalImagens">
+			<p:growl globalOnly="true" life="10000" />
+
 			<h:panelGroup id="panelListaImagens" layout="block">
 				<p:dataTable emptyMessage="#{msgs.msNenhumRegistro}" rows="5"
 					value="#{pecaBean.imagemBean.listImagens}" var="listaImagens">
@@ -34,7 +36,9 @@
 				<p:fileUpload allowTypes="/(\.|\/)(gif|jpe?g|png)$/" auto="true"
 					disabled="#{pecaBean.imagemBean.qtdImagens eq 5}"
 					fileUploadListener="#{pecaBean.imagemBean.listener}"
-					mode="advanced" sizeLimit="1024000"
+					invalidFileMessage="#{msgs.labelinvalidFile}"
+					invalidSizeMessage="#{msgs.labelinvalidSize}"
+					label="#{msgs.labelAdicionar}" mode="advanced" sizeLimit="1024000"
 					update=":formModalImagens, :formModalPeca:panelSwitchImagens" />
 			</h:panelGroup>
 		</h:form>

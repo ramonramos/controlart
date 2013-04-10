@@ -49,7 +49,7 @@ public class TransacaoBean extends ControlArtBean {
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -171,7 +171,7 @@ public class TransacaoBean extends ControlArtBean {
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -186,11 +186,11 @@ public class TransacaoBean extends ControlArtBean {
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -204,30 +204,92 @@ public class TransacaoBean extends ControlArtBean {
 
 	public void insertAction() {
 		try {
-			TransacaoDao transacaoDao = new TransacaoDao();
-			transacaoDao.insert(transacao);
+			if (dataPrevisaoValida()) {
+				TransacaoDao transacaoDao = new TransacaoDao();
+				transacaoDao.insert(transacao);
 
-			definirNovo();
-			consultAction();
+				definirNovo();
+				consultAction();
 
-			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
-					BeanUtils.SEVERITY_INFO);
+				addFacesMessage(getObjectFromBundle("msRegistroInserido"),
+						null, BeanUtils.SEVERITY_INFO);
+			} else {
+				addFacesMessage(getObjectFromBundle("msDtTransacaoPrevisao"),
+						null, BeanUtils.SEVERITY_WARN);
+			}
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 		}
 	}
 
+	/*
+	 * Objetivo: Método utilizado para verificar se a Data da Previsão é Igual
+	 * ou Superior a Data da Transação. Obs: Essa verificação só é válida para
+	 * os Tipos de Transação Consignação (3) e Empréstimo (5).
+	 * 
+	 * @param
+	 * 
+	 * @return boolean
+	 * 
+	 * @throws
+	 */
+
+	private boolean dataPrevisaoValida() {
+		if (transacao.getTipo() == 3 || transacao.getTipo() == 5) {
+			if (transacao.getDataPrevisao()
+					.equals(transacao.getDataTransacao())
+					|| transacao.getDataPrevisao().after(
+							transacao.getDataTransacao())) {
+				return true;
+			} else
+				return false;
+		} else {
+			return true;
+		}
+	}
+
 	public void updateAction() {
 		try {
-			TransacaoDao transacaoDao = new TransacaoDao();
-			transacaoDao.update(transacao);
+			if (dataDevolucaoValida()) {
+				TransacaoDao transacaoDao = new TransacaoDao();
+				transacaoDao.update(transacao);
 
-			consultAction();
+				consultAction();
 
-			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
-					BeanUtils.SEVERITY_INFO);
+				addFacesMessage(getObjectFromBundle("msRegistroAtualizado"),
+						null, BeanUtils.SEVERITY_INFO);
+			} else {
+				addFacesMessage(getObjectFromBundle("msDtTransacaoDevolucao"),
+						null, BeanUtils.SEVERITY_WARN);
+			}
 		} catch (SQLException sql) {
 			sql.printStackTrace();
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para verificar se a Data da Devolução é Igual
+	 * ou Superior a Data da Transação. Obs: Essa verificação só é válida para
+	 * os Tipos de Transação Consignação (3) e Empréstimo (5).
+	 * 
+	 * @param
+	 * 
+	 * @return boolean
+	 * 
+	 * @throws
+	 */
+
+	private boolean dataDevolucaoValida() {
+		if (transacao.getTipo() == 3 || transacao.getTipo() == 5) {
+			if (transacao.getDataDevolucao().equals(
+					transacao.getDataTransacao())
+					|| transacao.getDataDevolucao().after(
+							transacao.getDataTransacao())) {
+				return true;
+			} else
+				return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -308,7 +370,7 @@ public class TransacaoBean extends ControlArtBean {
 			} catch (SQLException sql) {
 				sql.printStackTrace();
 				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-						BeanUtils.SEVERITY_FATAL);
+						BeanUtils.SEVERITY_ERROR);
 			}
 		} else {
 			transacao.setPeca(0);
@@ -340,7 +402,7 @@ public class TransacaoBean extends ControlArtBean {
 			} catch (SQLException sql) {
 				sql.printStackTrace();
 				addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-						BeanUtils.SEVERITY_FATAL);
+						BeanUtils.SEVERITY_ERROR);
 			}
 		} else {
 			transacao.setAcervoOrigem(0);

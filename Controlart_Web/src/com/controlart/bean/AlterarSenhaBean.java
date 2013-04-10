@@ -32,7 +32,7 @@ public class AlterarSenhaBean extends ControlArtBean {
 
 			if (!(senhaAtual.equals(getUsuarioLogado().getCdSenha()))) {
 				addFacesMessage(getObjectFromBundle("msSenhaAtualInvalida"),
-						null, BeanUtils.SEVERITY_ERROR);
+						null, BeanUtils.SEVERITY_WARN);
 
 				return;
 			}
@@ -53,7 +53,7 @@ public class AlterarSenhaBean extends ControlArtBean {
 			} else {
 				addFacesMessage(
 						getObjectFromBundle("msNovaSenhaConfirmDiferem"), null,
-						BeanUtils.SEVERITY_ERROR);
+						BeanUtils.SEVERITY_WARN);
 
 				return;
 			}
@@ -62,11 +62,11 @@ public class AlterarSenhaBean extends ControlArtBean {
 		} catch (NoSuchAlgorithmException nsa) {
 			nsa.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 

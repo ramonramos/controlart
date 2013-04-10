@@ -32,7 +32,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			sql.printStackTrace();
+			processSQLError(sql);
 		}
 	}
 

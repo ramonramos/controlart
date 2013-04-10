@@ -215,7 +215,7 @@ public class PessoaDao {
 			pessoaT.setIdPessoa(rs.getInt("ID_PESSOA"));
 			pessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
 			pessoaT.setNmPessoa(rs.getString("NM_PESSOA"));
-			pessoaT.setNrFone(rs.getString("NR_FONE"));
+			pessoaT.setNrFone(DaoUtils.formartPhone(rs.getString("NR_FONE")));
 			pessoaT.setDsEmail(rs.getString("DS_EMAIL"));
 			pessoaT.setNmRua(rs.getString("NM_RUA"));
 			pessoaT.setNrImovel(rs.getString("NR_IMOVEL"));
@@ -259,7 +259,7 @@ public class PessoaDao {
 			pStmt = connection.prepareStatement(SQL_INSERT);
 			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
 			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, pessoaT.getNrFone());
+			pStmt.setObject(3, DaoUtils.unformatPhone(pessoaT.getNrFone()));
 			pStmt.setObject(4, pessoaT.getDsEmail());
 			pStmt.setObject(5, pessoaT.getNmRua());
 			pStmt.setObject(6, pessoaT.getNrImovel());
@@ -283,7 +283,7 @@ public class PessoaDao {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
 			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
 			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, pessoaT.getNrFone());
+			pStmt.setObject(3, DaoUtils.unformatPhone(pessoaT.getNrFone()));
 			pStmt.setObject(4, pessoaT.getDsEmail());
 			pStmt.setObject(5, pessoaT.getNmRua());
 			pStmt.setObject(6, pessoaT.getNrImovel());

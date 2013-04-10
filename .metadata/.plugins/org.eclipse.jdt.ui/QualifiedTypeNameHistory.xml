@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.controlart.dao.TipoUsuarioDao"/>
 <fullyQualifiedTypeName name="com.controlart.dao.factory.ConnFactory"/>
 <fullyQualifiedTypeName name="com.controlart.utils.ControlArtUtils"/>
 <fullyQualifiedTypeName name="com.controlart.bean.TemplateBean"/>
@@ -13,7 +12,6 @@
 <fullyQualifiedTypeName name="com.controlart.transfer.PessoaT"/>
 <fullyQualifiedTypeName name="java.lang.CloneNotSupportedException"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TipoPessoaDao"/>
-<fullyQualifiedTypeName name="com.controlart.dao.utils.DaoUtils"/>
 <fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="com.controlart.bean.interfac.ControlArtBeanInterface"/>
@@ -58,6 +56,8 @@
 <fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
-<fullyQualifiedTypeName name="com.controlart.bean.utils.BeanUtils"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.MissingResourceException"/>
+<fullyQualifiedTypeName name="com.controlart.bean.utils.BeanUtils"/>
+<fullyQualifiedTypeName name="com.controlart.dao.utils.DaoUtils"/>
 </qualifiedTypeNameHistroy>

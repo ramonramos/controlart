@@ -41,7 +41,7 @@ public class LoginBean extends ControlArtBean {
 
 			if (getUsuarioLogado() == null) {
 				addFacesMessage(getObjectFromBundle("msUsuarioNaoEncontrado"),
-						null, BeanUtils.SEVERITY_ERROR);
+						null, BeanUtils.SEVERITY_WARN);
 
 				return null;
 			} else {
@@ -53,11 +53,11 @@ public class LoginBean extends ControlArtBean {
 		} catch (NoSuchAlgorithmException nsa) {
 			nsa.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 
 		return null;

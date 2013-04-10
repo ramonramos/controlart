@@ -70,5 +70,4 @@ public class ControlArtBundle extends ResourceBundle {
 			return bundle;
 		}
 	}
-
 }

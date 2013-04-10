@@ -48,7 +48,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -132,15 +132,15 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (CloneNotSupportedException cns) {
 			cns.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		} catch (SQLException sql) {
 			sql.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroGenerico"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -172,7 +172,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 
@@ -193,7 +193,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
-					BeanUtils.SEVERITY_FATAL);
+					BeanUtils.SEVERITY_ERROR);
 		}
 	}
 

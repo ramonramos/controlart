@@ -1,0 +1,215 @@
+# ========================================================================================
+# login XHTML
+# ========================================================================================
+
+tituloSistema=ControlArt
+tituloPaginaLogin=Controle para Acervos de Artes Online
+labelUsuario=Usuário
+tooltipUsuario=Informe seu usuário
+labelSenha=Senha
+tooltipSenha=Informe sua senha
+labelLogar=Logar
+tooltipLogar=Logar no sistema
+
+# ========================================================================================
+# LoginBean JAVA
+# ========================================================================================
+
+msUsuarioNaoEncontrado=Usuário e/ou senha inválidos.
+
+# ========================================================================================
+# cabecalho XHTML
+# ========================================================================================
+	
+labelCabecalho=Área Administrativa
+	
+# ========================================================================================
+# painelInformativo XHTML
+# ========================================================================================
+
+tooltipUsuarioLogodo=Usuário logado no sistema
+msBemVindo=Bem vindo(a)
+tooltipHomePage=Home page
+labelHomePage=Home
+tooltipSairSistema=Sair do sistema
+labelSairSistema=Sair
+
+# ========================================================================================
+# painelNavegacao XHTML
+# ========================================================================================
+	
+labelAdministracao=Administração
+labelAlterarSenha=Alterar Senha
+labelUsuarios=Usuários
+labelCadastrosBasicos=Cadastros Básicos
+labelAcervo=Acervo
+labelClassificacao=Classificação
+labelPeca=Peça
+labelPessoa=Pessoa
+labelTipoPessoa=Tipo de Pessoa
+labelRegistrarTransacao=Registrar Transação
+labelRelatorios=Relatórios
+labelEntradaPecas=Entrada de Peças
+labelPecasAcervo=Peças por Acervo
+labelPecasClassificacao=Peças por Classificação
+labelPecasTransacao=Peças por Transação
+labelPrazoDevolucao=Prazo para Devolução
+labelSaidaPecas=Saída de Peças
+labelTabelaPrecos=Tabela de Preços
+
+
+# ========================================================================================
+# home XHTML
+# ========================================================================================
+
+tituloPaginaHome=Home Page
+home=Home
+
+# ========================================================================================
+# alterarSenha XHTML
+# ========================================================================================
+
+labelSenhaAtual=Senha atual
+labelNovaSenha=Nova senha
+labelConfirmNovaSenha=Confirmar nova senha
+msSenhaAtualInvalida=Senha atual incorreta
+msNovaSenhaConfirmDiferem=Nova senha e confirmação diferem 
+msRegistroAtualizado=Registro atualizado com sucesso
+labelSalvar=Salvar
+
+# ========================================================================================
+# AlterarSenhaBean JAVA
+# ========================================================================================
+
+msErroGenerico=Erro genérico
+
+# ========================================================================================
+# usuarios XHTML
+# ========================================================================================
+
+labelTipoUsuario=Tipo de Usuário
+msNenhumRegistro=Nenhum registro encontrado.
+labelLogin=Login
+labelSituacao=Situação
+labelEditar=Editar
+labelInativar=Inativar
+labelNovo=Novo
+labelNovoUsuario=Novo Usuário
+labelEditarUsuario=Editar Usuário
+labelSelecione=Selecione...
+labelConfirmSenha=Confirmar senha
+labelInativo=Inativo
+labelAtivo=Ativo
+labelCancelar=Cancelar
+msRegistroInserido=Registro inserido com sucesso
+msRegistroRemovido=Registro inativado com sucesso
+msConfirmRemocao=Tem certeza que deseja inativar o registro selecionado?
+
+# ========================================================================================
+# acervo XHTML
+# ========================================================================================
+
+labelAcervos=Acervos
+labelDono=Dono
+labelNovoAcervo=Novo Acervo
+labelEditarAcervo=Editar Acervo
+
+# ========================================================================================
+# classificacao XHTML
+# ========================================================================================
+
+labelClassificacoes=Classificações
+labelNovaClassificacao=Nova Classificação
+labelEditarClassificacao=Editar Classificação
+
+# ========================================================================================
+# peca XHTML
+# ========================================================================================
+
+labelPecas=Peças
+labelNovaPeca=Nova Peça
+labelEditarPeca=Editar Peça
+labelImagens=Imagens
+labelNumeroRegistro=Número de Registro
+labelEstado=Estado
+labelDisponivelLeilao=Disponível para Leilão
+labelAutor=Autor
+labelPeriodo=Período
+labelLargura=Largura
+labelAltura=Altura
+labelProfundidade=Profundidade
+labelMaterial=Material
+labelHistorico=Histórico
+labelImagem=Imagem
+
+# ========================================================================================
+# modalImagens XHTML
+# ========================================================================================
+
+labelAdicionar=Adicionar
+labelinvalidFile=Arquivo inválido
+labelinvalidSize=Este arquivo excede o tamanho limite (1MB).
+
+# ========================================================================================
+# ImagemBean JAVA
+# ========================================================================================
+
+msErroProcesImagem=Erro no Processamento da(s) imagem(s)
+
+# ========================================================================================
+# pessoa XHTML
+# ========================================================================================
+
+labelPessoas=Pessoas
+labelTelefone=Telefone
+labelNovaPessoa=Nova Pessoa
+labelEditarPessoa=Editar Pessoa
+labelPossuiAcervo=Possui Acervo?
+labelNomeAcervo=Nome do Acervo
+labelEmail=E-mail
+labelLogradouro=Logradouro
+labelNumeroLograd=Número
+labelBairro=Bairro
+labelCidade=Cidade
+
+# ========================================================================================
+# tipoPessoa XHTML
+# ========================================================================================
+
+labelTiposPessoa=Tipos de Pessoa
+labelNome=Nome
+labelDescricao=Descrição
+labelNovoTipoPessoa=Novo Tipo de Pessoa
+labelEditarTipoPessoa=Editar Tipo de Pessoa
+
+# ========================================================================================
+# transacao XHTML
+# ========================================================================================
+
+labelTransacoes=Transações
+labelTipoTransacao=Tipo de Transação
+labelSelecionePeca=Selecione uma Peça...
+labelAcervoOrigem=Acervo Origem
+labelAcervoDestino=Acervo Destino
+labelNovaTransacao=Nova Transação
+labelEditarTransacao=Editar Transação
+labelDataTransacao=Data da Transação
+labelDataPrevisao=Data da Previsão
+labelDataDevolucao=Data da Devolução
+labelPreco=Preço
+labelTransacaoOnline=Transação Online?
+labelSim=Sim
+labelNao=Não
+
+# ========================================================================================
+# Transacao JAVA
+# ========================================================================================
+
+msDtTransacaoPrevisao=A data da previsão não pode ser inferior à da transacao
+msDtTransacaoDevolucao=A data da devolução não pode ser inferior à da transação 
+
+# ========================================================================================
+# SQL States
+# ========================================================================================
+
+ms23505=Este registro já existe

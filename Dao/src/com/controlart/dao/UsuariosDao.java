@@ -111,7 +111,7 @@ public class UsuariosDao {
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
 			usuarioT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
 			usuarioT.setNmPessoa(rs.getString("NM_PESSOA"));
-			usuarioT.setNrFone(rs.getString("NR_FONE"));
+			usuarioT.setNrFone(DaoUtils.formartPhone(rs.getString("NR_FONE")));
 			usuarioT.setDsEmail(rs.getString("DS_EMAIL"));
 			usuarioT.setNmRua(rs.getString("NM_RUA"));
 			usuarioT.setNrImovel(rs.getString("NR_IMOVEL"));

@@ -15,8 +15,8 @@ public class TipoTransacaoDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E'ORDER BY ttt.nm_tipo_transacao";
-	private static final String SQL_CONSULT_ALL_FOR_VIEW_NO_DEV = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' AND ttt.nm_tipo_transacao NOT LIKE 'Devolução%' ORDER BY ttt.nm_tipo_transacao";
-	private static final String SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.id_tipo_transacao IN (3,5) ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW_NO_DEV = "SELECT ttt.id_tipo_transacao, ttt.nm_tipo_transacao, ttt.in_ativo FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' AND ttt.nm_tipo_transacao NOT LIKE 'Devolução%' AND ttt.in_ativo = 1 ORDER BY ttt.nm_tipo_transacao";
+	private static final String SQL_CONSULT_TIPO_TRANSACAO_COM_DEVOLUCAO = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.id_tipo_transacao IN (3,5) AND ttt.in_ativo = 1 ORDER BY ttt.nm_tipo_transacao";
 	private static final String SQL_CONSULT_TIPO_TRANSACAO_ENTRADA = "SELECT ttt.* FROM tb_tipo_transacao ttt WHERE ttt.tp_operacao='E' ORDER BY ttt.nm_tipo_transacao";
 
 	public TipoTransacaoDao() throws SQLException {

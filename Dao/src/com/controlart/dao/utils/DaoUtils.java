@@ -12,6 +12,8 @@ public class DaoUtils {
 	public static final String USER = "postgres";
 	public static final String PASSWORD = "postgres";
 
+	public static final String RAISE_EXCEPTION_CODE = "p0001";
+
 	public static final void closeConnection(Connection connection)
 			throws SQLException {
 		if (connection != null)
@@ -33,5 +35,56 @@ public class DaoUtils {
 			PreparedStatement pStmt, ResultSet rs) throws SQLException {
 		closePreparedStatement(pStmt);
 		closeResultSet(rs);
+	}
+
+	public static final String formartPhone(String phone) {
+		String formatedPhone = null;
+
+		if (phone == null) {
+			return formatedPhone;
+		} else {
+			String ddd = null;
+			String prefix = null;
+			String posfix = null;
+
+			if (phone.length() == 10) {
+				ddd = phone.substring(0, 2);
+				prefix = phone.substring(2, 6);
+				posfix = phone.substring(6, 10);
+
+				formatedPhone = "(" + ddd + ")" + " " + prefix + "-" + posfix;
+
+				return formatedPhone;
+			} else {
+				if (phone.length() == 11) {
+					ddd = phone.substring(0, 2);
+					prefix = phone.substring(2, 7);
+					posfix = phone.substring(7, 11);
+
+					formatedPhone = "(" + ddd + ")" + " " + prefix + "-"
+							+ posfix;
+
+					return formatedPhone;
+				} else {
+					return formatedPhone;
+				}
+			}
+		}
+	}
+
+	public static final String unformatPhone(String formatedPhone) {
+		String phone = null;
+
+		if (formatedPhone == null) {
+			return phone;
+		} else {
+			String[] charsToReplace = { "(", ")", " ", "-" };
+
+			for (String string : charsToReplace) {
+				phone = formatedPhone.replace("", string);
+			}
+
+			return phone;
+		}
 	}
 }
