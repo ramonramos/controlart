@@ -81,7 +81,7 @@ public class DaoUtils {
 			String[] charsToReplace = { "(", ")", " ", "-" };
 
 			phone = formatedPhone;
-
+			
 			for (String string : charsToReplace) {
 				phone = phone.replace(string, "");
 			}

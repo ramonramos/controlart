@@ -168,7 +168,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
@@ -189,7 +189,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		} catch (IOException io) {
 			io.printStackTrace();
 			addFacesMessage(getObjectFromBundle("msErroProcesImagem"), null,
@@ -210,7 +210,7 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		}
 	}
 

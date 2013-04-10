@@ -133,7 +133,7 @@ public class PessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroInserido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		}
 	}
 
@@ -152,7 +152,7 @@ public class PessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroAtualizado"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		}
 	}
 
@@ -192,7 +192,7 @@ public class PessoaBean extends ControlArtBean implements
 			addFacesMessage(getObjectFromBundle("msRegistroRemovido"), null,
 					BeanUtils.SEVERITY_INFO);
 		} catch (SQLException sql) {
-			processSQLError(sql);
+			sql.printStackTrace();
 		}
 	}
 

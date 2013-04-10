@@ -79,11 +79,10 @@ public class DaoUtils {
 			return phone;
 		} else {
 			String[] charsToReplace = { "(", ")", " ", "-" };
-
-			phone = formatedPhone;
-
+			
+			phone = formatedPhone.replace(charsToReplace[0], "");
 			for (String string : charsToReplace) {
-				phone = phone.replace(string, "");
+				phone = formatedPhone.replace(string, "");
 			}
 
 			return phone;
