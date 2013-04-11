@@ -7,9 +7,9 @@
 		resizable="false" styleClass="dialog" widgetVar="modalClassificacaoWV">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovaClassificacao}"
-				rendered="#{tipoPessoaBean.novoRegistro}" />
+				rendered="#{classificacaoBean.novoRegistro}" />
 			<h:outputLabel value="#{msgs.labelEditarClassificacao}"
-				rendered="#{not tipoPessoaBean.novoRegistro}" />
+				rendered="#{not classificacaoBean.novoRegistro}" />
 		</f:facet>
 
 		<h:form id="formModalClassificacao">

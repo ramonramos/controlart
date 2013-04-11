@@ -60,11 +60,6 @@ public class AcervoT implements Serializable, Cloneable {
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
 	}
-
-	@Override
-	public String toString() {
-		return nome;
-	}
 	
 	
 }
