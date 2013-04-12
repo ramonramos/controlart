@@ -15,8 +15,8 @@ public class PessoaDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp ORDER BY tp.nm_pessoa";
-	private static final String SQL_CONSULT_ALL_NO_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.in_ativo = 1 AND tp.id_pessoa NOT IN (SELECT tu.id_pessoa FROM tb_usuario tu WHERE tu.in_ativo = 1)";
-	private static final String SQL_CONSULT_ALL_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.id_pessoa IN (SELECT tu.id_pessoa FROM tb_usuario tu)";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW_NO_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.in_ativo = 1 AND tp.id_pessoa NOT IN (SELECT tu.id_pessoa FROM tb_usuario tu WHERE tu.in_ativo = 1)";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW_USERS = "SELECT tp.id_pessoa, tp.nm_pessoa, tp.in_ativo FROM tb_pessoa tp WHERE tp.id_pessoa IN (SELECT tu.id_pessoa FROM tb_usuario tu)";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_pessoa tp ORDER BY tp.nm_pessoa";
 	private static final String SQL_CONSULT_LAST_ID = "SELECT MAX(tp.id_pessoa) as id_pessoa FROM tb_pessoa tp";
 	private static final String SQL_INSERT = "INSERT INTO tb_pessoa (id_tipo_pessoa, nm_pessoa, nr_fone, ds_email, nm_rua, nr_imovel, nm_bairro, nm_cidade, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -57,33 +57,6 @@ public class PessoaDao {
 
 	/*
 	 * Objetivo: Método utilizado para consultar todas as Pessoas (PessoaT) do
-	 * sistema.
-	 * 
-	 * @param
-	 * 
-	 * @return List<PessoaT>. Obs: Todas as informações serão retornadas.
-	 * 
-	 * @throws SQLException.
-	 */
-
-	public List<PessoaT> consultAll() throws SQLException {
-		PreparedStatement pStmt = null;
-		ResultSet rs = null;
-
-		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL);
-
-			rs = pStmt.executeQuery();
-
-			return resultsetToObjectB(rs);
-		} finally {
-			DaoUtils.closeStatementAndResultSet(pStmt, rs);
-			DaoUtils.closeConnection(connection);
-		}
-	}
-
-	/*
-	 * Objetivo: Método utilizado para consultar todas as Pessoas (PessoaT) do
 	 * sistema que não possuem Usuário (UsuarioT).
 	 * 
 	 * @param
@@ -94,12 +67,13 @@ public class PessoaDao {
 	 * @throws SQLException.
 	 */
 
-	public List<PessoaT> consultAllNoUsers() throws SQLException {
+	public List<PessoaT> consultAllForViewNoUsers() throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_NO_USERS);
+			pStmt = connection
+					.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW_NO_USERS);
 
 			rs = pStmt.executeQuery();
 
@@ -122,16 +96,43 @@ public class PessoaDao {
 	 * @throws SQLException.
 	 */
 
-	public List<PessoaT> consultAllUsers() throws SQLException {
+	public List<PessoaT> consultAllForViewUsers() throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_USERS);
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW_USERS);
 
 			rs = pStmt.executeQuery();
 
 			return resultsetToObjectA(rs);
+		} finally {
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
+			DaoUtils.closeConnection(connection);
+		}
+	}
+
+	/*
+	 * Objetivo: Método utilizado para consultar todas as Pessoas (PessoaT) do
+	 * sistema.
+	 * 
+	 * @param
+	 * 
+	 * @return List<PessoaT>. Obs: Todas as informações serão retornadas.
+	 * 
+	 * @throws SQLException.
+	 */
+
+	public List<PessoaT> consultAll() throws SQLException {
+		PreparedStatement pStmt = null;
+		ResultSet rs = null;
+
+		try {
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL);
+
+			rs = pStmt.executeQuery();
+
+			return resultsetToObjectB(rs);
 		} finally {
 			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
@@ -161,7 +162,7 @@ public class PessoaDao {
 
 			return resultsetToObjectTC(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 		}
 	}
 
@@ -215,7 +216,7 @@ public class PessoaDao {
 			pessoaT.setIdPessoa(rs.getInt("ID_PESSOA"));
 			pessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
 			pessoaT.setNmPessoa(rs.getString("NM_PESSOA"));
-			pessoaT.setNrFone(DaoUtils.formartPhone(rs.getString("NR_FONE")));
+			pessoaT.setNrFone(rs.getString("NR_FONE"));
 			pessoaT.setDsEmail(rs.getString("DS_EMAIL"));
 			pessoaT.setNmRua(rs.getString("NM_RUA"));
 			pessoaT.setNrImovel(rs.getString("NR_IMOVEL"));
@@ -259,7 +260,7 @@ public class PessoaDao {
 			pStmt = connection.prepareStatement(SQL_INSERT);
 			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
 			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, DaoUtils.unformatPhone(pessoaT.getNrFone()));
+			pStmt.setObject(3, pessoaT.getNrFone());
 			pStmt.setObject(4, pessoaT.getDsEmail());
 			pStmt.setObject(5, pessoaT.getNmRua());
 			pStmt.setObject(6, pessoaT.getNrImovel());
@@ -283,7 +284,7 @@ public class PessoaDao {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
 			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
 			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, DaoUtils.unformatPhone(pessoaT.getNrFone()));
+			pStmt.setObject(3, pessoaT.getNrFone());
 			pStmt.setObject(4, pessoaT.getDsEmail());
 			pStmt.setObject(5, pessoaT.getNmRua());
 			pStmt.setObject(6, pessoaT.getNrImovel());

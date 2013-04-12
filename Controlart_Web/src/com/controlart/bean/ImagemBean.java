@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import com.controlart.bean.utils.BeanUtils;
 import com.controlart.dao.ImagemDao;
 import com.controlart.transfer.ImagemT;
 
@@ -133,16 +134,24 @@ public class ImagemBean extends ControlArtBean {
 		UploadedFile uploadedFile = event.getFile();
 
 		/*
-		 * 2 - Criar um novo File para esse arquivo...
+		 * 2 - Formatar o Nome do arquivo (Remover caminho completo, caracteres
+		 * especiais, espaços em branco e uppercase)...
+		 */
+
+		String imageName = BeanUtils
+				.formatImageName(uploadedFile.getFileName());
+
+		/*
+		 * 3 - Criar um novo File para esse arquivo...
 		 */
 
 		File imagemFile = new File(pathAplicacao + PATH_IMAGENS_TEMPORARIAS
-				+ uploadedFile.getFileName());
+				+ imageName);
 
 		InputStream is = new BufferedInputStream(uploadedFile.getInputstream());
 
 		/*
-		 * 3 - Escrever o arquivo no diretório temporário... Obs: Caso ele já
+		 * 4 - Escrever o arquivo no diretório temporário... Obs: Caso ele já
 		 * exista, será sobrescrito.
 		 */
 
@@ -156,12 +165,12 @@ public class ImagemBean extends ControlArtBean {
 		is.close();
 
 		/*
-		 * 4 - Guardar o arquivo na lista de Imagens (listImagens -
+		 * 5 - Guardar o arquivo na lista de Imagens (listImagens -
 		 * List<ImagemT>).
 		 */
 
 		ImagemT imagemT = new ImagemT();
-		imagemT.setNome(uploadedFile.getFileName());
+		imagemT.setNome(imageName);
 
 		listImagens.add(imagemT);
 	}

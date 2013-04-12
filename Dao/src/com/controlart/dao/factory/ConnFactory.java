@@ -8,20 +8,32 @@ import org.postgresql.ds.PGPoolingDataSource;
 import com.controlart.dao.utils.DaoUtils;
 
 public class ConnFactory {
+
+	private static PGPoolingDataSource pgPooDataSource;
+
 	public final static Connection getConnection() throws SQLException {
-		return getDataSource().getConnection();
+		return getDataSourceInstance().getConnection();
+	}
+
+	private final static PGPoolingDataSource getDataSourceInstance()
+			throws SQLException {
+		if (pgPooDataSource == null) {
+			return getDataSource();
+		} else {
+			return pgPooDataSource;
+		}
 	}
 
 	private final static PGPoolingDataSource getDataSource()
 			throws SQLException {
-		PGPoolingDataSource pgDataSource = new PGPoolingDataSource();
+		pgPooDataSource = new PGPoolingDataSource();
 
-		pgDataSource.setServerName(DaoUtils.SERVER_NAME);
-		pgDataSource.setUser(DaoUtils.USER);
-		pgDataSource.setPassword(DaoUtils.PASSWORD);
-		pgDataSource.setPortNumber(DaoUtils.PORT_NUMBER);
-		pgDataSource.setDatabaseName(DaoUtils.DATABASE_NAME);
+		pgPooDataSource.setServerName(DaoUtils.SERVER_NAME);
+		pgPooDataSource.setUser(DaoUtils.USER);
+		pgPooDataSource.setPassword(DaoUtils.PASSWORD);
+		pgPooDataSource.setPortNumber(DaoUtils.PORT_NUMBER);
+		pgPooDataSource.setDatabaseName(DaoUtils.DATABASE_NAME);
 
-		return pgDataSource;
+		return pgPooDataSource;
 	}
 }

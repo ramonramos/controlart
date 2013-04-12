@@ -47,7 +47,7 @@ public class TipoPessoaDao {
 
 			return resultsetToObjectA(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -74,7 +74,7 @@ public class TipoPessoaDao {
 
 			return resultsetToObjectB(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}

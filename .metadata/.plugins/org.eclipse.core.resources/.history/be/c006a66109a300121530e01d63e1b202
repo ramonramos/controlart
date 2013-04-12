@@ -1,0 +1,7 @@
+package com.controlart.converter;
+
+import javax.faces.convert.Converter;
+
+public class TelefoneConverter implements Converter {
+
+}

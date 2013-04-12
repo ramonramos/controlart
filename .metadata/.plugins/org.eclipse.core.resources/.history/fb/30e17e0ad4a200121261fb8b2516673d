@@ -1,0 +1,3 @@
+jQuery(function($){  
+          $("#valorPrincipal").maskMoney({symbol:"R$ ", decimal:",", thousands:".", showSymbol:true});  
+});

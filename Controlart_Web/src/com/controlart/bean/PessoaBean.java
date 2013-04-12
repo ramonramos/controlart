@@ -114,6 +114,8 @@ public class PessoaBean extends ControlArtBean implements
 	@Override
 	public void insertAction() {
 		try {
+			pessoa.setNrFone(BeanUtils.unformatPhone(pessoa.getNrFone()));
+
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoaDao.insert(pessoa);
 
@@ -140,6 +142,8 @@ public class PessoaBean extends ControlArtBean implements
 	@Override
 	public void updateAction() {
 		try {
+			pessoa.setNrFone(BeanUtils.unformatPhone(pessoa.getNrFone()));
+
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoaDao.update(pessoa);
 

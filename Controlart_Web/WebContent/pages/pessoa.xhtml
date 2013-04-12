@@ -40,7 +40,8 @@
 					</p:column>
 
 					<p:column headerText="#{msgs.labelTelefone}">
-						<h:outputLabel value="#{listaPessoa.nrFone}" />
+						<h:outputLabel converter="telefoneConverter"
+							value="#{listaPessoa.nrFone}" />
 					</p:column>
 
 					<p:column headerText="#{msgs.labelSituacao}">

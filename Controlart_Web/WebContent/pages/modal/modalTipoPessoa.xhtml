@@ -37,7 +37,7 @@
 					rendered="#{(tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.situacao eq 0)))}"
 					value="#{msgs.labelSituacao}" />
 				<p:selectOneRadio
-					disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+					disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 					rendered="#{(tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.situacao eq 0)))}"
 					value="#{tipoPessoaBean.tipoPessoa.situacao}">
 					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />

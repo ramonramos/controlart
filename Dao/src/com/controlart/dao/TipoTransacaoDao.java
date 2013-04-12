@@ -46,7 +46,7 @@ public class TipoTransacaoDao {
 
 			return resultsetToObject(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -76,7 +76,7 @@ public class TipoTransacaoDao {
 
 			return resultsetToObject(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -94,7 +94,7 @@ public class TipoTransacaoDao {
 
 			return resultsetToObject(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -112,7 +112,7 @@ public class TipoTransacaoDao {
 
 			return resultsetToObject(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}

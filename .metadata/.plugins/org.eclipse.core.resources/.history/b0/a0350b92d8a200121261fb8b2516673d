@@ -1,0 +1,8 @@
+jQuery(function($) {
+	$(".moeda").maskMoney({
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : ".",
+		showSymbol : true
+	});
+});

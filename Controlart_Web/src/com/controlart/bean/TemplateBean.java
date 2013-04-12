@@ -11,9 +11,9 @@ import com.controlart.transfer.UsuarioT;
 @SessionScoped
 public class TemplateBean extends ControlArtBean {
 
-	private static final long 	serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	private UsuarioT 			usuario;
+	private UsuarioT usuario;
 
 	public TemplateBean() {
 		usuario = getUsuarioLogado();

@@ -12,6 +12,9 @@
 		<h:outputStylesheet library="css" name="peca.css" />
 	</ui:define>
 
+	<ui:define name="scripts">
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formPeca">
 			<p:growl globalOnly="true" life="10000" />
@@ -40,7 +43,9 @@
 					</p:column>
 
 					<p:column headerText="#{msgs.labelPreco}">
-						<h:outputLabel value="#{listaPeca.preco}" />
+						<h:outputLabel value="#{listaPeca.preco}">
+							<f:convertNumber type="currency" />
+						</h:outputLabel>
 					</p:column>
 
 					<p:column headerText="#{msgs.labelSituacao}">

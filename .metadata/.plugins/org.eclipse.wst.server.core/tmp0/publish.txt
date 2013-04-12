@@ -1,6 +1,6 @@
 #Tomcat publish data
-#Wed Apr 10 01:33:33 GMT-03:00 2013
+#Thu Apr 11 23:38:20 GMT-03:00 2013
 org.eclipse.jst.jee.server\:Controlart_Web=C\:\\Users\\Vaio\\Documents\\Projeto UFS\\Apache Tomcat 7.0.34\\apache-tomcat-7.0.34\\wtpwebapps\\Controlart_Web
 org.eclipse.jst.j2ee.server\:Transfer=C\:\\Users\\Vaio\\Documents\\Projeto UFS\\Apache Tomcat 7.0.34\\apache-tomcat-7.0.34\\wtpwebapps\\Controlart_Web\\WEB-INF\\lib\\Transfer.jar
-org.eclipse.jst.j2ee.server\:Utils=C\:\\Users\\Vaio\\Documents\\Projeto UFS\\Apache Tomcat 7.0.34\\apache-tomcat-7.0.34\\wtpwebapps\\Controlart_Web\\WEB-INF\\lib\\Utils.jar
 org.eclipse.jst.j2ee.server\:Dao=C\:\\Users\\Vaio\\Documents\\Projeto UFS\\Apache Tomcat 7.0.34\\apache-tomcat-7.0.34\\wtpwebapps\\Controlart_Web\\WEB-INF\\lib\\Dao.jar
+org.eclipse.jst.j2ee.server\:Utils=C\:\\Users\\Vaio\\Documents\\Projeto UFS\\Apache Tomcat 7.0.34\\apache-tomcat-7.0.34\\wtpwebapps\\Controlart_Web\\WEB-INF\\lib\\Utils.jar

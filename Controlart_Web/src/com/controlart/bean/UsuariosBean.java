@@ -66,7 +66,8 @@ public class UsuariosBean extends ControlArtBean implements
 	private void consultTipoUsuario() throws SQLException {
 		TipoUsuarioDao tipoUsuarioDao = new TipoUsuarioDao();
 
-		List<TipoUsuarioT> _listTipoUsuarioT = tipoUsuarioDao.consultAll();
+		List<TipoUsuarioT> _listTipoUsuarioT = tipoUsuarioDao
+				.consultAllForView();
 
 		listTipoUsuario = new ArrayList<SelectItem>(0);
 		hashTipoUsuario = new HashMap<Integer, String>(0);
@@ -108,7 +109,7 @@ public class UsuariosBean extends ControlArtBean implements
 	private void consultPessoaNovo() throws SQLException {
 		PessoaDao pessoaDao = new PessoaDao();
 
-		List<PessoaT> _listPessoas = pessoaDao.consultAllNoUsers();
+		List<PessoaT> _listPessoas = pessoaDao.consultAllForViewNoUsers();
 
 		listPessoas = new ArrayList<SelectItem>(0);
 
@@ -132,7 +133,7 @@ public class UsuariosBean extends ControlArtBean implements
 	private void consultPessoaEditar() throws SQLException {
 		PessoaDao pessoaDao = new PessoaDao();
 
-		List<PessoaT> _listPessoas = pessoaDao.consultAllUsers();
+		List<PessoaT> _listPessoas = pessoaDao.consultAllForViewUsers();
 
 		listPessoas = new ArrayList<SelectItem>(0);
 

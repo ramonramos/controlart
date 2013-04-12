@@ -1,0 +1,7 @@
+$j(function() {
+	$j('.moeda').maskMoney({
+		symbol : "R$",
+		decimal : ",",
+		thousands : "."
+	});
+});

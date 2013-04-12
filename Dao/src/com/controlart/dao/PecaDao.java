@@ -15,10 +15,10 @@ public class PecaDao {
 	private Connection connection;
 
 	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp ORDER BY tp.nm_peca";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW_NOT_IN_ACERVO = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp WHERE tp.id_acervo_atual <> ? AND tp.in_ativo = 1 ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_ALL = "SELECT tp.* FROM tb_peca tp ORDER BY tp.nm_peca";
-	private static final String SQL_CONSULT_ALL_NOT_IN_ACERVO = "SELECT tp.id_peca, tp.nm_peca, tp.in_ativo FROM tb_peca tp WHERE tp.id_acervo_atual <> ? AND tp.in_ativo = 1 ORDER BY tp.nm_peca";
 	private static final String SQL_CONSULT_LAST_ID = "SELECT MAX(tp.id_peca) as id_peca FROM tb_peca tp";
-	private static final String SQL_CONSULT_ACERVO = "SELECT tp.id_acervo_atual as id_acervo_atual FROM tb_peca tp WHERE tp.id_peca = ?";
+	private static final String SQL_CONSULT_ACERVO_ATUAL = "SELECT tp.id_acervo_atual as id_acervo_atual FROM tb_peca tp WHERE tp.id_peca = ?";
 	private static final String SQL_INSERT = "INSERT INTO tb_peca (id_classificacao, id_acervo_atual, nm_peca, ds_peca, nm_autor, ds_periodo, vl_largura, vl_altura, ds_material, nr_registro, vl_profundidade, ds_historica, ds_estado, vl_preco, in_leilao, in_ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE tb_peca SET id_classificacao = ?, id_acervo_atual = ?, nm_peca = ?, ds_peca = ?, nm_autor = ?, ds_periodo = ?, vl_largura = ?, vl_altura = ?, ds_material = ?, nr_registro = ?, vl_profundidade = ?, ds_historica = ?, ds_estado = ?, vl_preco = ?, in_leilao = ?, in_ativo = ? WHERE id_peca = ?";
 	private static final String SQL_INACTIVATE = "UPDATE tb_peca SET in_ativo = 0 WHERE id_peca = ?";
@@ -50,7 +50,7 @@ public class PecaDao {
 
 			return resultsetToObjectA(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -67,19 +67,21 @@ public class PecaDao {
 	 * @throws SQLException.
 	 */
 
-	public List<PecaT> consultAllNotInAcervo(PecaT pecaT) throws SQLException {
+	public List<PecaT> consultAllForViewNotInAcervo(PecaT pecaT)
+			throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_NOT_IN_ACERVO);
+			pStmt = connection
+					.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW_NOT_IN_ACERVO);
 			pStmt.setObject(1, pecaT.getAcervo());
 
 			rs = pStmt.executeQuery();
 
 			return resultsetToObjectA(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -106,7 +108,7 @@ public class PecaDao {
 
 			return resultsetToObjectB(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -133,7 +135,7 @@ public class PecaDao {
 
 			return resultsetToObjectC(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 		}
 	}
 
@@ -149,19 +151,19 @@ public class PecaDao {
 	 * @throws SQLException.
 	 */
 
-	public int consultIdAcervo(PecaT pecaT) throws SQLException {
+	public int consultAcervoAtual(PecaT pecaT) throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ACERVO);
+			pStmt = connection.prepareStatement(SQL_CONSULT_ACERVO_ATUAL);
 			pStmt.setObject(1, pecaT.getId());
 
 			rs = pStmt.executeQuery();
 
 			return resultsetToObjectD(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}

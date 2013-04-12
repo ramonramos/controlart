@@ -356,7 +356,8 @@ public class TransacaoBean extends ControlArtBean {
 
 			try {
 				PecaDao pecaDao = new PecaDao();
-				List<PecaT> _listPeca = pecaDao.consultAllNotInAcervo(pecaT);
+				List<PecaT> _listPeca = pecaDao
+						.consultAllForViewNotInAcervo(pecaT);
 
 				listPeca.clear();
 
@@ -396,7 +397,7 @@ public class TransacaoBean extends ControlArtBean {
 
 			try {
 				PecaDao pecaDao = new PecaDao();
-				pecaT.setAcervo(pecaDao.consultIdAcervo(pecaT));
+				pecaT.setAcervo(pecaDao.consultAcervoAtual(pecaT));
 
 				transacao.setAcervoOrigem(pecaT.getAcervo());
 			} catch (SQLException sql) {

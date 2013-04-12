@@ -15,14 +15,14 @@
 		<item value="false" key="wholeword"/>
 		<item value="" key="selection"/>
 		<list key="findhistory">
+			<item value="usuariosBean"/>
+			<item value="moeada"/>
+			<item value="preco"/>
 			<item value="processSQLError"/>
 			<item value="Adicionar"/>
 			<item value="msDtTransacao"/>
 			<item value="msDtPrevisaoTransacao"/>
 			<item value="novo"/>
-			<item value="requ"/>
-			<item value="reque"/>
-			<item value="messa"/>
 		</list>
 		<list key="replacehistory">
 			<item value="pathAplicacao"/>

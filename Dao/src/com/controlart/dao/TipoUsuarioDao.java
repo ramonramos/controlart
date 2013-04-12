@@ -14,18 +14,18 @@ import com.controlart.transfer.TipoUsuarioT;
 public class TipoUsuarioDao {
 	private Connection connection;
 
-	private static final String SQL_CONSULT_ALL = "SELECT ttu.id_tipo_usuario, ttu.nm_tipo_usuario, ttu.in_ativo FROM tb_tipo_usuario ttu";
+	private static final String SQL_CONSULT_ALL_FOR_VIEW = "SELECT ttu.id_tipo_usuario, ttu.nm_tipo_usuario, ttu.in_ativo FROM tb_tipo_usuario ttu";
 
 	public TipoUsuarioDao() throws SQLException {
 		connection = ConnFactory.getConnection();
 	}
 
-	public List<TipoUsuarioT> consultAll() throws SQLException {
+	public List<TipoUsuarioT> consultAllForView() throws SQLException {
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
 
 		try {
-			pStmt = connection.prepareStatement(SQL_CONSULT_ALL);
+			pStmt = connection.prepareStatement(SQL_CONSULT_ALL_FOR_VIEW);
 
 			rs = pStmt.executeQuery();
 

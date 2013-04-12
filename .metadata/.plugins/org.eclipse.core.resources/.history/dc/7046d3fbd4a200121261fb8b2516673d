@@ -1,0 +1,8 @@
+jQuery(function($) {
+	$("#moeada").maskMoney({
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : ".",
+		showSymbol : true
+	});
+});

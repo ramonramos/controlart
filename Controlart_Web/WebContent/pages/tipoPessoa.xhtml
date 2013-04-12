@@ -64,7 +64,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{tipoPessoaBean.definirNovo}"
-						disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
 						oncomplete="modalTipoPessoaWV.show();" title="#{msgs.labelNovo}"
 						update=":modalTipoPessoa" value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalTipoPessoa" />

@@ -1,0 +1,6 @@
+var $j = jQuery.noConflict();  
+    
+$j(function(){ 
+  
+$j('.valor').maskMoney({symbol:"R$",decimal:",",thousands:"."}); 
+}  

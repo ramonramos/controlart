@@ -47,7 +47,7 @@ public class AcervoDao {
 
 			return resultsetToObjectA(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
@@ -74,7 +74,7 @@ public class AcervoDao {
 
 			return resultsetToObjectB(rs);
 		} finally {
-			DaoUtils.closePreparedStatement(pStmt);
+			DaoUtils.closeStatementAndResultSet(pStmt, rs);
 			DaoUtils.closeConnection(connection);
 		}
 	}
