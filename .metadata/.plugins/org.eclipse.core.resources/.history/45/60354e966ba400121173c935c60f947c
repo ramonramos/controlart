@@ -1,0 +1,3 @@
+$(".positive").numeric({
+	negative : false
+});

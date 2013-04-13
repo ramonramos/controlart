@@ -225,7 +225,7 @@ public class PecaDao {
 			pecaT.setLargura(rs.getDouble("VL_LARGURA"));
 			pecaT.setAltura(rs.getDouble("VL_ALTURA"));
 			pecaT.setMaterial(rs.getString("DS_MATERIAL"));
-			pecaT.setNumeroRegistro(rs.getDouble("NR_REGISTRO"));
+			pecaT.setNumeroRegistro(rs.getString("NR_REGISTRO"));
 			pecaT.setProfundidade(rs.getDouble("VL_PROFUNDIDADE"));
 			pecaT.setHistorico(rs.getString("DS_HISTORICA"));
 			pecaT.setEstado(rs.getString("DS_ESTADO"));
@@ -296,11 +296,16 @@ public class PecaDao {
 			pStmt.setObject(4, pecaT.getDescricao());
 			pStmt.setObject(5, pecaT.getAutor());
 			pStmt.setObject(6, pecaT.getPeriodo());
-			pStmt.setObject(7, pecaT.getLargura());
-			pStmt.setObject(8, pecaT.getAltura());
+			pStmt.setObject(7,
+					pecaT.getLargura() == 0.0 ? null : pecaT.getLargura());
+			pStmt.setObject(8,
+					pecaT.getAltura() == 0.0 ? null : pecaT.getAltura());
 			pStmt.setObject(9, pecaT.getMaterial());
 			pStmt.setObject(10, pecaT.getNumeroRegistro());
-			pStmt.setObject(11, pecaT.getProfundidade());
+			pStmt.setObject(
+					11,
+					pecaT.getProfundidade() == 0.0 ? null : pecaT
+							.getProfundidade());
 			pStmt.setObject(12, pecaT.getHistorico());
 			pStmt.setObject(13, pecaT.getEstado());
 			pStmt.setObject(14, pecaT.getPreco());
@@ -327,11 +332,16 @@ public class PecaDao {
 			pStmt.setObject(4, pecaT.getDescricao());
 			pStmt.setObject(5, pecaT.getAutor());
 			pStmt.setObject(6, pecaT.getPeriodo());
-			pStmt.setObject(7, pecaT.getLargura());
-			pStmt.setObject(8, pecaT.getAltura());
+			pStmt.setObject(7,
+					pecaT.getLargura() == 0.0 ? null : pecaT.getLargura());
+			pStmt.setObject(8,
+					pecaT.getAltura() == 0.0 ? null : pecaT.getAltura());
 			pStmt.setObject(9, pecaT.getMaterial());
 			pStmt.setObject(10, pecaT.getNumeroRegistro());
-			pStmt.setObject(11, pecaT.getProfundidade());
+			pStmt.setObject(
+					11,
+					pecaT.getProfundidade() == 0.0 ? null : pecaT
+							.getProfundidade());
 			pStmt.setObject(12, pecaT.getHistorico());
 			pStmt.setObject(13, pecaT.getEstado());
 			pStmt.setObject(14, pecaT.getPreco());

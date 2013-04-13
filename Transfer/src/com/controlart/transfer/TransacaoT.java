@@ -17,6 +17,7 @@ public class TransacaoT implements Cloneable, Serializable {
 	private Date dataPrevisao;
 	private Date dataDevolucao;
 	private BigDecimal preco;
+	private String precoString;
 	private int online;
 
 	@Override
@@ -102,5 +103,13 @@ public class TransacaoT implements Cloneable, Serializable {
 
 	public void setDataDevolucao(Date dataDevolucao) {
 		this.dataDevolucao = dataDevolucao;
+	}
+
+	public String getPrecoString() {
+		return precoString;
+	}
+
+	public void setPrecoString(String precoString) {
+		this.precoString = precoString;
 	}
 }

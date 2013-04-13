@@ -42,7 +42,7 @@
 
 					<p:column>
 						<p:commandLink action="#{classificacaoBean.definirEditar}"
-							oncomplete="modalClassificacaoWV.show();"
+							oncomplete="modalClassificacaoWV.show();" process="@this"
 							title="#{msgs.labelEditar}" update=":modalClassificacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalClassificacao" />
@@ -53,7 +53,8 @@
 						<p:commandLink action="#{classificacaoBean.inactivateAction}"
 							disabled="#{(listaClassificacao.ativo eq 0) or (classificacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							title="#{msgs.labelInativar}" update=":formClassificacao">
+							process="@this" title="#{msgs.labelInativar}"
+							update=":formClassificacao">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -62,7 +63,7 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{classificacaoBean.definirNovo}"
 						disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalClassificacaoWV.show();"
+						oncomplete="modalClassificacaoWV.show();" process="@this"
 						title="#{msgs.labelNovo}" update=":modalClassificacao"
 						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalClassificacao" />

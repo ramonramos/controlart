@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="#{localeBean.language}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view contentType="text/html">
+	<h:head>
+		<title><ui:insert name="titulo" /></title>
+
+		<link rel="shortcut icon" type="image/x-icon"
+			href="#{resource['image:favicon.ico']}" />
+
+		<link rel="Stylesheet" href="#{resource['css:template.css']}" />
+
+		<ui:insert name="estiloCSS">
+		</ui:insert>
+
+		<ui:insert name="scripts">
+		</ui:insert>
+	</h:head>
+
+	<h:body>
+		<div id="cabecalho">
+			<ui:insert name="cabecalho">
+				<ui:include src="cabecalho.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="painelInformativo">
+			<ui:insert name="painelInformativo">
+				<ui:include src="painelInformativo.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="painelNavegacao">
+			<ui:insert name="painelNavegacao">
+				<ui:include src="painelNavegacao.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="conteudo">
+			<ui:insert name="conteudo">
+			</ui:insert>
+		</div>
+
+		<p:ajaxStatus oncomplete="statusDialog.hide();"
+			onerror="statusDialog.hide();" onstart="statusDialog.show();" />
+
+		<p:dialog appendToBody="true" closable="false" draggable="false"
+			 header="#{msgs.labelAguarde}" modal="true" resizable="false" widgetVar="statusDialog">
+			<p:graphicImage value="#{resource['image:status_loading.gif']}" />
+		</p:dialog>
+
+		<h:panelGroup layout="block" id="painelFlutuante">
+			<ui:insert name="painelFlutuante">
+			</ui:insert>
+		</h:panelGroup>
+	</h:body>
+</f:view>
+</html>

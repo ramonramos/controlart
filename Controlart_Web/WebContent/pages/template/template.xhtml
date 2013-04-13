@@ -48,8 +48,10 @@
 			onerror="statusDialog.hide();" onstart="statusDialog.show();" />
 
 		<p:dialog appendToBody="true" closable="false" draggable="false"
-			modal="true" resizable="false" widgetVar="statusDialog">
-			<p:graphicImage value="#{resource['image:status_loading.gif']}" />
+			header="#{msgs.labelAguarde}" modal="true" resizable="false"
+			widgetVar="statusDialog">
+			<p:graphicImage styleClass="status-loading-template"
+				value="#{resource['image:status_loading.gif']}" />
 		</p:dialog>
 
 		<h:panelGroup layout="block" id="painelFlutuante">

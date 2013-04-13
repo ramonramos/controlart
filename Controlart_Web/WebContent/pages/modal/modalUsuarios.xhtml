@@ -107,8 +107,9 @@
 				title="#{msgs.labelSalvar}" value="#{msgs.labelSalvar}" />
 			<p:commandButton
 				disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalUsuariosWV.hide();" styleClass="botao-cancelar"
-				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
+				onclick="modalUsuariosWV.hide();" process="@this"
+				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
+				value="#{msgs.labelVoltar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

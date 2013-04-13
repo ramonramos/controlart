@@ -12,10 +12,6 @@
 		<h:outputStylesheet library="css" name="transacao.css" />
 	</ui:define>
 
-	<ui:define name="scripts">
-		<h:outputScript name="locale-primefaces.js" library="js" />
-	</ui:define>
-
 	<ui:define name="conteudo">
 		<h:form id="formTransacao">
 			<p:growl globalOnly="true" life="10000" />
@@ -56,7 +52,8 @@
 
 					<p:column>
 						<p:commandLink action="#{transacaoBean.definirEditar}"
-							oncomplete="modalTransacaoWV.show();" update=":modalTransacao">
+							oncomplete="modalTransacaoWV.show();" process="@this"
+							update=":modalTransacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalTransacao" />
 						</p:commandLink>
@@ -66,7 +63,8 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{transacaoBean.definirNovo}"
 						disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalTransacaoWV.show();" update=":modalTransacao"
+						process="@this" oncomplete="modalTransacaoWV.show();"
+						title="#{msgs.labelNovo}" update=":modalTransacao"
 						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalTransacao" />
 					</p:commandButton>

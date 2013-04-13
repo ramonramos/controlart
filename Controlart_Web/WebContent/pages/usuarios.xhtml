@@ -51,8 +51,8 @@
 
 					<p:column>
 						<p:commandLink action="#{usuariosBean.definirEditar}"
-							oncomplete="modalUsuariosWV.show();" title="#{msgs.labelEditar}"
-							update=":modalUsuarios">
+							oncomplete="modalUsuariosWV.show();" process="@this"
+							title="#{msgs.labelEditar}" update=":modalUsuarios">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalUsuarios" />
 						</p:commandLink>
@@ -62,7 +62,8 @@
 						<p:commandLink action="#{usuariosBean.inactivateAction}"
 							disabled="#{(listaUsuarios.situacao eq 0) or (usuariosBean.usuarioLogado.idTipoUsuario eq 2) or (usuariosBean.usuarioLogado.idUsuario eq listaUsuarios.idUsuario)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							title="#{msgs.labelInativar}" update=":formUsuarios">
+							process="@this" title="#{msgs.labelInativar}"
+							update=":formUsuarios">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -71,8 +72,9 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{usuariosBean.definirNovo}"
 						disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalUsuariosWV.show();" title="#{msgs.labelNovo}"
-						update=":modalUsuarios" value="#{msgs.labelNovo}">
+						oncomplete="modalUsuariosWV.show();" process="@this"
+						title="#{msgs.labelNovo}" update=":modalUsuarios"
+						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalUsuarios" />
 					</p:commandButton>
 				</h:panelGroup>

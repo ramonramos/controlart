@@ -50,13 +50,14 @@
 
 			<p:commandButton action="#{classificacaoBean.saveAction}"
 				disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-				styleClass="botao"
+				styleClass="botao" title="#{msgs.labelSalvar}"
 				update=":formClassificacao:dataTableClassificacao, :formModalClassificacao"
 				value="#{msgs.labelSalvar}" />
 			<p:commandButton
 				disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalClassificacaoWV.hide();" styleClass="botao-cancelar"
-				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
+				onclick="modalClassificacaoWV.hide();" process="@this"
+				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
+				value="#{msgs.labelVoltar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

@@ -46,8 +46,8 @@
 
 					<p:column>
 						<p:commandLink action="#{acervoBean.definirEditar}"
-							oncomplete="modalAcervoWV.show();" title="#{msgs.labelEditar}"
-							update=":modalAcervo">
+							oncomplete="modalAcervoWV.show();" process="@this"
+							title="#{msgs.labelEditar}" update=":modalAcervo">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalAcervo" />
 						</p:commandLink>
@@ -57,7 +57,8 @@
 						<p:commandLink action="#{acervoBean.inactivateAction}"
 							disabled="#{(listaAcervo.ativo eq 0) or (acervoBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							title="#{msgs.labelInativar}" update=":formAcervo">
+							process="@this" title="#{msgs.labelInativar}"
+							update=":formAcervo">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -66,8 +67,9 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{acervoBean.definirNovo}"
 						disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalAcervoWV.show();" title="#{msgs.labelNovo}"
-						update=":modalAcervo" value="#{msgs.labelNovo}">
+						oncomplete="modalAcervoWV.show();" process="@this"
+						title="#{msgs.labelNovo}" update=":modalAcervo"
+						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalAcervo" />
 					</p:commandButton>
 				</h:panelGroup>

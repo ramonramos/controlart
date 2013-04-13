@@ -1,0 +1,1 @@
+$("#real").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});

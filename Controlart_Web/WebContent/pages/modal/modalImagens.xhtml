@@ -22,6 +22,7 @@
 
 					<p:column styleClass="coluna-delete">
 						<p:commandLink action="#{pecaBean.imagemBean.deleteFromList}"
+							process="@this" title="#{msgs.labelInativar}"
 							update=":formModalImagens, :formModalPeca:panelSwitchImagens">
 							<p:graphicImage url="#{resource['image:delete_ico.png']}" />
 						</p:commandLink>
@@ -41,6 +42,10 @@
 					label="#{msgs.labelAdicionar}" mode="advanced" sizeLimit="1024000"
 					update=":formModalImagens, :formModalPeca:panelSwitchImagens" />
 			</h:panelGroup>
+
+			<p:commandButton onclick="modalImagensWV.hide();" process="@this"
+				styleClass="botao-voltar-imagens" title="#{msgs.labelVoltar}"
+				value="#{msgs.labelVoltar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

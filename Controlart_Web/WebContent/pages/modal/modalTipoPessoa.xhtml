@@ -50,13 +50,14 @@
 
 			<p:commandButton action="#{tipoPessoaBean.saveAction}"
 				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
-				styleClass="botao"
+				styleClass="botao" title="#{msgs.labelSalvar}"
 				update=":formTipoPessoa:dataTableTipoPessoa, :formModalTipoPessoa"
 				value="#{msgs.labelSalvar}" />
 			<p:commandButton
 				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalTipoPessoaWV.hide();" styleClass="botao-cancelar"
-				title="#{msgs.labelCancelar}" value="#{msgs.labelCancelar}" />
+				onclick="modalTipoPessoaWV.hide();" process="@this"
+				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
+				value="#{msgs.labelVoltar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

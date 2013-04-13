@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p:dialog id="modalTipoPessoa" appendToBody="false" modal="true"
+		resizable="false" styleClass="dialog" widgetVar="modalTipoPessoaWV">
+		<f:facet name="header">
+			<h:outputLabel value="#{msgs.labelNovoTipoPessoa}"
+				rendered="#{tipoPessoaBean.novoRegistro}" />
+			<h:outputLabel value="#{msgs.labelEditarTipoPessoa}"
+				rendered="#{not tipoPessoaBean.novoRegistro}" />
+		</f:facet>
+
+		<h:form id="formModalTipoPessoa">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panelGrid columns="3">
+				<h:outputLabel value="#{msgs.labelNome}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
+				<p:inputText
+					disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+					id="nome" required="true"
+					value="#{tipoPessoaBean.tipoPessoa.nmTipoPessoa}">
+					<f:validateLength minimum="2" maximum="100" />
+				</p:inputText>
+				<p:message for="nome" />
+
+				<h:outputLabel value="#{msgs.labelDescricao}" />
+				<p:inputText
+					disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+					value="#{tipoPessoaBean.tipoPessoa.dsTipoPessoa}" />
+				<h:outputLabel value="" />
+
+				<h:outputLabel
+					rendered="#{(tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.situacao eq 0)))}"
+					value="#{msgs.labelSituacao}" />
+				<p:selectOneRadio
+					disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+					rendered="#{(tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.situacao eq 0)))}"
+					value="#{tipoPessoaBean.tipoPessoa.situacao}">
+					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
+					<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
+				</p:selectOneRadio>
+				<h:outputLabel
+					rendered="#{(tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.situacao eq 0)))}"
+					value="" />
+			</p:panelGrid>
+
+			<p:commandButton action="#{tipoPessoaBean.saveAction}"
+				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+				styleClass="botao"
+				title="#{msgs.labelSalvar}" update=":formTipoPessoa:dataTableTipoPessoa, :formModalTipoPessoa"
+				value="#{msgs.labelSalvar}" />
+			<p:commandButton
+				disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+				onclick="modalTipoPessoaWV.hide();" process="@this"
+				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
+				value="#{msgs.labelVoltar}" />
+		</h:form>
+	</p:dialog>
+</ui:composition>

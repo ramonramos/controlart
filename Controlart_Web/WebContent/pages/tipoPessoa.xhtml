@@ -45,7 +45,7 @@
 
 					<p:column>
 						<p:commandLink action="#{tipoPessoaBean.definirEditar}"
-							oncomplete="modalTipoPessoaWV.show();"
+							oncomplete="modalTipoPessoaWV.show();" process="@this"
 							title="#{msgs.labelEditar}" update=":modalTipoPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalTipoPessoa" />
@@ -56,7 +56,8 @@
 						<p:commandLink action="#{tipoPessoaBean.inactivateAction}"
 							disabled="#{(listaTipoPessoa.situacao eq 0) or (tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
-							title="#{msgs.labelInativar}" update=":formTipoPessoa">
+							process="@this" title="#{msgs.labelInativar}"
+							update=":formTipoPessoa">
 							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
 						</p:commandLink>
 					</p:column>
@@ -65,8 +66,9 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{tipoPessoaBean.definirNovo}"
 						disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
-						oncomplete="modalTipoPessoaWV.show();" title="#{msgs.labelNovo}"
-						update=":modalTipoPessoa" value="#{msgs.labelNovo}">
+						oncomplete="modalTipoPessoaWV.show();" process="@this"
+						title="#{msgs.labelNovo}" update=":modalTipoPessoa"
+						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalTipoPessoa" />
 					</p:commandButton>
 				</h:panelGroup>

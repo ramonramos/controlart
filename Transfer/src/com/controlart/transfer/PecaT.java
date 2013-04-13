@@ -14,14 +14,15 @@ public class PecaT implements Cloneable, Serializable {
 	private String descricao;
 	private String autor;
 	private String periodo;
-	private double largura;
-	private double altura;
-	private double profundidade;
+	private Double largura;
+	private Double altura;
+	private Double profundidade;
 	private String material;
-	private double numeroRegistro;
+	private String numeroRegistro;
 	private String historico;
 	private String estado;
 	private BigDecimal preco;
+	private String precoString;
 	private int disponivelLeilao;
 	private int ativo;
 
@@ -78,27 +79,27 @@ public class PecaT implements Cloneable, Serializable {
 		this.periodo = periodo;
 	}
 
-	public double getLargura() {
+	public Double getLargura() {
 		return largura;
 	}
 
-	public void setLargura(double largura) {
+	public void setLargura(Double largura) {
 		this.largura = largura;
 	}
 
-	public double getAltura() {
+	public Double getAltura() {
 		return altura;
 	}
 
-	public void setAltura(double altura) {
+	public void setAltura(Double altura) {
 		this.altura = altura;
 	}
 
-	public double getProfundidade() {
+	public Double getProfundidade() {
 		return profundidade;
 	}
 
-	public void setProfundidade(double profundidade) {
+	public void setProfundidade(Double profundidade) {
 		this.profundidade = profundidade;
 	}
 
@@ -108,14 +109,6 @@ public class PecaT implements Cloneable, Serializable {
 
 	public void setMaterial(String material) {
 		this.material = material;
-	}
-
-	public double getNumeroRegistro() {
-		return numeroRegistro;
-	}
-
-	public void setNumeroRegistro(double numeroRegistro) {
-		this.numeroRegistro = numeroRegistro;
 	}
 
 	public BigDecimal getPreco() {
@@ -164,5 +157,21 @@ public class PecaT implements Cloneable, Serializable {
 
 	public void setAcervo(int acervo) {
 		this.acervo = acervo;
+	}
+
+	public String getNumeroRegistro() {
+		return numeroRegistro;
+	}
+
+	public void setNumeroRegistro(String numeroRegistro) {
+		this.numeroRegistro = numeroRegistro;
+	}
+
+	public String getPrecoString() {
+		return precoString;
+	}
+
+	public void setPrecoString(String precoString) {
+		this.precoString = precoString;
 	}
 }

@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="Preco" key="selection"/>
 		<list key="findhistory">
-			<item value="usuariosBean"/>
-			<item value="moeada"/>
 			<item value="preco"/>
-			<item value="processSQLError"/>
-			<item value="Adicionar"/>
-			<item value="msDtTransacao"/>
-			<item value="msDtPrevisaoTransacao"/>
-			<item value="novo"/>
+			<item value="altura"/>
+			<item value="mask"/>
+			<item value="un"/>
+			<item value="umnm"/>
+			<item value="umm"/>
+			<item value="um"/>
+			<item value="unmas"/>
 		</list>
 		<list key="replacehistory">
 			<item value="pathAplicacao"/>

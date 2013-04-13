@@ -10,7 +10,6 @@ public class UsuarioT extends PessoaT implements Cloneable {
 	private String cdSenha;
 	private String cdNovaSenha;
 	private String cdConfirmNovaSenha;
-	private boolean primeiroAcesso;
 	private int situacao;
 
 	@Override
@@ -64,14 +63,6 @@ public class UsuarioT extends PessoaT implements Cloneable {
 
 	public void setCdConfirmNovaSenha(String cdConfirmNovaSenha) {
 		this.cdConfirmNovaSenha = cdConfirmNovaSenha;
-	}
-
-	public boolean isPrimeiroAcesso() {
-		return primeiroAcesso;
-	}
-
-	public void setPrimeiroAcesso(boolean primeiroAcesso) {
-		this.primeiroAcesso = primeiroAcesso;
 	}
 
 	public int getSituacao() {

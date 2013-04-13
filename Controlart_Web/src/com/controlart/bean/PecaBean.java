@@ -126,6 +126,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 		try {
 			peca = (PecaT) ((PecaT) getFacesObject("listaPeca")).clone();
 
+			peca.setPrecoString(peca.getPreco().toString());
+
 			imagemBean = new ImagemBean();
 			imagemBean.setIdPeca(peca.getId());
 			imagemBean.consultAction();
@@ -156,6 +158,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	@Override
 	public void insertAction() {
 		try {
+			peca.setPreco((BeanUtils.unformatCurrency(peca.getPrecoString())));
+
 			PecaDao pecaDao = new PecaDao();
 			pecaDao.insert(peca);
 
@@ -179,6 +183,8 @@ public class PecaBean extends ControlArtBean implements ControlArtBeanInterface 
 	@Override
 	public void updateAction() {
 		try {
+			peca.setPreco((BeanUtils.unformatCurrency(peca.getPrecoString())));
+
 			PecaDao pecaDao = new PecaDao();
 			pecaDao.update(peca);
 

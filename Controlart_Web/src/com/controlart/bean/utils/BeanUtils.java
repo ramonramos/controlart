@@ -1,6 +1,7 @@
 package com.controlart.bean.utils;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
@@ -48,8 +49,23 @@ public class BeanUtils {
 		return hexString.toString();
 	}
 
+	public static final BigDecimal unformatCurrency(String formatedCurrency) {
+		if (formatedCurrency == null || formatedCurrency.isEmpty()) {
+			return null;
+		} else {
+			String currencyStr = formatedCurrency.replace(".", "");
+			currencyStr = currencyStr.replace(",", ".");
+
+			BigDecimal currency = new BigDecimal(currencyStr);
+
+			return currency;
+		}
+	}
+
 	public static final String formatImageName(String name) {
-		if (name != null) {
+		if (name == null || name.isEmpty()) {
+			return null;
+		} else {
 			int barIndex = name.lastIndexOf(File.separator);
 
 			if (barIndex == -1) {
@@ -80,15 +96,13 @@ public class BeanUtils {
 			formatedImageName = formatedImageName + imageExtension;
 
 			return formatedImageName;
-		} else {
-			return null;
 		}
 	}
 
 	public static final String formartPhone(String phone) {
 		String formatedPhone = null;
 
-		if (phone == null) {
+		if (phone == null || phone.isEmpty()) {
 			return formatedPhone;
 		} else {
 			String ddd = null;
@@ -123,7 +137,7 @@ public class BeanUtils {
 	public static final String unformatPhone(String formatedPhone) {
 		String phone = null;
 
-		if (formatedPhone == null) {
+		if (formatedPhone == null || formatedPhone.isEmpty()) {
 			return phone;
 		} else {
 			String[] charsToReplace = { "(", ")", " ", "-" };
