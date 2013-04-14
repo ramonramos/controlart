@@ -1,40 +1,40 @@
 package com.controlart.transfer;
 
 public class TipoUsuarioT {
-	private int idTipoUsuario;
-	private String nmTipoUsuario;
-	private String dsTipoUsuario;
-	private int situacao;
+	private int id;
+	private String nome;
+	private String descricao;
+	private int ativo;
 
-	public int getIdTipoUsuario() {
-		return idTipoUsuario;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdTipoUsuario(int idTipoUsuario) {
-		this.idTipoUsuario = idTipoUsuario;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNmTipoUsuario() {
-		return nmTipoUsuario;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNmTipoUsuario(String nmTipoUsuario) {
-		this.nmTipoUsuario = nmTipoUsuario;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getDsTipoUsuario() {
-		return dsTipoUsuario;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsTipoUsuario(String dsTipoUsuario) {
-		this.dsTipoUsuario = dsTipoUsuario;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public int getSituacao() {
-		return situacao;
+	public int getAtivo() {
+		return ativo;
 	}
 
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
 	}
 }

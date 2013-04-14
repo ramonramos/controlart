@@ -48,7 +48,7 @@
 						</h:outputLabel>
 					</p:column>
 
-					<p:column headerText="#{msgs.labelSituacao}">
+					<p:column headerText="#{msgs.labelStatus}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaPeca.ativo}" />
 					</p:column>
@@ -56,7 +56,8 @@
 					<p:column>
 						<p:commandLink action="#{pecaBean.definirEditar}"
 							oncomplete="modalPecaWV.show();" process="@this"
-							title="#{msgs.labelEditar}" update=":modalPeca">
+							title="#{pecaBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalPeca">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalPeca" />
 						</p:commandLink>
@@ -64,7 +65,7 @@
 						<p:spacer height="20" />
 
 						<p:commandLink action="#{pecaBean.inactivateAction}"
-							disabled="#{(listaPeca.ativo eq 0) or (pecaBean.usuarioLogado.idTipoUsuario eq 2)}"
+							disabled="#{(listaPeca.ativo eq 0) or (pecaBean.usuarioLogado.tipoUsuario eq 2)}"
 							process="@this"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
 							title="#{msgs.labelInativar}" update=":formPeca">
@@ -75,7 +76,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{pecaBean.definirNovo}"
-						disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 						process="@this" oncomplete="modalPecaWV.show();"
 						title="#{msgs.labelNovo}" update=":modalPeca"
 						value="#{msgs.labelNovo}">

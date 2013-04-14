@@ -35,7 +35,7 @@
 						<h:outputLabel value="#{listaClassificacao.nome}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelSituacao}">
+					<p:column headerText="#{msgs.labelStatus}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaClassificacao.ativo}" />
 					</p:column>
@@ -43,7 +43,8 @@
 					<p:column>
 						<p:commandLink action="#{classificacaoBean.definirEditar}"
 							oncomplete="modalClassificacaoWV.show();" process="@this"
-							title="#{msgs.labelEditar}" update=":modalClassificacao">
+							title="#{classificacaoBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalClassificacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalClassificacao" />
 						</p:commandLink>
@@ -51,7 +52,7 @@
 						<p:spacer height="20" />
 
 						<p:commandLink action="#{classificacaoBean.inactivateAction}"
-							disabled="#{(listaClassificacao.ativo eq 0) or (classificacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+							disabled="#{(listaClassificacao.ativo eq 0) or (classificacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
 							process="@this" title="#{msgs.labelInativar}"
 							update=":formClassificacao">
@@ -62,7 +63,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{classificacaoBean.definirNovo}"
-						disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}"
 						oncomplete="modalClassificacaoWV.show();" process="@this"
 						title="#{msgs.labelNovo}" update=":modalClassificacao"
 						value="#{msgs.labelNovo}">

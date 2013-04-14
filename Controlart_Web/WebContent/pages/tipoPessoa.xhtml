@@ -31,22 +31,23 @@
 					styleClass="data-table-tipoPessoa"
 					value="#{tipoPessoaBean.listTipoPessoa}" var="listaTipoPessoa">
 					<p:column headerText="#{msgs.labelNome}">
-						<h:outputLabel value="#{listaTipoPessoa.nmTipoPessoa}" />
+						<h:outputLabel value="#{listaTipoPessoa.nome}" />
 					</p:column>
 
 					<p:column headerText="#{msgs.labelDescricao}">
-						<h:outputLabel value="#{listaTipoPessoa.dsTipoPessoa}" />
+						<h:outputLabel value="#{listaTipoPessoa.descricao}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelSituacao}">
+					<p:column headerText="#{msgs.labelStatus}">
 						<h:outputLabel converter="statusConverter"
-							value="#{listaTipoPessoa.situacao}" />
+							value="#{listaTipoPessoa.ativo}" />
 					</p:column>
 
 					<p:column>
 						<p:commandLink action="#{tipoPessoaBean.definirEditar}"
 							oncomplete="modalTipoPessoaWV.show();" process="@this"
-							title="#{msgs.labelEditar}" update=":modalTipoPessoa">
+							title="#{tipoPessoaBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalTipoPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalTipoPessoa" />
 						</p:commandLink>
@@ -54,7 +55,7 @@
 						<p:spacer height="20" />
 
 						<p:commandLink action="#{tipoPessoaBean.inactivateAction}"
-							disabled="#{(listaTipoPessoa.situacao eq 0) or (tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2)}"
+							disabled="#{(listaTipoPessoa.ativo eq 0) or (tipoPessoaBean.usuarioLogado.tipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
 							process="@this" title="#{msgs.labelInativar}"
 							update=":formTipoPessoa">
@@ -65,7 +66,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{tipoPessoaBean.definirNovo}"
-						disabled="#{tipoPessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{tipoPessoaBean.usuarioLogado.tipoUsuario eq 2}"
 						oncomplete="modalTipoPessoaWV.show();" process="@this"
 						title="#{msgs.labelNovo}" update=":modalTipoPessoa"
 						value="#{msgs.labelNovo}">

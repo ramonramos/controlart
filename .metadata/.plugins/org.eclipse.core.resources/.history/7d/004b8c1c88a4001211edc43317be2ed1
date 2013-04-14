@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="#{localeBean.language}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view contentType="text/html">
+	<h:head>
+		<title>#{msgs.tituloSistema} - #{msgs.tituloPaginaLogin}</title>
+
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+
+		<link href="#{resource['image:favicon.ico']}" rel="shortcut icon"
+			type="image/x-icon" />
+
+		<h:outputStylesheet library="css" name="login.css" />
+	</h:head>
+
+	<h:body style="padding-top: 15%">
+		<p:panel style="background-color: red; opacity: 0.5; border-radius: 20px; box-shadow: 3px 5px 20px #000; box-shadow: inset -2px 5px 20px #000;">			
+			<h:form id="formLogin">
+				<p:growl globalOnly="true" life="10000" />
+				<p:panel style="opacity: 1;">
+				<p:panel style="border: 0; padding-left: 30%;" ><h:outputLabel style="font-size: 14pt; font-family: Comic Sans, Comic Sans MS, cursive; font-weight: bold;">Sistema para Controle de Acervo de Arte</h:outputLabel></p:panel>
+				<!--<p:panel style="border: 0; padding-left: 10%; padding-top: 5%;" ><h:outputLabel style="font-size: 14pt; font-family: verdana;">Sistema para Controle de Acervo de Arte</h:outputLabel></p:panel>  -->
+				<h:panelGrid columns="3">
+					<h:outputLabel value="#{msgs.labelUsuario} " />
+					<p:inputText id="usuario" label="#{msgs.labelUsuario}"
+						required="true" title="#{msgs.tooltipUsuario}"
+						value="#{loginBean.usuario.dsLogin}">
+						<f:validateLength minimum="3" />
+					</p:inputText>
+					<p:message for="usuario" />
+
+					<h:outputLabel value="#{msgs.labelSenha} " />
+					<p:password id="senha" label="#{msgs.labelSenha}" required="true"
+						title="#{msgs.tooltipSenha}" value="#{loginBean.usuario.cdSenha}">
+						<f:validateLength minimum="3" />
+					</p:password>
+					<p:message for="senha" />					
+
+					<p:commandButton action="#{loginBean.login}" ajax="false"
+						title="#{msgs.tooltipLogar}" update=":formLogin"
+						value="#{msgs.labelLogar}" />						
+				</h:panelGrid>				
+				</p:panel>
+			</h:form>			
+		</p:panel>
+	</h:body>
+</f:view>
+</html>

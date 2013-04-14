@@ -39,7 +39,7 @@
 							value="#{listaAcervo.dono}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelSituacao}">
+					<p:column headerText="#{msgs.labelStatus}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaAcervo.ativo}" />
 					</p:column>
@@ -47,7 +47,8 @@
 					<p:column>
 						<p:commandLink action="#{acervoBean.definirEditar}"
 							oncomplete="modalAcervoWV.show();" process="@this"
-							title="#{msgs.labelEditar}" update=":modalAcervo">
+							title="#{acervoBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalAcervo">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalAcervo" />
 						</p:commandLink>
@@ -55,7 +56,7 @@
 						<p:spacer height="20" />
 
 						<p:commandLink action="#{acervoBean.inactivateAction}"
-							disabled="#{(listaAcervo.ativo eq 0) or (acervoBean.usuarioLogado.idTipoUsuario eq 2)}"
+							disabled="#{(listaAcervo.ativo eq 0) or (acervoBean.usuarioLogado.tipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
 							process="@this" title="#{msgs.labelInativar}"
 							update=":formAcervo">
@@ -66,7 +67,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{acervoBean.definirNovo}"
-						disabled="#{acervoBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{acervoBean.usuarioLogado.tipoUsuario eq 2}"
 						oncomplete="modalAcervoWV.show();" process="@this"
 						title="#{msgs.labelNovo}" update=":modalAcervo"
 						value="#{msgs.labelNovo}">

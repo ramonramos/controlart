@@ -43,9 +43,9 @@ public class TipoUsuarioDao {
 		while (rs.next()) {
 			TipoUsuarioT tipoUsuarioT = new TipoUsuarioT();
 
-			tipoUsuarioT.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
-			tipoUsuarioT.setNmTipoUsuario(rs.getString("NM_TIPO_USUARIO"));
-			tipoUsuarioT.setSituacao(rs.getInt("IN_ATIVO"));
+			tipoUsuarioT.setId(rs.getInt("ID_TIPO_USUARIO"));
+			tipoUsuarioT.setNome(rs.getString("NM_TIPO_USUARIO"));
+			tipoUsuarioT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaTipoUsuarioT.add(tipoUsuarioT);
 		}

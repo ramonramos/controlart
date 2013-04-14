@@ -7,9 +7,11 @@
 		resizable="false" styleClass="dialog" widgetVar="modalPecaWV">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovaPeca}"
-				rendered="#{pecaBean.novoRegistro}" />
+				rendered="#{(pecaBean.novoRegistro) and (pecaBean.usuarioLogado.tipoUsuario ne 2)}" />
 			<h:outputLabel value="#{msgs.labelEditarPeca}"
-				rendered="#{not pecaBean.novoRegistro}" />
+				rendered="#{(not pecaBean.novoRegistro) and (pecaBean.usuarioLogado.tipoUsuario ne 2)}" />
+			<h:outputLabel value="#{msgs.labelVisualizarPeca}"
+				rendered="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
 		<h:outputScript library="js" name="jquery.numeric.js" />
@@ -41,7 +43,7 @@
 						</h:panelGroup>
 
 						<p:commandButton
-							disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+							disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 							onclick="modalImagensWV.show();" process="@this"
 							styleClass="sub-panel-left-botao-imagens"
 							title="#{msgs.labelImagens}" update=":formModalImagens"
@@ -50,13 +52,13 @@
 						<p:panelGrid styleClass="sub-panel-left-grid" columns="3">
 							<h:outputLabel value="#{msgs.labelMaterial}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								value="#{pecaBean.peca.material}" />
 							<h:outputLabel value="" />
 
 							<h:outputLabel value="#{msgs.labelEstado}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								id="estado" value="#{pecaBean.peca.estado}">
 								<f:validateLength maximum="50" />
 							</p:inputText>
@@ -64,13 +66,13 @@
 
 							<h:outputLabel value="#{msgs.labelHistorico}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								value="#{pecaBean.peca.historico}" />
 							<h:outputLabel value="" />
 
 							<h:outputLabel value="#{msgs.labelDisponivelLeilao}" />
 							<p:selectOneRadio
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								value="#{pecaBean.peca.disponivelLeilao}">
 								<f:selectItem itemLabel="#{msgs.labelSim}" itemValue="1" />
 								<f:selectItem itemLabel="#{msgs.labelNao}" itemValue="0" />
@@ -85,7 +87,7 @@
 								<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 							</h:outputLabel>
 							<p:selectOneMenu
-								disabled="#{(pecaBean.usuarioLogado.idTipoUsuario eq 2) or (not pecaBean.novoRegistro)}"
+								disabled="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or (not pecaBean.novoRegistro)}"
 								id="acervo" required="true" value="#{pecaBean.peca.acervo}">
 								<f:selectItem itemLabel="#{msgs.labelSelecione}"
 									itemValue="#{null}" />
@@ -97,7 +99,7 @@
 								<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 							</h:outputLabel>
 							<p:selectOneMenu
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								id="classificacao" required="true"
 								value="#{pecaBean.peca.classificacao}">
 								<f:selectItem itemLabel="#{msgs.labelSelecione}"
@@ -110,15 +112,15 @@
 								<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 							</h:outputLabel>
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-								id="nome" required="true" value="#{pecaBean.peca.nome}">
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" id="nome"
+								required="true" value="#{pecaBean.peca.nome}">
 								<f:validateLength minimum="2" maximum="100" />
 							</p:inputText>
 							<p:message for="nome" />
 
 							<h:outputLabel value="#{msgs.labelDescricao}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								value="#{pecaBean.peca.descricao}" />
 							<h:outputLabel value="" />
 
@@ -126,22 +128,22 @@
 								<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 							</h:outputLabel>
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-								id="autor" required="true" value="#{pecaBean.peca.autor}">
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" id="autor"
+								required="true" value="#{pecaBean.peca.autor}">
 								<f:validateLength minimum="2" maximum="100" />
 							</p:inputText>
 							<p:message for="autor" />
 
 							<h:outputLabel value="#{msgs.labelPeriodo}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								value="#{pecaBean.peca.periodo}" />
 							<h:outputLabel value="" />
 
 							<h:outputLabel value="#{msgs.labelLargura}" />
 							<h:panelGroup>
 								<p:inputText
-									disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+									disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 									styleClass="positive-decimal" value="#{pecaBean.peca.largura}" />
 								<h:outputLabel value="#{msgs.labelMetros}" />
 							</h:panelGroup>
@@ -150,7 +152,7 @@
 							<h:outputLabel value="#{msgs.labelAltura}" />
 							<h:panelGroup>
 								<p:inputText
-									disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+									disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 									styleClass="positive-decimal" value="#{pecaBean.peca.altura}" />
 								<h:outputLabel value="#{msgs.labelMetros}" />
 							</h:panelGroup>
@@ -159,7 +161,7 @@
 							<h:outputLabel value="#{msgs.labelProfundidade}" />
 							<h:panelGroup>
 								<p:inputText
-									disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+									disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 									styleClass="positive-decimal"
 									value="#{pecaBean.peca.profundidade}" />
 								<h:outputLabel value="#{msgs.labelMetros}" />
@@ -168,7 +170,7 @@
 
 							<h:outputLabel value="#{msgs.labelNumeroRegistro}" />
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								id="numeroRegistro" styleClass="positive-integer"
 								value="#{pecaBean.peca.numeroRegistro}">
 								<f:convertNumber integerOnly="true" />
@@ -179,23 +181,23 @@
 								<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 							</h:outputLabel>
 							<p:inputText
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-								id="preco" required="true" styleClass="moeda"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" id="preco"
+								required="true" styleClass="moeda"
 								value="#{pecaBean.peca.precoString}" />
 							<p:message for="preco" />
 
 							<h:outputLabel
-								rendered="#{(pecaBean.usuarioLogado.idTipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
-								value="#{msgs.labelSituacao}" />
+								rendered="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
+								value="#{msgs.labelStatus}" />
 							<p:selectOneRadio
-								disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-								rendered="#{(pecaBean.usuarioLogado.idTipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
+								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
+								rendered="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
 								value="#{pecaBean.peca.ativo}">
 								<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
 								<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
 							</p:selectOneRadio>
 							<h:outputLabel
-								rendered="#{(pecaBean.usuarioLogado.idTipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
+								rendered="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
 								value="" />
 						</p:panelGrid>
 					</h:panelGroup>
@@ -205,13 +207,11 @@
 			<h:panelGroup styleClass="clear-panels" layout="block" />
 
 			<p:commandButton action="#{pecaBean.saveAction}"
-				disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
+				disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 				styleClass="botao" title="#{msgs.labelSalvar}"
 				update=":formPeca:dataTablePeca, :formModalPeca"
 				value="#{msgs.labelSalvar}" />
-			<p:commandButton
-				disabled="#{pecaBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalPecaWV.hide();" process="@this"
+			<p:commandButton onclick="modalPecaWV.hide();" process="@this"
 				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
 				value="#{msgs.labelVoltar}" />
 		</h:form>

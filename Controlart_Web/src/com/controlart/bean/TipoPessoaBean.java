@@ -54,7 +54,7 @@ public class TipoPessoaBean extends ControlArtBean implements
 
 		clearAction();
 
-		tipoPessoa.setSituacao(1);
+		tipoPessoa.setAtivo(1);
 	}
 
 	@Override

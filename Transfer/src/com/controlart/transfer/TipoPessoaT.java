@@ -6,45 +6,45 @@ public class TipoPessoaT implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int idTipoPessoa;
-	private String nmTipoPessoa;
-	private String dsTipoPessoa;
-	private int situacao;
+	private int id;
+	private String nome;
+	private String descricao;
+	private int ativo;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 
-	public int getIdTipoPessoa() {
-		return idTipoPessoa;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdTipoPessoa(int idTipoPessoa) {
-		this.idTipoPessoa = idTipoPessoa;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getNmTipoPessoa() {
-		return nmTipoPessoa;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNmTipoPessoa(String nmTipoPessoa) {
-		this.nmTipoPessoa = nmTipoPessoa;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getDsTipoPessoa() {
-		return dsTipoPessoa;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsTipoPessoa(String dsTipoPessoa) {
-		this.dsTipoPessoa = dsTipoPessoa;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public int getSituacao() {
-		return situacao;
+	public int getAtivo() {
+		return ativo;
 	}
 
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
 	}
 }

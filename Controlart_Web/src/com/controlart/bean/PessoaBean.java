@@ -68,14 +68,12 @@ public class PessoaBean extends ControlArtBean implements
 		hashTipoPessoa = new HashMap<Integer, String>(0);
 
 		for (TipoPessoaT tipoPessoaT : _listTipoPessoa) {
-			if (tipoPessoaT.getSituacao() == 1) {
-				listTipoPessoa.add(new SelectItem(
-						tipoPessoaT.getIdTipoPessoa(), tipoPessoaT
-								.getNmTipoPessoa()));
+			if (tipoPessoaT.getAtivo() == 1) {
+				listTipoPessoa.add(new SelectItem(tipoPessoaT.getId(),
+						tipoPessoaT.getNome()));
 			}
 
-			hashTipoPessoa.put(tipoPessoaT.getIdTipoPessoa(),
-					tipoPessoaT.getNmTipoPessoa());
+			hashTipoPessoa.put(tipoPessoaT.getId(), tipoPessoaT.getNome());
 		}
 	}
 
@@ -85,7 +83,7 @@ public class PessoaBean extends ControlArtBean implements
 
 		clearAction();
 
-		pessoa.setSituacao(1);
+		pessoa.setAtivo(1);
 	}
 
 	@Override
@@ -114,7 +112,7 @@ public class PessoaBean extends ControlArtBean implements
 	@Override
 	public void insertAction() {
 		try {
-			pessoa.setNrFone(BeanUtils.unformatPhone(pessoa.getNrFone()));
+			pessoa.setFone(BeanUtils.unformatPhone(pessoa.getFone()));
 
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoaDao.insert(pessoa);
@@ -122,7 +120,7 @@ public class PessoaBean extends ControlArtBean implements
 			if (pessoa.isPossuiAcervo()) {
 				AcervoT acervoT = new AcervoT();
 				acervoT.setDono(pessoa.getIdPessoa());
-				acervoT.setNome(pessoa.getNmAcervo());
+				acervoT.setNome(pessoa.getNomeAcervo());
 				acervoT.setAtivo(1);
 
 				AcervoDao acervoDao = new AcervoDao();
@@ -142,7 +140,7 @@ public class PessoaBean extends ControlArtBean implements
 	@Override
 	public void updateAction() {
 		try {
-			pessoa.setNrFone(BeanUtils.unformatPhone(pessoa.getNrFone()));
+			pessoa.setFone(BeanUtils.unformatPhone(pessoa.getFone()));
 
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoaDao.update(pessoa);
@@ -172,15 +170,14 @@ public class PessoaBean extends ControlArtBean implements
 	 */
 
 	private void atualizarDadosUsuarioLogado() {
-		getUsuarioLogado().setIdTipoPessoa(pessoa.getIdTipoPessoa());
-		getUsuarioLogado().setNmPessoa(pessoa.getNmPessoa());
-		getUsuarioLogado().setNrFone(pessoa.getNrFone());
-		getUsuarioLogado().setDsEmail(pessoa.getDsEmail());
-		getUsuarioLogado().setNmRua(pessoa.getNmRua());
-		getUsuarioLogado().setNrImovel(pessoa.getNrImovel());
-		getUsuarioLogado().setNmBairro(pessoa.getNmBairro());
-		getUsuarioLogado().setNmCidade(pessoa.getNmCidade());
-		getUsuarioLogado().setSituacao(pessoa.getSituacao());
+		getUsuarioLogado().setTipoPessoa(pessoa.getTipoPessoa());
+		getUsuarioLogado().setNome(pessoa.getNome());
+		getUsuarioLogado().setFone(pessoa.getFone());
+		getUsuarioLogado().setEmail(pessoa.getEmail());
+		getUsuarioLogado().setLogradouro(pessoa.getLogradouro());
+		getUsuarioLogado().setNumero(pessoa.getNumero());
+		getUsuarioLogado().setBairro(pessoa.getBairro());
+		getUsuarioLogado().setCidade(pessoa.getCidade());
 	}
 
 	@Override

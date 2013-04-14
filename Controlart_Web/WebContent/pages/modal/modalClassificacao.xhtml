@@ -7,9 +7,11 @@
 		resizable="false" styleClass="dialog" widgetVar="modalClassificacaoWV">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovaClassificacao}"
-				rendered="#{classificacaoBean.novoRegistro}" />
+				rendered="#{(classificacaoBean.novoRegistro) and (classificacaoBean.usuarioLogado.tipoUsuario ne 2)}" />
 			<h:outputLabel value="#{msgs.labelEditarClassificacao}"
-				rendered="#{not classificacaoBean.novoRegistro}" />
+				rendered="#{(not classificacaoBean.novoRegistro) and (classificacaoBean.usuarioLogado.tipoUsuario ne 2)}" />
+			<h:outputLabel value="#{msgs.labelVisualizarClassificacao}"
+				rendered="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
 		<h:form id="formModalClassificacao">
@@ -20,7 +22,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:inputText
-					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+					disabled="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}"
 					id="nome" required="true"
 					value="#{classificacaoBean.classificacao.nome}">
 					<f:validateLength minimum="2" maximum="100" />
@@ -29,35 +31,33 @@
 
 				<h:outputLabel value="#{msgs.labelDescricao}" />
 				<p:inputText
-					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+					disabled="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}"
 					value="#{classificacaoBean.classificacao.descricao}" />
 				<h:outputLabel value="" />
 
 				<h:outputLabel
-					rendered="#{(classificacaoBean.usuarioLogado.idTipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
-					value="#{msgs.labelSituacao}" />
+					rendered="#{(classificacaoBean.usuarioLogado.tipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
+					value="#{msgs.labelStatus}" />
 				<p:selectOneRadio
-					disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-					rendered="#{(classificacaoBean.usuarioLogado.idTipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
+					disabled="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}"
+					rendered="#{(classificacaoBean.usuarioLogado.tipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
 					value="#{classificacaoBean.classificacao.ativo}">
 					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
 					<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
 				</p:selectOneRadio>
 				<h:outputLabel
-					rendered="#{(classificacaoBean.usuarioLogado.idTipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
+					rendered="#{(classificacaoBean.usuarioLogado.tipoUsuario eq 2) or ((classificacaoBean.novoRegistro) or ((not classificacaoBean.novoRegistro) and (classificacaoBean.classificacao.ativo eq 0)))}"
 					value="" />
 			</p:panelGrid>
 
 			<p:commandButton action="#{classificacaoBean.saveAction}"
-				disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+				disabled="#{classificacaoBean.usuarioLogado.tipoUsuario eq 2}"
 				styleClass="botao" title="#{msgs.labelSalvar}"
 				update=":formClassificacao:dataTableClassificacao, :formModalClassificacao"
 				value="#{msgs.labelSalvar}" />
-			<p:commandButton
-				disabled="#{classificacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalClassificacaoWV.hide();" process="@this"
-				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
-				value="#{msgs.labelVoltar}" />
+			<p:commandButton onclick="modalClassificacaoWV.hide();"
+				process="@this" styleClass="botao-voltar"
+				title="#{msgs.labelVoltar}" value="#{msgs.labelVoltar}" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

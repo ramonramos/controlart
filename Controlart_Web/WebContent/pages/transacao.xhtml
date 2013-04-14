@@ -53,6 +53,7 @@
 					<p:column>
 						<p:commandLink action="#{transacaoBean.definirEditar}"
 							oncomplete="modalTransacaoWV.show();" process="@this"
+							title="#{transacaoBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
 							update=":modalTransacao">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalTransacao" />
@@ -62,7 +63,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{transacaoBean.definirNovo}"
-						disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{transacaoBean.usuarioLogado.tipoUsuario eq 2}"
 						process="@this" oncomplete="modalTransacaoWV.show();"
 						title="#{msgs.labelNovo}" update=":modalTransacao"
 						value="#{msgs.labelNovo}">

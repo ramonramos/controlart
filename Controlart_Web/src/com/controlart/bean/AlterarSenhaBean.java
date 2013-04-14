@@ -28,25 +28,24 @@ public class AlterarSenhaBean extends ControlArtBean {
 
 	public void updateAction() {
 		try {
-			String senhaAtual = BeanUtils.encryptPassword(usuario.getCdSenha());
+			String senhaAtual = BeanUtils.encryptPassword(usuario.getSenha());
 
-			if (!(senhaAtual.equals(getUsuarioLogado().getCdSenha()))) {
+			if (!(senhaAtual.equals(getUsuarioLogado().getSenha()))) {
 				addFacesMessage(getObjectFromBundle("msSenhaAtualInvalida"),
 						null, BeanUtils.SEVERITY_WARN);
 
 				return;
 			}
 
-			if (usuario.getCdNovaSenha()
-					.equals(usuario.getCdConfirmNovaSenha())) {
+			if (usuario.getNovaSenha().equals(usuario.getConfirmNovaSenha())) {
 				usuario.setIdPessoa(getUsuarioLogado().getIdPessoa());
-				usuario.setCdSenha(BeanUtils.encryptPassword(usuario
-						.getCdNovaSenha()));
+				usuario.setSenha(BeanUtils.encryptPassword(usuario
+						.getNovaSenha()));
 
 				UsuariosDao usuariosDao = new UsuariosDao();
 				usuariosDao.updatePassword(usuario);
 
-				getUsuarioLogado().setCdSenha(usuario.getCdSenha());
+				getUsuarioLogado().setSenha(usuario.getSenha());
 
 				addFacesMessage(getObjectFromBundle("msRegistroAtualizado"),
 						null, BeanUtils.SEVERITY_INFO);

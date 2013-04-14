@@ -7,17 +7,17 @@ public class PessoaT implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private int idPessoa;
-	private int idTipoPessoa;
+	private int tipoPessoa;
 	private boolean possuiAcervo;
-	private String nmAcervo;
-	private String nmPessoa;
-	private String nrFone;
-	private String dsEmail;
-	private String nmRua;
-	private String nrImovel;
-	private String nmBairro;
-	private String nmCidade;
-	private int situacao;
+	private String nomeAcervo;
+	private String nome;
+	private String fone;
+	private String email;
+	private String logradouro;
+	private String numero;
+	private String bairro;
+	private String cidade;
+	private int ativo;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -32,76 +32,12 @@ public class PessoaT implements Serializable, Cloneable {
 		this.idPessoa = idPessoa;
 	}
 
-	public int getIdTipoPessoa() {
-		return idTipoPessoa;
+	public int getTipoPessoa() {
+		return tipoPessoa;
 	}
 
-	public void setIdTipoPessoa(int idTipoPessoa) {
-		this.idTipoPessoa = idTipoPessoa;
-	}
-
-	public String getNmPessoa() {
-		return nmPessoa;
-	}
-
-	public void setNmPessoa(String nmPessoa) {
-		this.nmPessoa = nmPessoa;
-	}
-
-	public String getNrFone() {
-		return nrFone;
-	}
-
-	public void setNrFone(String nrFone) {
-		this.nrFone = nrFone;
-	}
-
-	public String getDsEmail() {
-		return dsEmail;
-	}
-
-	public void setDsEmail(String dsEmail) {
-		this.dsEmail = dsEmail;
-	}
-
-	public String getNmRua() {
-		return nmRua;
-	}
-
-	public void setNmRua(String nmRua) {
-		this.nmRua = nmRua;
-	}
-
-	public String getNrImovel() {
-		return nrImovel;
-	}
-
-	public void setNrImovel(String nrImovel) {
-		this.nrImovel = nrImovel;
-	}
-
-	public String getNmBairro() {
-		return nmBairro;
-	}
-
-	public void setNmBairro(String nmBairro) {
-		this.nmBairro = nmBairro;
-	}
-
-	public String getNmCidade() {
-		return nmCidade;
-	}
-
-	public void setNmCidade(String nmCidade) {
-		this.nmCidade = nmCidade;
-	}
-
-	public int getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
+	public void setTipoPessoa(int tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
 	public boolean isPossuiAcervo() {
@@ -112,11 +48,75 @@ public class PessoaT implements Serializable, Cloneable {
 		this.possuiAcervo = possuiAcervo;
 	}
 
-	public String getNmAcervo() {
-		return nmAcervo;
+	public String getNomeAcervo() {
+		return nomeAcervo;
 	}
 
-	public void setNmAcervo(String nmAcervo) {
-		this.nmAcervo = nmAcervo;
+	public void setNomeAcervo(String nomeAcervo) {
+		this.nomeAcervo = nomeAcervo;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public int getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
 	}
 }

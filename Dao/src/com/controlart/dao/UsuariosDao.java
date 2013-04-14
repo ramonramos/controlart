@@ -43,8 +43,8 @@ public class UsuariosDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_CONSULT);
-			pStmt.setObject(1, usuarioT.getDsLogin());
-			pStmt.setObject(2, usuarioT.getCdSenha());
+			pStmt.setObject(1, usuarioT.getLogin());
+			pStmt.setObject(2, usuarioT.getSenha());
 
 			rs = pStmt.executeQuery();
 
@@ -103,20 +103,20 @@ public class UsuariosDao {
 			usuarioT = new UsuarioT();
 
 			usuarioT.setIdUsuario(rs.getInt("ID_USUARIO"));
-			usuarioT.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
+			usuarioT.setTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
-			usuarioT.setDsLogin(rs.getString("DS_LOGIN"));
-			usuarioT.setCdSenha(rs.getString("DS_SENHA"));
-			usuarioT.setSituacao(rs.getInt("IN_ATIVO"));
+			usuarioT.setLogin(rs.getString("DS_LOGIN"));
+			usuarioT.setSenha(rs.getString("DS_SENHA"));
+			usuarioT.setAtivo(rs.getInt("IN_ATIVO"));
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
-			usuarioT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
-			usuarioT.setNmPessoa(rs.getString("NM_PESSOA"));
-			usuarioT.setNrFone(rs.getString("NR_FONE"));
-			usuarioT.setDsEmail(rs.getString("DS_EMAIL"));
-			usuarioT.setNmRua(rs.getString("NM_RUA"));
-			usuarioT.setNrImovel(rs.getString("NR_IMOVEL"));
-			usuarioT.setNmBairro(rs.getString("NM_BAIRRO"));
-			usuarioT.setNmCidade(rs.getString("NM_CIDADE"));
+			usuarioT.setTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
+			usuarioT.setNome(rs.getString("NM_PESSOA"));
+			usuarioT.setFone(rs.getString("NR_FONE"));
+			usuarioT.setEmail(rs.getString("DS_EMAIL"));
+			usuarioT.setLogradouro(rs.getString("NM_RUA"));
+			usuarioT.setNumero(rs.getString("NR_IMOVEL"));
+			usuarioT.setBairro(rs.getString("NM_BAIRRO"));
+			usuarioT.setCidade(rs.getString("NM_CIDADE"));
 		}
 
 		return usuarioT;
@@ -142,10 +142,10 @@ public class UsuariosDao {
 			UsuarioT usuarioT = new UsuarioT();
 
 			usuarioT.setIdUsuario(rs.getInt("ID_USUARIO"));
-			usuarioT.setIdTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
+			usuarioT.setTipoUsuario(rs.getInt("ID_TIPO_USUARIO"));
 			usuarioT.setIdPessoa(rs.getInt("ID_PESSOA"));
-			usuarioT.setDsLogin(rs.getString("DS_LOGIN"));
-			usuarioT.setSituacao(rs.getInt("IN_ATIVO"));
+			usuarioT.setLogin(rs.getString("DS_LOGIN"));
+			usuarioT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaUsuarioT.add(usuarioT);
 		}
@@ -158,11 +158,11 @@ public class UsuariosDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INSERT);
-			pStmt.setObject(1, usuarioT.getIdTipoUsuario());
+			pStmt.setObject(1, usuarioT.getTipoUsuario());
 			pStmt.setObject(2, usuarioT.getIdPessoa());
-			pStmt.setObject(3, usuarioT.getDsLogin());
-			pStmt.setObject(4, usuarioT.getCdSenha());
-			pStmt.setObject(5, usuarioT.getSituacao());
+			pStmt.setObject(3, usuarioT.getLogin());
+			pStmt.setObject(4, usuarioT.getSenha());
+			pStmt.setObject(5, usuarioT.getAtivo());
 
 			pStmt.execute();
 		} finally {
@@ -187,7 +187,7 @@ public class UsuariosDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_UPDATE_PASSWORD);
-			pStmt.setObject(1, usuarioT.getCdSenha());
+			pStmt.setObject(1, usuarioT.getSenha());
 			pStmt.setObject(2, usuarioT.getIdPessoa());
 
 			pStmt.executeUpdate();
@@ -214,8 +214,8 @@ public class UsuariosDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
-			pStmt.setObject(1, usuarioT.getCdSenha());
-			pStmt.setObject(2, usuarioT.getSituacao());
+			pStmt.setObject(1, usuarioT.getSenha());
+			pStmt.setObject(2, usuarioT.getAtivo());
 			pStmt.setObject(3, usuarioT.getIdUsuario());
 
 			pStmt.executeUpdate();

@@ -1,0 +1,26 @@
+package com.controlart.transfer;
+
+import java.io.Serializable;
+
+public class PessoaT implements Serializable, Cloneable {
+
+	private static final long serialVersionUID = 1L;
+
+	private int id;
+	private int tipoPessoa;
+	private boolean possuiAcervo;
+	private String nomeAcervo;
+	private String nome;
+	private String fone;
+	private String email;
+	private String logradouro;
+	private String numero;
+	private String bairro;
+	private String cidade;
+	private int ativo;
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+}

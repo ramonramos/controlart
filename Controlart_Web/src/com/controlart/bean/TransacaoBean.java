@@ -295,8 +295,11 @@ public class TransacaoBean extends ControlArtBean {
 					|| transacao.getDataDevolucao().after(
 							transacao.getDataTransacao())) {
 				return true;
-			} else
+			} else {
+				transacao.setDataDevolucao(null);
+
 				return false;
+			}
 		} else {
 			return true;
 		}

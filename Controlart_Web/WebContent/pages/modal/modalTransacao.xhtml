@@ -7,9 +7,11 @@
 		resizable="false" styleClass="dialog" widgetVar="modalTransacaoWV">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovaTransacao}"
-				rendered="#{transacaoBean.novoRegistro}" />
+				rendered="#{(transacaoBean.novoRegistro) and (transacaoBean.usuarioLogado.tipoUsuario ne 2)}" />
 			<h:outputLabel value="#{msgs.labelEditarTransacao}"
-				rendered="#{not transacaoBean.novoRegistro}" />
+				rendered="#{(not transacaoBean.novoRegistro) and (transacaoBean.usuarioLogado.tipoUsuario ne 2)}" />
+			<h:outputLabel value="#{msgs.labelVisualizarTransacao}"
+				rendered="#{transacaoBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
 		<h:outputScript name="locale-primefaces.js" library="js" />
@@ -24,7 +26,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:selectOneMenu
-					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					id="acervoDestino" required="true"
 					value="#{transacaoBean.transacao.acervoDestino}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
@@ -39,7 +41,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:selectOneMenu
-					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					id="tipoTransacao" required="true"
 					value="#{transacaoBean.transacao.tipo}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
@@ -54,7 +56,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:selectOneMenu
-					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					id="peca" required="true" value="#{transacaoBean.transacao.peca}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
 						itemValue="#{null}" />
@@ -82,7 +84,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:calendar
-					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					id="dataTransacao" locale="#{localeBean.locale}"
 					pattern="dd/MM/yyyy" readonlyInput="true"
 					rendered="#{(transacaoBean.transacao.tipo ne 4) and (transacaoBean.transacao.tipo ne 6)}"
@@ -101,7 +103,7 @@
 				</h:panelGroup>
 				<h:panelGroup id="calenDtPrev" layout="block">
 					<p:calendar
-						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 						id="dataPrevisao" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true"
 						rendered="#{(transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5)}"
@@ -119,7 +121,7 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:calendar
-					disabled="#{((not transacaoBean.novoRegistro) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{((not transacaoBean.novoRegistro) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					id="dataDevolucao" locale="#{localeBean.locale}"
 					pattern="dd/MM/yyyy" readonlyInput="true"
 					rendered="#{(not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo eq 3) or (transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 6)  or (transacaoBean.transacao.tipo eq 4))}"
@@ -136,7 +138,7 @@
 				</h:panelGroup>
 				<h:panelGroup id="inputPreco" layout="block">
 					<p:inputText
-						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+						disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 						id="preco" rendered="#{transacaoBean.transacao.tipo eq 1}"
 						styleClass="moeda" value="#{transacaoBean.transacao.precoString}" />
 				</h:panelGroup>
@@ -147,7 +149,7 @@
 
 				<h:outputLabel value="#{msgs.labelTransacaoOnline}" />
 				<p:selectOneRadio
-					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2)}"
+					disabled="#{(not transacaoBean.novoRegistro) or (transacaoBean.usuarioLogado.tipoUsuario eq 2)}"
 					value="#{transacaoBean.transacao.online}">
 					<f:selectItem itemLabel="#{msgs.labelSim}" itemValue="1" />
 					<f:selectItem itemLabel="#{msgs.labelNao}" itemValue="0" />
@@ -156,13 +158,11 @@
 			</p:panelGrid>
 
 			<p:commandButton action="#{transacaoBean.saveAction}"
-				disabled="#{(((not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo ne 5) and (transacaoBean.transacao.tipo ne 3))) or (((transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 3)) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.idTipoUsuario eq 2))}"
+				disabled="#{(((not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo ne 5) and (transacaoBean.transacao.tipo ne 3))) or (((transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 3)) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.tipoUsuario eq 2))}"
 				styleClass="botao" title="#{msgs.labelSalvar}"
 				update=":formTransacao:dataTableTransacao, :formModalTransacao"
 				value="#{msgs.labelSalvar}" />
-			<p:commandButton
-				disabled="#{transacaoBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalTransacaoWV.hide();" process="@this"
+			<p:commandButton onclick="modalTransacaoWV.hide();" process="@this"
 				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
 				value="#{msgs.labelVoltar}" />
 		</h:form>

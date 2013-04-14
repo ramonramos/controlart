@@ -186,8 +186,8 @@ public class PessoaDao {
 			PessoaT pessoaT = new PessoaT();
 
 			pessoaT.setIdPessoa(rs.getInt("ID_PESSOA"));
-			pessoaT.setNmPessoa(rs.getString("NM_PESSOA"));
-			pessoaT.setSituacao(rs.getInt("IN_ATIVO"));
+			pessoaT.setNome(rs.getString("NM_PESSOA"));
+			pessoaT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaPessoaT.add(pessoaT);
 		}
@@ -214,15 +214,15 @@ public class PessoaDao {
 			PessoaT pessoaT = new PessoaT();
 
 			pessoaT.setIdPessoa(rs.getInt("ID_PESSOA"));
-			pessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
-			pessoaT.setNmPessoa(rs.getString("NM_PESSOA"));
-			pessoaT.setNrFone(rs.getString("NR_FONE"));
-			pessoaT.setDsEmail(rs.getString("DS_EMAIL"));
-			pessoaT.setNmRua(rs.getString("NM_RUA"));
-			pessoaT.setNrImovel(rs.getString("NR_IMOVEL"));
-			pessoaT.setNmBairro(rs.getString("NM_BAIRRO"));
-			pessoaT.setNmCidade(rs.getString("NM_CIDADE"));
-			pessoaT.setSituacao(rs.getInt("IN_ATIVO"));
+			pessoaT.setTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
+			pessoaT.setNome(rs.getString("NM_PESSOA"));
+			pessoaT.setFone(rs.getString("NR_FONE"));
+			pessoaT.setEmail(rs.getString("DS_EMAIL"));
+			pessoaT.setLogradouro(rs.getString("NM_RUA"));
+			pessoaT.setNumero(rs.getString("NR_IMOVEL"));
+			pessoaT.setBairro(rs.getString("NM_BAIRRO"));
+			pessoaT.setCidade(rs.getString("NM_CIDADE"));
+			pessoaT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaPessoaT.add(pessoaT);
 		}
@@ -258,15 +258,15 @@ public class PessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INSERT);
-			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
-			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, pessoaT.getNrFone());
-			pStmt.setObject(4, pessoaT.getDsEmail());
-			pStmt.setObject(5, pessoaT.getNmRua());
-			pStmt.setObject(6, pessoaT.getNrImovel());
-			pStmt.setObject(7, pessoaT.getNmBairro());
-			pStmt.setObject(8, pessoaT.getNmCidade());
-			pStmt.setObject(9, pessoaT.getSituacao());
+			pStmt.setObject(1, pessoaT.getIdPessoa());
+			pStmt.setObject(2, pessoaT.getNome());
+			pStmt.setObject(3, pessoaT.getFone());
+			pStmt.setObject(4, pessoaT.getEmail());
+			pStmt.setObject(5, pessoaT.getLogradouro());
+			pStmt.setObject(6, pessoaT.getNumero());
+			pStmt.setObject(7, pessoaT.getBairro());
+			pStmt.setObject(8, pessoaT.getCidade());
+			pStmt.setObject(9, pessoaT.getAtivo());
 
 			pStmt.execute();
 
@@ -282,15 +282,15 @@ public class PessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
-			pStmt.setObject(1, pessoaT.getIdTipoPessoa());
-			pStmt.setObject(2, pessoaT.getNmPessoa());
-			pStmt.setObject(3, pessoaT.getNrFone());
-			pStmt.setObject(4, pessoaT.getDsEmail());
-			pStmt.setObject(5, pessoaT.getNmRua());
-			pStmt.setObject(6, pessoaT.getNrImovel());
-			pStmt.setObject(7, pessoaT.getNmBairro());
-			pStmt.setObject(8, pessoaT.getNmCidade());
-			pStmt.setObject(9, pessoaT.getSituacao());
+			pStmt.setObject(1, pessoaT.getTipoPessoa());
+			pStmt.setObject(2, pessoaT.getNome());
+			pStmt.setObject(3, pessoaT.getFone());
+			pStmt.setObject(4, pessoaT.getEmail());
+			pStmt.setObject(5, pessoaT.getLogradouro());
+			pStmt.setObject(6, pessoaT.getNumero());
+			pStmt.setObject(7, pessoaT.getBairro());
+			pStmt.setObject(8, pessoaT.getCidade());
+			pStmt.setObject(9, pessoaT.getAtivo());
 			pStmt.setObject(10, pessoaT.getIdPessoa());
 
 			pStmt.executeUpdate();

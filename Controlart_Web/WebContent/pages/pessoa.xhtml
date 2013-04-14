@@ -31,28 +31,29 @@
 					styleClass="data-table-pessoa" value="#{pessoaBean.listPessoa}"
 					var="listaPessoa">
 					<p:column headerText="#{msgs.labelNome}">
-						<h:outputLabel value="#{listaPessoa.nmPessoa}" />
+						<h:outputLabel value="#{listaPessoa.nome}" />
 					</p:column>
 
 					<p:column headerText="#{msgs.labelTipoPessoa}">
 						<h:outputLabel converter="tipoPessoaConverter"
-							value="#{listaPessoa.idTipoPessoa}" />
+							value="#{listaPessoa.tipoPessoa}" />
 					</p:column>
 
 					<p:column headerText="#{msgs.labelTelefone}">
 						<h:outputLabel converter="telefoneConverter"
-							value="#{listaPessoa.nrFone}" />
+							value="#{listaPessoa.fone}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelSituacao}">
+					<p:column headerText="#{msgs.labelStatus}">
 						<h:outputLabel converter="statusConverter"
-							value="#{listaPessoa.situacao}" />
+							value="#{listaPessoa.ativo}" />
 					</p:column>
 
 					<p:column>
 						<p:commandLink action="#{pessoaBean.definirEditar}"
 							oncomplete="modalPessoaWV.show();" process="@this"
-							title="#{msgs.labelEditar}" update=":modalPessoa">
+							title="#{pessoaBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalPessoa">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
 							<p:resetInput target=":formModalPessoa" />
 						</p:commandLink>
@@ -60,7 +61,7 @@
 						<p:spacer height="20" />
 
 						<p:commandLink action="#{pessoaBean.inactivateAction}"
-							disabled="#{(listaPessoa.situacao eq 0) or (pessoaBean.usuarioLogado.idTipoUsuario eq 2)}"
+							disabled="#{(listaPessoa.ativo eq 0) or (pessoaBean.usuarioLogado.tipoUsuario eq 2)}"
 							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
 							process="@this" title="#{msgs.labelInativar}"
 							update=":formPessoa">
@@ -71,7 +72,7 @@
 
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{pessoaBean.definirNovo}"
-						disabled="#{pessoaBean.usuarioLogado.idTipoUsuario eq 2}"
+						disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 						oncomplete="modalPessoaWV.show();" process="@this"
 						title="#{msgs.labelNovo}" update=":modalPessoa"
 						value="#{msgs.labelNovo}">

@@ -29,14 +29,14 @@
 						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 					</h:outputLabel>
 					<p:password id="senhaAtual" label="#{msgs.labelSenhaAtual}"
-						required="true" value="#{alterarSenhaBean.usuario.cdSenha}" />
+						required="true" value="#{alterarSenhaBean.usuario.senha}" />
 					<p:message for="senhaAtual" />
 
 					<h:outputLabel value="#{msgs.labelNovaSenha}">
 						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 					</h:outputLabel>
 					<p:password id="novaSenha" label="#{msgs.labelNovaSenha}"
-						required="true" value="#{alterarSenhaBean.usuario.cdNovaSenha}">
+						required="true" value="#{alterarSenhaBean.usuario.novaSenha}">
 						<f:validateLength minimum="6" maximum="15" />
 					</p:password>
 					<p:message for="novaSenha" />
@@ -46,7 +46,7 @@
 					</h:outputLabel>
 					<p:password id="confirmNovaSenha"
 						label="#{msgs.labelConfirmNovaSenha}" required="true"
-						value="#{alterarSenhaBean.usuario.cdConfirmNovaSenha}">
+						value="#{alterarSenhaBean.usuario.confirmNovaSenha}">
 						<f:validateLength minimum="6" maximum="15" />
 					</p:password>
 					<p:message for="confirmNovaSenha" />

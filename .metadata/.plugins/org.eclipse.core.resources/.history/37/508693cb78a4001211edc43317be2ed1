@@ -1,0 +1,8 @@
+package com.controlart.transfer;
+
+public class TipoUsuarioT {
+	private int id;
+	private String nome;
+	private String descricao;
+	private int ativo;
+}

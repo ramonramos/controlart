@@ -99,9 +99,9 @@ public class TipoPessoaDao {
 		while (rs.next()) {
 			TipoPessoaT tipoPessoaT = new TipoPessoaT();
 
-			tipoPessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
-			tipoPessoaT.setNmTipoPessoa(rs.getString("NM_TIPO_PESSOA"));
-			tipoPessoaT.setSituacao(rs.getInt("IN_ATIVO"));
+			tipoPessoaT.setId(rs.getInt("ID_TIPO_PESSOA"));
+			tipoPessoaT.setNome(rs.getString("NM_TIPO_PESSOA"));
+			tipoPessoaT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaTipoPessoaT.add(tipoPessoaT);
 		}
@@ -128,10 +128,10 @@ public class TipoPessoaDao {
 		while (rs.next()) {
 			TipoPessoaT tipoPessoaT = new TipoPessoaT();
 
-			tipoPessoaT.setIdTipoPessoa(rs.getInt("ID_TIPO_PESSOA"));
-			tipoPessoaT.setNmTipoPessoa(rs.getString("NM_TIPO_PESSOA"));
-			tipoPessoaT.setDsTipoPessoa(rs.getString("DS_TIPO_PESSOA"));
-			tipoPessoaT.setSituacao(rs.getInt("IN_ATIVO"));
+			tipoPessoaT.setId(rs.getInt("ID_TIPO_PESSOA"));
+			tipoPessoaT.setNome(rs.getString("NM_TIPO_PESSOA"));
+			tipoPessoaT.setDescricao(rs.getString("DS_TIPO_PESSOA"));
+			tipoPessoaT.setAtivo(rs.getInt("IN_ATIVO"));
 
 			listaTipoPessoaT.add(tipoPessoaT);
 		}
@@ -144,9 +144,9 @@ public class TipoPessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INSERT);
-			pStmt.setObject(1, tipoPessoaT.getNmTipoPessoa());
-			pStmt.setObject(2, tipoPessoaT.getDsTipoPessoa());
-			pStmt.setObject(3, tipoPessoaT.getSituacao());
+			pStmt.setObject(1, tipoPessoaT.getNome());
+			pStmt.setObject(2, tipoPessoaT.getDescricao());
+			pStmt.setObject(3, tipoPessoaT.getAtivo());
 
 			pStmt.execute();
 		} finally {
@@ -160,10 +160,10 @@ public class TipoPessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_UPDATE);
-			pStmt.setObject(1, tipoPessoaT.getNmTipoPessoa());
-			pStmt.setObject(2, tipoPessoaT.getDsTipoPessoa());
-			pStmt.setObject(3, tipoPessoaT.getSituacao());
-			pStmt.setObject(4, tipoPessoaT.getIdTipoPessoa());
+			pStmt.setObject(1, tipoPessoaT.getNome());
+			pStmt.setObject(2, tipoPessoaT.getDescricao());
+			pStmt.setObject(3, tipoPessoaT.getAtivo());
+			pStmt.setObject(4, tipoPessoaT.getId());
 
 			pStmt.executeUpdate();
 		} finally {
@@ -177,7 +177,7 @@ public class TipoPessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INACTIVATE);
-			pStmt.setObject(1, tipoPessoaT.getIdTipoPessoa());
+			pStmt.setObject(1, tipoPessoaT.getId());
 
 			pStmt.executeUpdate();
 		} finally {

@@ -33,7 +33,7 @@ public class LoginBean extends ControlArtBean {
 
 	public String login() {
 		try {
-			usuario.setCdSenha(BeanUtils.encryptPassword(usuario.getCdSenha()));
+			usuario.setSenha(BeanUtils.encryptPassword(usuario.getSenha()));
 
 			UsuariosDao usuariosDao = new UsuariosDao();
 

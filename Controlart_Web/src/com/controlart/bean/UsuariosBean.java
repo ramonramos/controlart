@@ -73,13 +73,12 @@ public class UsuariosBean extends ControlArtBean implements
 		hashTipoUsuario = new HashMap<Integer, String>(0);
 
 		for (TipoUsuarioT tipoUsuarioT : _listTipoUsuarioT) {
-			if (tipoUsuarioT.getSituacao() == 1) {
-				listTipoUsuario.add(new SelectItem(tipoUsuarioT
-						.getIdTipoUsuario(), tipoUsuarioT.getNmTipoUsuario()));
+			if (tipoUsuarioT.getAtivo() == 1) {
+				listTipoUsuario.add(new SelectItem(tipoUsuarioT.getId(),
+						tipoUsuarioT.getNome()));
 			}
 
-			hashTipoUsuario.put(tipoUsuarioT.getIdTipoUsuario(),
-					tipoUsuarioT.getNmTipoUsuario());
+			hashTipoUsuario.put(tipoUsuarioT.getId(), tipoUsuarioT.getNome());
 		}
 	}
 
@@ -91,7 +90,7 @@ public class UsuariosBean extends ControlArtBean implements
 		hashPessoas = new HashMap<Integer, String>(0);
 
 		for (PessoaT pessoaT : _listPessoaT) {
-			hashPessoas.put(pessoaT.getIdPessoa(), pessoaT.getNmPessoa());
+			hashPessoas.put(pessoaT.getIdPessoa(), pessoaT.getNome());
 		}
 	}
 
@@ -115,7 +114,7 @@ public class UsuariosBean extends ControlArtBean implements
 
 		for (PessoaT pessoaT : _listPessoas) {
 			listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
-					.getNmPessoa()));
+					.getNome()));
 		}
 	}
 
@@ -139,7 +138,7 @@ public class UsuariosBean extends ControlArtBean implements
 
 		for (PessoaT pessoaT : _listPessoas) {
 			listPessoas.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
-					.getNmPessoa()));
+					.getNome()));
 		}
 	}
 
@@ -149,7 +148,7 @@ public class UsuariosBean extends ControlArtBean implements
 
 		clearAction();
 
-		usuario.setSituacao(1);
+		usuario.setAtivo(1);
 
 		try {
 			consultPessoaNovo();
@@ -223,7 +222,7 @@ public class UsuariosBean extends ControlArtBean implements
 				usuariosDao.update(usuario);
 
 				if (usuario.getIdUsuario() == getUsuarioLogado().getIdUsuario()) {
-					getUsuarioLogado().setCdSenha(usuario.getCdSenha());
+					getUsuarioLogado().setSenha(usuario.getSenha());
 				}
 
 				consultAction();
@@ -273,12 +272,12 @@ public class UsuariosBean extends ControlArtBean implements
 	 */
 
 	private boolean validarSenha() throws NoSuchAlgorithmException {
-		String novaSenha = BeanUtils.encryptPassword(usuario.getCdNovaSenha());
+		String novaSenha = BeanUtils.encryptPassword(usuario.getNovaSenha());
 		String confirmNovaSenha = BeanUtils.encryptPassword(usuario
-				.getCdConfirmNovaSenha());
+				.getConfirmNovaSenha());
 
 		if (novaSenha.equals(confirmNovaSenha)) {
-			usuario.setCdSenha(novaSenha);
+			usuario.setSenha(novaSenha);
 
 			return true;
 		}

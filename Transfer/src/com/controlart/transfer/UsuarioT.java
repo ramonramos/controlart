@@ -5,12 +5,12 @@ public class UsuarioT extends PessoaT implements Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private int idUsuario;
-	private int idTipoUsuario;
-	private String dsLogin;
-	private String cdSenha;
-	private String cdNovaSenha;
-	private String cdConfirmNovaSenha;
-	private int situacao;
+	private int tipoUsuario;
+	private String login;
+	private String senha;
+	private String novaSenha;
+	private String confirmNovaSenha;
+	private int ativo;
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -25,51 +25,51 @@ public class UsuarioT extends PessoaT implements Cloneable {
 		this.idUsuario = idUsuario;
 	}
 
-	public int getIdTipoUsuario() {
-		return idTipoUsuario;
+	public int getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public void setIdTipoUsuario(int idTipoUsuario) {
-		this.idTipoUsuario = idTipoUsuario;
+	public void setTipoUsuario(int tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
-	public String getDsLogin() {
-		return dsLogin;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setDsLogin(String dsLogin) {
-		this.dsLogin = dsLogin;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getCdSenha() {
-		return cdSenha;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setCdSenha(String cdSenha) {
-		this.cdSenha = cdSenha;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getCdNovaSenha() {
-		return cdNovaSenha;
+	public String getNovaSenha() {
+		return novaSenha;
 	}
 
-	public void setCdNovaSenha(String cdNovaSenha) {
-		this.cdNovaSenha = cdNovaSenha;
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
 	}
 
-	public String getCdConfirmNovaSenha() {
-		return cdConfirmNovaSenha;
+	public String getConfirmNovaSenha() {
+		return confirmNovaSenha;
 	}
 
-	public void setCdConfirmNovaSenha(String cdConfirmNovaSenha) {
-		this.cdConfirmNovaSenha = cdConfirmNovaSenha;
+	public void setConfirmNovaSenha(String confirmNovaSenha) {
+		this.confirmNovaSenha = confirmNovaSenha;
 	}
 
-	public int getSituacao() {
-		return situacao;
+	public int getAtivo() {
+		return ativo;
 	}
 
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
 	}
 }

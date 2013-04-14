@@ -7,9 +7,11 @@
 		resizable="false" styleClass="dialog" widgetVar="modalUsuariosWV">
 		<f:facet name="header">
 			<h:outputLabel value="#{msgs.labelNovoUsuario}"
-				rendered="#{usuariosBean.novoRegistro}" />
+				rendered="#{(usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.tipoUsuario ne 2)}" />
 			<h:outputLabel value="#{msgs.labelEditarUsuario}"
-				rendered="#{not usuariosBean.novoRegistro}" />
+				rendered="#{(not usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.tipoUsuario ne 2)}" />
+			<h:outputLabel value="#{msgs.labelVisualizarUsuario}"
+				rendered="#{usuariosBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
 		<h:form id="formModalUsuarios">
@@ -21,7 +23,7 @@
 				</h:outputLabel>
 				<p:selectOneMenu id="tipoUsuario"
 					disabled="#{not usuariosBean.novoRegistro}" required="true"
-					value="#{usuariosBean.usuario.idTipoUsuario}">
+					value="#{usuariosBean.usuario.tipoUsuario}">
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
 						itemValue="#{null}" />
 					<f:selectItems value="#{usuariosBean.listTipoUsuario}" />
@@ -44,70 +46,68 @@
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:inputText id="login" disabled="#{not usuariosBean.novoRegistro}"
-					required="true" value="#{usuariosBean.usuario.dsLogin}">
+					required="true" value="#{usuariosBean.usuario.login}">
 					<f:validateLength minimum="3" maximum="50" />
 				</p:inputText>
 				<p:message for="login" />
 
 				<h:outputLabel
-					rendered="#{(usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					rendered="#{(usuariosBean.novoRegistro) and (usuariosBean.usuarioLogado.tipoUsuario eq 1)}"
 					value="#{msgs.labelSenha}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<h:outputLabel
-					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.tipoUsuario eq 1)}"
 					value="#{msgs.labelNovaSenha}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:password id="novasenha"
-					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
-					required="true" value="#{usuariosBean.usuario.cdNovaSenha}">
+					rendered="#{usuariosBean.usuarioLogado.tipoUsuario eq 1}"
+					required="true" value="#{usuariosBean.usuario.novaSenha}">
 					<f:validateLength minimum="6" maximum="15" />
 				</p:password>
 				<p:message for="novasenha"
-					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}" />
+					rendered="#{usuariosBean.usuarioLogado.tipoUsuario eq 1}" />
 
 				<h:outputLabel
-					rendered="#{usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					rendered="#{usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.tipoUsuario eq 1)}"
 					value="#{msgs.labelConfirmSenha}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<h:outputLabel
-					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.idTipoUsuario eq 1)}"
+					rendered="#{not usuariosBean.novoRegistro and (usuariosBean.usuarioLogado.tipoUsuario eq 1)}"
 					value="#{msgs.labelConfirmNovaSenha}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:password id="confirmsenha"
-					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}"
-					required="true" value="#{usuariosBean.usuario.cdConfirmNovaSenha}">
+					rendered="#{usuariosBean.usuarioLogado.tipoUsuario eq 1}"
+					required="true" value="#{usuariosBean.usuario.confirmNovaSenha}">
 					<f:validateLength minimum="6" maximum="15" />
 				</p:password>
 				<p:message for="confirmsenha"
-					rendered="#{usuariosBean.usuarioLogado.idTipoUsuario eq 1}" />
+					rendered="#{usuariosBean.usuarioLogado.tipoUsuario eq 1}" />
 
 				<h:outputLabel
-					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
-					value="#{msgs.labelSituacao}" />
+					rendered="#{(usuariosBean.usuarioLogado.tipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.ativo eq 0)))}"
+					value="#{msgs.labelStatus}" />
 				<p:selectOneRadio
-					disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
-					value="#{usuariosBean.usuario.situacao}">
+					disabled="#{usuariosBean.usuarioLogado.tipoUsuario eq 2}"
+					rendered="#{(usuariosBean.usuarioLogado.tipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.ativo eq 0)))}"
+					value="#{usuariosBean.usuario.ativo}">
 					<f:selectItem itemLabel="#{msgs.labelAtivo}" itemValue="1" />
 					<f:selectItem itemLabel="#{msgs.labelInativo}" itemValue="0" />
 				</p:selectOneRadio>
 				<h:outputLabel
-					rendered="#{(usuariosBean.usuarioLogado.idTipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.situacao eq 0)))}"
+					rendered="#{(usuariosBean.usuarioLogado.tipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.ativo eq 0)))}"
 					value="" />
 			</p:panelGrid>
 
 			<p:commandButton action="#{usuariosBean.saveAction}"
-				disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
+				disabled="#{usuariosBean.usuarioLogado.tipoUsuario eq 2}"
 				styleClass="botao"
 				update=":formUsuarios:dataTableUsuarios, :formModalUsuarios"
 				title="#{msgs.labelSalvar}" value="#{msgs.labelSalvar}" />
-			<p:commandButton
-				disabled="#{usuariosBean.usuarioLogado.idTipoUsuario eq 2}"
-				onclick="modalUsuariosWV.hide();" process="@this"
+			<p:commandButton onclick="modalUsuariosWV.hide();" process="@this"
 				styleClass="botao-voltar" title="#{msgs.labelVoltar}"
 				value="#{msgs.labelVoltar}" />
 		</h:form>

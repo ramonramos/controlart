@@ -3,8 +3,8 @@
 	<section name="org.eclipse.jst.jsf.ui.jsfFacetInstall">
 		<item value="/WEB-INF/faces-config.xml" key="configPath"/>
 		<item value="javax.faces.webapp.FacesServlet" key="servletClassname"/>
-		<item value="Faces Servlet" key="servletName"/>
 		<item value="false" key="configureServlet"/>
+		<item value="Faces Servlet" key="servletName"/>
 		<section name="urlMappings">
 			<list key="pattern">
 				<item value="/faces/*"/>

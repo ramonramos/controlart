@@ -65,12 +65,12 @@ public class AcervoBean extends ControlArtBean implements
 		hashPessoa = new HashMap<Integer, String>(0);
 
 		for (PessoaT pessoaT : _listPessoa) {
-			if (pessoaT.getSituacao() == 1) {
+			if (pessoaT.getAtivo() == 1) {
 				listPessoa.add(new SelectItem(pessoaT.getIdPessoa(), pessoaT
-						.getNmPessoa()));
+						.getNome()));
 			}
 
-			hashPessoa.put(pessoaT.getIdPessoa(), pessoaT.getNmPessoa());
+			hashPessoa.put(pessoaT.getIdPessoa(), pessoaT.getNome());
 		}
 	}
 
