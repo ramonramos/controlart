@@ -1,9 +1,0 @@
-package com.controlart.transfer;
-
-public class TipoTransacaoT {
-	private int id;
-	private String nome;
-	private char operacao;
-	private String descricao;
-	private int ativo;
-}

@@ -14,11 +14,6 @@
 				rendered="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
-		<h:outputScript library="js" name="jquery.maskedinput-1.3.js" />
-		<h:outputScript library="js" name="mask.telefone-1.0.js" />
-		<h:outputScript library="js" name="jquery.numeric.js" />
-		<h:outputScript library="js" name="positive.integer-1.0.js" />
-
 		<h:form id="formModalPessoa">
 			<p:growl globalOnly="true" life="10000" />
 
@@ -141,7 +136,8 @@
 
 			<p:commandButton action="#{pessoaBean.saveAction}"
 				disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
-				styleClass="botao" title="#{msgs.labelSalvar}"
+				oncomplete="func_pessoa();" styleClass="botao"
+				title="#{msgs.labelSalvar}"
 				update=":formPessoa:dataTablePessoa, :formModalPessoa, :formPainelInformativo"
 				value="#{msgs.labelSalvar}" />
 			<p:commandButton onclick="modalPessoaWV.hide();" process="@this"

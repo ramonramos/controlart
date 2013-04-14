@@ -14,12 +14,6 @@
 				rendered="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
-		<h:outputScript library="js" name="jquery.numeric.js" />
-		<h:outputScript library="js" name="positive.integer-1.0.js" />
-		<h:outputScript library="js" name="positive.decimal-1.0.js" />
-		<h:outputScript library="js" name="jquery.maskmoney-2.1.1.js" />
-		<h:outputScript library="js" name="mask.moeda-1.0.js" />
-
 		<h:form id="formModalPeca">
 			<p:growl globalOnly="true" life="10000" />
 
@@ -208,7 +202,8 @@
 
 			<p:commandButton action="#{pecaBean.saveAction}"
 				disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
-				styleClass="botao" title="#{msgs.labelSalvar}"
+				oncomplete="func_peca();" styleClass="botao"
+				title="#{msgs.labelSalvar}"
 				update=":formPeca:dataTablePeca, :formModalPeca"
 				value="#{msgs.labelSalvar}" />
 			<p:commandButton onclick="modalPecaWV.hide();" process="@this"

@@ -12,7 +12,14 @@
 		<h:outputStylesheet library="css" name="transacao.css" />
 	</ui:define>
 
+	<ui:define name="scripts">
+		<h:outputScript name="locale-primefaces.js" library="js" />
+		<h:outputScript library="js" name="jquery.maskmoney-2.1.1.js" />
+		<h:outputScript library="js" name="transacao-1.0.js" />
+	</ui:define>
+
 	<ui:define name="conteudo">
+
 		<h:form id="formTransacao">
 			<p:growl globalOnly="true" life="10000" />
 

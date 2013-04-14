@@ -14,10 +14,6 @@
 				rendered="#{transacaoBean.usuarioLogado.tipoUsuario eq 2}" />
 		</f:facet>
 
-		<h:outputScript name="locale-primefaces.js" library="js" />
-		<h:outputScript library="js" name="jquery.maskmoney-2.1.1.js" />
-		<h:outputScript library="js" name="mask.moeda-1.0.js" />
-
 		<h:form id="formModalTransacao">
 			<p:growl id="growl" globalOnly="true" life="10000" />
 
@@ -47,7 +43,8 @@
 					<f:selectItem itemLabel="#{msgs.labelSelecione}"
 						itemValue="#{null}" />
 					<f:selectItems value="#{transacaoBean.listTipoTransacao}" />
-					<p:ajax event="change" process="@this"
+					<p:ajax event="change" oncomplete="func_transacao();"
+						process="@this"
 						update="labelDtPrev, labelPreco, calenDtPrev, inputPreco, empLabDtPrev, empLabPreco" />
 				</p:selectOneMenu>
 				<p:message for="tipoTransacao" />
@@ -159,7 +156,8 @@
 
 			<p:commandButton action="#{transacaoBean.saveAction}"
 				disabled="#{(((not transacaoBean.novoRegistro) and ((transacaoBean.transacao.tipo ne 5) and (transacaoBean.transacao.tipo ne 3))) or (((transacaoBean.transacao.tipo eq 5) or (transacaoBean.transacao.tipo eq 3)) and (not empty transacaoBean.transacao.dataDevolucao)) or (transacaoBean.usuarioLogado.tipoUsuario eq 2))}"
-				styleClass="botao" title="#{msgs.labelSalvar}"
+				oncomplete="func_transacao();" styleClass="botao"
+				title="#{msgs.labelSalvar}"
 				update=":formTransacao:dataTableTransacao, :formModalTransacao"
 				value="#{msgs.labelSalvar}" />
 			<p:commandButton onclick="modalTransacaoWV.hide();" process="@this"

@@ -13,6 +13,9 @@
 	</ui:define>
 
 	<ui:define name="scripts">
+		<h:outputScript library="js" name="jquery.numeric.js" />
+		<h:outputScript library="js" name="jquery.maskmoney-2.1.1.js" />
+		<h:outputScript library="js" name="peca-1.0.js" />
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -55,7 +58,7 @@
 
 					<p:column>
 						<p:commandLink action="#{pecaBean.definirEditar}"
-							oncomplete="modalPecaWV.show();" process="@this"
+							oncomplete="func_peca(); modalPecaWV.show();" process="@this"
 							title="#{pecaBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
 							update=":modalPeca">
 							<p:graphicImage url="#{resource['image:update_ico.png']}" />
@@ -77,7 +80,7 @@
 				<h:panelGroup layout="block" styleClass="botao">
 					<p:commandButton action="#{pecaBean.definirNovo}"
 						disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
-						process="@this" oncomplete="modalPecaWV.show();"
+						process="@this" oncomplete="func_peca(); modalPecaWV.show();"
 						title="#{msgs.labelNovo}" update=":modalPeca"
 						value="#{msgs.labelNovo}">
 						<p:resetInput target=":formModalPeca" />
