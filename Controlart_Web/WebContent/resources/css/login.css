@@ -11,3 +11,23 @@ html {
 table {
 	
 }
+
+.panelLogin { 
+	opacity: 0.6; 
+	border-radius: 20px; 
+	box-shadow: 3px 5px 20px #000; 
+	box-shadow: inset -2px 5px 20px #000;
+}
+
+.panelLogin:HOVER { 
+	opacity: 0.8; 
+	border-radius: 20px; 
+	box-shadow: 3px 5px 20px #000; 
+	box-shadow: inset -2px 5px 20px #000;
+}
+
+.labelNomeSistema {
+	font-size: 14pt; 
+	font-family: Comic Sans, Comic Sans MS, cursive; 
+	font-weight: bold;
+}
