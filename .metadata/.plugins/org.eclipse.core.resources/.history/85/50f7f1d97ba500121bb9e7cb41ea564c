@@ -1,0 +1,73 @@
+package com.controlart.bean;
+
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import com.controlart.dao.HomeDao;
+import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.PecaT;
+import com.controlart.utils.TransacaoT;
+
+@ManagedBean(name = "homeBean")
+@ViewScoped
+public class HomeBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private List<AcervoT> listAcervo;
+	private List<PecaT> listPeca;
+	private List<TransacaoT> listTransacao;
+
+	public HomeBean() {
+		try {
+			consultAcervo();
+			consultPeca();
+			consultTransacao();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		}
+	}
+
+	private void consultAcervo() throws SQLException {
+		HomeDao home = new HomeDao();
+		listAcervo = home.consultAcervo();
+	}
+
+	private void consultPeca() throws SQLException {
+		HomeDao home = new HomeDao();
+		listPeca = home.consultPeca();
+	}
+
+	private void consultTransacao() throws SQLException {
+		HomeDao home = new HomeDao();
+		listTransacao = home.consultTransacao();
+	}
+
+	public List<AcervoT> getListAcervo() {
+		return listAcervo;
+	}
+
+	public void setListAcervo(List<AcervoT> listAcervo) {
+		this.listAcervo = listAcervo;
+	}
+
+	public List<PecaT> getListPeca() {
+		return listPeca;
+	}
+
+	public void setListPeca(List<PecaT> listPeca) {
+		this.listPeca = listPeca;
+	}
+
+	public List<TransacaoT> getListTransacao() {
+		return listTransacao;
+	}
+
+	public void setListTransacao(List<TransacaoT> listTransacao) {
+		this.listTransacao = listTransacao;
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;HomeDao.java&apos; to &apos;Dao/src/com.controlart.dao&apos;&#x0D;&#x0A;- Original project: &apos;Dao&apos;&#x0D;&#x0A;- Destination element: &apos;Dao/src/com.controlart.dao&apos;&#x0D;&#x0A;- Original element: &apos;com.controlart.dao.utils.HomeDao.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;com.controlart.dao" element1="/src&lt;com.controlart.dao.utils{HomeDao.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1365996175766" units="1" version="1.0"/>
+</session>

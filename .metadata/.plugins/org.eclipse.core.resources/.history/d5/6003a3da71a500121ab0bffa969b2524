@@ -43,6 +43,7 @@
 					<p:calendar id="dataInicial" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
 						value="#{relatoriosBean.dataInicial}" />
+					<h:outputLabel value="ate:" />
 					<h:outputLabel value="#{msgs.labelAte}" />
 					<p:calendar id="dataFinal" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"

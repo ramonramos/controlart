@@ -38,11 +38,12 @@
 					<p:message for="acervo" />
 				</p:panelGrid>
 
-				<p:panelGrid columns="4">
+				<p:panelGrid columns="5">
 					<h:outputLabel value="#{msgs.labelPeriodoDe}" />
 					<p:calendar id="dataInicial" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
 						value="#{relatoriosBean.dataInicial}" />
+					<h:outputLabel value="ate:" />
 					<h:outputLabel value="#{msgs.labelAte}" />
 					<p:calendar id="dataFinal" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
