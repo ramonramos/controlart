@@ -1,0 +1,12 @@
+$(document).ready(function(){
+    applyChangeHandler();
+});
+
+function mudanca() {
+	$(".moeda").maskMoney({
+		showSymbol : true,
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : "."
+	});
+}

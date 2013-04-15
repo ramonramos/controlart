@@ -6,10 +6,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:form id="formPainelInformativo">
 		<p:toolbar styleClass="painel-informativo-tollbar">
+			<p:toolbarGroup align="left"
+				styleClass="painel-informativo-tollbar-left">
+				<h:outputLabel value="#{msgs.tituloPaginaLogin}" />
+			</p:toolbarGroup>
+
 			<p:toolbarGroup align="right"
-				styleClass="painel-informativo-tollbar-group">
-				<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
-					value="#{msgs.msBemVindo}, #{templateBean.usuario.nome}" />
+				styleClass="painel-informativo-tollbar-right">
+				<ui:insert name="painelInformativo-user-message">
+				</ui:insert>
 
 				<p:separator />
 

@@ -12,6 +12,11 @@
 		<h:outputStylesheet library="css" name="tipoPessoa.css" />
 	</ui:define>
 
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formTipoPessoa">
 			<p:growl globalOnly="true" life="10000" />
@@ -38,7 +43,7 @@
 						<h:outputLabel value="#{listaTipoPessoa.descricao}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelStatus}">
+					<p:column headerText="#{msgs.labelSituacao}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaTipoPessoa.ativo}" />
 					</p:column>

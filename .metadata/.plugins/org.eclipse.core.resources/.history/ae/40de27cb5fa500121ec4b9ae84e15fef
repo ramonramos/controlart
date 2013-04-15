@@ -1,0 +1,14 @@
+package com.controlart.bean.utils;
+
+import java.util.List;
+
+import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.PecaT;
+import com.controlart.transfer.TransacaoT;
+
+public class HomeBean {
+	private List<AcervoT> listAcervo;
+	private List<PecaT> listPeca;
+	private List<TransacaoT> listTransacao;
+
+}

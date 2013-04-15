@@ -1,0 +1,27 @@
+package com.controlart.utils;
+
+import java.io.Serializable;
+
+public class TransacaoT implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private String TipoTransacao;
+	private String peca;
+
+	public String getTipoTransacao() {
+		return TipoTransacao;
+	}
+
+	public void setTipoTransacao(String tipoTransacao) {
+		TipoTransacao = tipoTransacao;
+	}
+
+	public String getPeca() {
+		return peca;
+	}
+
+	public void setPeca(String peca) {
+		this.peca = peca;
+	}
+}

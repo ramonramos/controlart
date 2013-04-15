@@ -18,6 +18,11 @@
 		<h:outputScript library="js" name="pessoa-1.0.js" />
 	</ui:define>
 
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formPessoa">
 			<p:growl globalOnly="true" life="10000" />
@@ -50,7 +55,7 @@
 							value="#{listaPessoa.fone}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelStatus}">
+					<p:column headerText="#{msgs.labelSituacao}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaPessoa.ativo}" />
 					</p:column>

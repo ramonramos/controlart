@@ -5,22 +5,22 @@
 
 .data-table-pessoa td:nth-child(2) {
 	text-align: center;
-	width: 280px;
+	width: 250px;
 }
 
 .data-table-pessoa td:nth-child(3) {
 	text-align: center;
-	width: 220px;
+	width: 170px;
 }
 
 .data-table-pessoa td:nth-child(4) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-pessoa td:nth-child(5) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-pessoa .ui-paginator-top {

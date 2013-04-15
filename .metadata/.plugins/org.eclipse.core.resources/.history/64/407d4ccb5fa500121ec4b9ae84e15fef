@@ -1,0 +1,22 @@
+package com.controlart.bean.utils;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.PecaT;
+import com.controlart.transfer.TransacaoT;
+
+public class HomeBean {
+	private List<AcervoT> listAcervo;
+	private List<PecaT> listPeca;
+	private List<TransacaoT> listTransacao;
+	
+	public HomeBean() {
+		try {
+			
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		}
+	}
+}

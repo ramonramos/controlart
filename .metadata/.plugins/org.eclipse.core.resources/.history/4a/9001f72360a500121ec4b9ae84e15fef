@@ -1,0 +1,16 @@
+package com.controlart.dao.utils;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.controlart.dao.factory.ConnFactory;
+
+public class HomeDao {
+	private Connection connection;
+
+	private static final String SQL_CONSULT_ACERVO = "SELECT ta.id_acervo, ta.nm_acervo, ta.in_ativo FROM tb_acervo ta ORDER BY ta.nm_acervo";
+
+	public HomeDao() throws SQLException {
+		connection = ConnFactory.getConnection();
+	}
+}

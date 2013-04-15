@@ -1,0 +1,17 @@
+function func_peca() {
+	$(".moeda").maskMoney({
+		showSymbol : true,
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : "."
+	});
+	
+	$(".positive-decimal").numeric({
+		negative : false
+	});
+	
+	$(".positive-integer").numeric({
+		decimal : false,
+		negative : false
+	});
+}

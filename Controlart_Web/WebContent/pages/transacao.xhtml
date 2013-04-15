@@ -18,8 +18,12 @@
 		<h:outputScript library="js" name="transacao-1.0.js" />
 	</ui:define>
 
-	<ui:define name="conteudo">
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
 
+	<ui:define name="conteudo">
 		<h:form id="formTransacao">
 			<p:growl globalOnly="true" life="10000" />
 

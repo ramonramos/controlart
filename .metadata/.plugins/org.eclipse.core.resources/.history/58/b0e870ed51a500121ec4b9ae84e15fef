@@ -1,0 +1,26 @@
+<ui:composition lang="#{localeBean.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form id="formPainelInformativo">
+		<p:toolbar styleClass="painel-informativo-tollbar">
+			<p:toolbarGroup align="right"
+				styleClass="painel-informativo-tollbar-group">
+				<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+					value="#{msgs.msUsuario}, #{templateBean.usuario.nome}" />
+
+				<p:separator />
+
+				<p:commandLink action="home" ajax="false"
+					title="#{msgs.tooltipHomePage}" value="#{msgs.labelHomePage}" />
+
+				<p:separator />
+
+				<p:commandLink action="#{templateBean.logout}" ajax="false"
+					title="#{msgs.tooltipSairSistema}" value="#{msgs.labelSairSistema}" />
+			</p:toolbarGroup>
+		</p:toolbar>
+	</h:form>
+</ui:composition>

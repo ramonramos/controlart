@@ -258,7 +258,7 @@ public class PessoaDao {
 
 		try {
 			pStmt = connection.prepareStatement(SQL_INSERT);
-			pStmt.setObject(1, pessoaT.getIdPessoa());
+			pStmt.setObject(1, pessoaT.getTipoPessoa());
 			pStmt.setObject(2, pessoaT.getNome());
 			pStmt.setObject(3, pessoaT.getFone());
 			pStmt.setObject(4, pessoaT.getEmail());

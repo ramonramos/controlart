@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="botaoVoltar" key="selection"/>
+		<item value="nome" key="selection"/>
 		<list key="findhistory">
+			<item value="nome"/>
+			<item value="sistema"/>
+			<item value="sistemas"/>
+			<item value="sistema "/>
+			<item value="sistema para"/>
+			<item value="proces"/>
+			<item value="process"/>
 			<item value="botaoVoltar"/>
-			<item value="acervo"/>
-			<item value="labelEditar"/>
-			<item value="situacao"/>
-			<item value="sta"/>
-			<item value="status"/>
-			<item value="preco"/>
-			<item value="altura"/>
 		</list>
 		<list key="replacehistory">
 			<item value="pathAplicacao"/>

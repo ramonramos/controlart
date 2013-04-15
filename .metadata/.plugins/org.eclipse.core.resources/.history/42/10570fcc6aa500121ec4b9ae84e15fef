@@ -1,0 +1,11 @@
+.panel .ui-widget-content {
+	vertical-align: top;	
+}
+
+.panel .ui-datalist-item {
+	text-align: left;
+}
+
+.panel .subpanel .ui-panel-titlebar {
+	text-align: left;
+}

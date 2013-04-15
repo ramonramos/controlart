@@ -8,6 +8,11 @@
 	#{msgs.tituloSistema} - #{msgs.labelTabelaPrecos}
 	</ui:define>
 
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formPesquisa">
 			<p:growl globalOnly="true" life="10000" />
@@ -33,16 +38,14 @@
 					<p:message for="acervo" />
 				</p:panelGrid>
 
-				<p:commandButton
-					update="@form"
-					oncomplete="if (document.getElementById('formPesquisa:acervo_input').selectedIndex > 0) document.getElementById('relatorioForm:gerarRelatorioBtn').click()" 
+				<p:commandButton update="@form"
+					oncomplete="if (document.getElementById('formPesquisa:acervo_input').selectedIndex > 0) document.getElementById('relatorioForm:gerarRelatorioBtn').click()"
 					styleClass="botao" title="#{msgs.labelGerarRelatorio}"
 					value="#{msgs.labelGerarRelatorio}" />
 			</p:panel>
 		</h:form>
 		<h:form id="relatorioForm" target="_blank">
-			<h:commandButton style="display: none" 
-				id="gerarRelatorioBtn"
+			<h:commandButton style="display: none" id="gerarRelatorioBtn"
 				action="#{relatoriosBean.gerarRelatorioTabelaPreco}" />
 		</h:form>
 	</ui:define>

@@ -1,0 +1,11 @@
+.panel .ui-datalist-item {
+	text-align: left;
+}
+
+.panel .subpanel .ui-panel-titlebar {
+	text-align: left;
+}
+
+.panel .subpanel .ui-panel-titlebar, ui-panel-titlebar {
+	text-align: center;
+}

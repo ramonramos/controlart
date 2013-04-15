@@ -1,0 +1,18 @@
+.panel .ui-widget-content {
+	vertical-align: top;
+}
+
+.panel .ui-datalist-item {
+	text-align: left;
+}
+
+.panel .width-grid {
+	width: 100%;
+}
+
+.panel .width-grid .data-table {
+}
+
+.panel .width-grid .data-table .ui-dt-c {
+	font-size: 13px;
+}

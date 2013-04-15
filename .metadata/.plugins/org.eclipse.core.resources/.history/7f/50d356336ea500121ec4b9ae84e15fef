@@ -1,0 +1,47 @@
+<ui:composition template="template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="titulo">
+	#{msgs.tituloSistema} - #{msgs.labelPecasAcervo}
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formPesquisa">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panel id="panelPrincipal" styleClass="panel">
+				<f:facet name="header">
+					<h:graphicImage styleClass="header-image"
+						value="#{resource['image:favicon.ico']}" />
+					<h:outputLabel value="#{msgs.labelPesquisaPecasAcervo}" />
+				</f:facet>
+
+				<p:panelGrid columns="3">
+					<h:outputLabel value="#{msgs.labelAcervo}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
+					<p:selectOneMenu id="acervo" required="true"
+						converter="entityConverter" value="#{relatoriosBean.acervoT}">
+						<f:selectItem itemLabel="#{msgs.labelSelecione}"
+							itemValue="#{null}" />
+						<f:selectItems var="acervo" itemValue="#{acervo}"
+							itemLabel="#{acervo.nome}" value="#{relatoriosBean.listAcervo}" />
+					</p:selectOneMenu>
+					<p:message for="acervo" />
+				</p:panelGrid>
+
+				<p:commandButton update="@form"
+					oncomplete="if (document.getElementById('formPesquisa:acervo_input').selectedIndex > 0) document.getElementById('relatorioForm:gerarRelatorioBtn').click()"
+					styleClass="botao" title="#{msgs.labelGerarRelatorio}"
+					value="#{msgs.labelGerarRelatorio}" />
+			</p:panel>
+		</h:form>
+		<h:form id="relatorioForm" target="_blank">
+			<h:commandButton style="display: none" id="gerarRelatorioBtn"
+				action="#{relatoriosBean.gerarRelatorioPecasAcervo}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

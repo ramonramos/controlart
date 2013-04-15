@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.controlart.converter.TipoUsuarioConverter"/>
-<fullyQualifiedTypeName name="com.controlart.dao.PessoaDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.TipoPessoaT"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.PessoaT"/>
 <fullyQualifiedTypeName name="java.lang.CloneNotSupportedException"/>
@@ -19,20 +17,16 @@
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="com.controlart.dao.TransacaoDao"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="com.controlart.bean.PecaBean"/>
 <fullyQualifiedTypeName name="com.controlart.bean.ControlArtBean"/>
 <fullyQualifiedTypeName name="com.controlart.bean.ImagemBean"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
 <fullyQualifiedTypeName name="org.primefaces.event.FileUploadEvent"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="org.primefaces.model.UploadedFile"/>
 <fullyQualifiedTypeName name="com.lowagie.text.pdf.codec.Base64.InputStream"/>
 <fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileUtils"/>
 <fullyQualifiedTypeName name="com.controlart.dao.ImagemDao"/>
 <fullyQualifiedTypeName name="com.controlart.transfer.ImagemT"/>
@@ -44,7 +38,6 @@
 <fullyQualifiedTypeName name="com.sun.javadoc.ThrowsTag"/>
 <fullyQualifiedTypeName name="javax.faces.model.SelectItem"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.util.MissingResourceException"/>
 <fullyQualifiedTypeName name="com.controlart.dao.utils.DaoUtils"/>
@@ -60,4 +53,11 @@
 <fullyQualifiedTypeName name="com.controlart.bean.utils.BeanUtils"/>
 <fullyQualifiedTypeName name="com.controlart.dao.PecaDao"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.controlart.bean.utils.HomeBean"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="com.controlart.dao.utils.HomeDao"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
 </qualifiedTypeNameHistroy>

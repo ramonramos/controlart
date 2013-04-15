@@ -1,0 +1,20 @@
+# ==============================================================================
+# Component Errors
+# ==============================================================================
+
+javax.faces.component.UIInput.REQUIRED=Este campo é obrigatório.
+
+# ==============================================================================
+# Converter Errors
+# ==============================================================================
+
+javax.faces.converter.NumberConverter.NUMBER=Este campo deve ser um número inteiro válido.
+
+# ==============================================================================
+# Validator Errors
+# ==============================================================================
+
+javax.faces.validator.LengthValidator.MINIMUM=Este campo deve possuir, no mínimo, {0} caracteres.
+javax.faces.validator.LengthValidator.MAXIMUM=Este campo deve possuir, no máximo, {0} caracteres.
+javax.faces.validator.LongRangeValidator.MINIMUM=Este campo deve ser maior ou igual a {0}. 
+javax.faces.validator.RegexValidator.NOT_MATCHED=Este não é um dado válido.

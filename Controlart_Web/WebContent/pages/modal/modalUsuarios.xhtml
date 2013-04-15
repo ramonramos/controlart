@@ -48,6 +48,7 @@
 				<p:inputText id="login" disabled="#{not usuariosBean.novoRegistro}"
 					required="true" value="#{usuariosBean.usuario.login}">
 					<f:validateLength minimum="3" maximum="50" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="login" />
 
@@ -89,7 +90,7 @@
 
 				<h:outputLabel
 					rendered="#{(usuariosBean.usuarioLogado.tipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.ativo eq 0)))}"
-					value="#{msgs.labelStatus}" />
+					value="#{msgs.labelSituacao}" />
 				<p:selectOneRadio
 					disabled="#{usuariosBean.usuarioLogado.tipoUsuario eq 2}"
 					rendered="#{(usuariosBean.usuarioLogado.tipoUsuario eq 2) or ((usuariosBean.novoRegistro) or ((not usuariosBean.novoRegistro) and (usuariosBean.usuario.ativo eq 0)))}"

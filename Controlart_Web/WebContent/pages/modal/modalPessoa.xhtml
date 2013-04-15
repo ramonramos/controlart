@@ -18,19 +18,6 @@
 			<p:growl globalOnly="true" life="10000" />
 
 			<p:panelGrid columns="3">
-				<h:outputLabel value="#{msgs.labelTipoPessoa}">
-					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
-				</h:outputLabel>
-				<p:selectOneMenu
-					disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
-					id="tipoPessoa" required="true"
-					value="#{pessoaBean.pessoa.tipoPessoa}">
-					<f:selectItem itemLabel="#{msgs.labelSelecione}"
-						itemValue="#{null}" />
-					<f:selectItems value="#{pessoaBean.listTipoPessoa}" />
-				</p:selectOneMenu>
-				<p:message for="tipoPessoa" />
-
 				<h:outputLabel rendered="#{pessoaBean.novoRegistro}"
 					value="#{msgs.labelPossuiAcervo}" />
 				<p:selectBooleanCheckbox rendered="#{pessoaBean.novoRegistro}"
@@ -54,6 +41,7 @@
 						id="nomeAcervo" required="true"
 						value="#{pessoaBean.pessoa.nomeAcervo}">
 						<f:validateLength minimum="4" maximum="100" />
+						<f:validateRegex pattern=".*\S.*" />
 					</p:inputText>
 				</h:panelGroup>
 				<h:panelGroup id="messageNomeAcervo" layout="block"
@@ -62,12 +50,26 @@
 						for="nomeAcervo" />
 				</h:panelGroup>
 
+				<h:outputLabel value="#{msgs.labelTipoPessoa}">
+					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+				</h:outputLabel>
+				<p:selectOneMenu
+					disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
+					id="tipoPessoa" required="true"
+					value="#{pessoaBean.pessoa.tipoPessoa}">
+					<f:selectItem itemLabel="#{msgs.labelSelecione}"
+						itemValue="#{null}" />
+					<f:selectItems value="#{pessoaBean.listTipoPessoa}" />
+				</p:selectOneMenu>
+				<p:message for="tipoPessoa" />
+
 				<h:outputLabel value="#{msgs.labelNome}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
 				</h:outputLabel>
 				<p:inputText disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					id="nome" required="true" value="#{pessoaBean.pessoa.nome}">
 					<f:validateLength minimum="3" maximum="150" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="nome" />
 
@@ -78,9 +80,11 @@
 
 				<h:outputLabel value="#{msgs.labelEmail}" />
 				<p:inputText disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
-					value="#{pessoaBean.pessoa.email}">
+					id="email" value="#{pessoaBean.pessoa.email}">
+					<f:validateRegex
+						pattern="^([0-9a-zA-Z]+([_.-]?[0-9a-zA-Z]+)*@[0-9a-zA-Z]+[0-9,a-z,A-Z,.,-]*(.){1}[a-zA-Z]{2,4})+$" />
 				</p:inputText>
-				<h:outputLabel value="" />
+				<p:message for="email" />
 
 				<h:outputLabel value="#{msgs.labelLogradouro}">
 					<h:outputLabel value="*" styleClass="campo-obrigatorio" />
@@ -88,6 +92,7 @@
 				<p:inputText disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					id="rua" required="true" value="#{pessoaBean.pessoa.logradouro}">
 					<f:validateLength minimum="2" maximum="150" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="rua" />
 
@@ -107,6 +112,7 @@
 				<p:inputText disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					id="bairro" required="true" value="#{pessoaBean.pessoa.bairro}">
 					<f:validateLength minimum="2" maximum="100" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="bairro" />
 
@@ -116,12 +122,13 @@
 				<p:inputText disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					id="cidade" required="true" value="#{pessoaBean.pessoa.cidade}">
 					<f:validateLength minimum="2" maximum="100" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="cidade" />
 
 				<h:outputLabel
 					rendered="#{(pessoaBean.usuarioLogado.tipoUsuario eq 2) or ((pessoaBean.novoRegistro) or ((not pessoaBean.novoRegistro) and (pessoaBean.pessoa.ativo eq 0)))}"
-					value="#{msgs.labelStatus}" />
+					value="#{msgs.labelSituacao}" />
 				<p:selectOneRadio
 					disabled="#{pessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					rendered="#{(pessoaBean.usuarioLogado.tipoUsuario eq 2) or ((pessoaBean.novoRegistro) or ((not pessoaBean.novoRegistro) and (pessoaBean.pessoa.ativo eq 0)))}"

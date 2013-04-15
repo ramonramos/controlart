@@ -1,0 +1,60 @@
+package com.controlart.bean.utils;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.controlart.transfer.AcervoT;
+import com.controlart.transfer.PecaT;
+import com.controlart.transfer.TransacaoT;
+
+public class HomeBean {
+	private List<AcervoT> listAcervo;
+	private List<PecaT> listPeca;
+	private List<TransacaoT> listTransacao;
+
+	public HomeBean() {
+		try {
+			consultAcervo();
+			consultPeca();
+			consultTransacao();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		}
+	}
+
+	public void consultAcervo() throws SQLException {
+
+	}
+
+	public void consultPeca() throws SQLException {
+
+	}
+
+	public void consultTransacao() throws SQLException {
+
+	}
+
+	public List<AcervoT> getListAcervo() {
+		return listAcervo;
+	}
+
+	public void setListAcervo(List<AcervoT> listAcervo) {
+		this.listAcervo = listAcervo;
+	}
+
+	public List<PecaT> getListPeca() {
+		return listPeca;
+	}
+
+	public void setListPeca(List<PecaT> listPeca) {
+		this.listPeca = listPeca;
+	}
+
+	public List<TransacaoT> getListTransacao() {
+		return listTransacao;
+	}
+
+	public void setListTransacao(List<TransacaoT> listTransacao) {
+		this.listTransacao = listTransacao;
+	}
+}

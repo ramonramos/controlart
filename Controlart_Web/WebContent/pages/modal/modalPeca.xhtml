@@ -109,6 +109,7 @@
 								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" id="nome"
 								required="true" value="#{pecaBean.peca.nome}">
 								<f:validateLength minimum="2" maximum="100" />
+								<f:validateRegex pattern=".*\S.*" />
 							</p:inputText>
 							<p:message for="nome" />
 
@@ -125,13 +126,16 @@
 								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}" id="autor"
 								required="true" value="#{pecaBean.peca.autor}">
 								<f:validateLength minimum="2" maximum="100" />
+								<f:validateRegex pattern=".*\S.*" />
 							</p:inputText>
 							<p:message for="autor" />
 
 							<h:outputLabel value="#{msgs.labelPeriodo}" />
 							<p:inputText
 								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
-								value="#{pecaBean.peca.periodo}" />
+								value="#{pecaBean.peca.periodo}">
+								<f:validateRegex pattern=".*\S.*" />
+							</p:inputText>
 							<h:outputLabel value="" />
 
 							<h:outputLabel value="#{msgs.labelLargura}" />
@@ -182,7 +186,7 @@
 
 							<h:outputLabel
 								rendered="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"
-								value="#{msgs.labelStatus}" />
+								value="#{msgs.labelSituacao}" />
 							<p:selectOneRadio
 								disabled="#{pecaBean.usuarioLogado.tipoUsuario eq 2}"
 								rendered="#{(pecaBean.usuarioLogado.tipoUsuario eq 2) or ((pecaBean.novoRegistro) or ((not pecaBean.novoRegistro) and (pecaBean.peca.ativo eq 0)))}"

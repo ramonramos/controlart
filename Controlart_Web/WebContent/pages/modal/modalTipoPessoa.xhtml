@@ -25,6 +25,7 @@
 					disabled="#{tipoPessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					id="nome" required="true" value="#{tipoPessoaBean.tipoPessoa.nome}">
 					<f:validateLength minimum="2" maximum="100" />
+					<f:validateRegex pattern=".*\S.*" />
 				</p:inputText>
 				<p:message for="nome" />
 
@@ -36,7 +37,7 @@
 
 				<h:outputLabel
 					rendered="#{(tipoPessoaBean.usuarioLogado.tipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.ativo eq 0)))}"
-					value="#{msgs.labelStatus}" />
+					value="#{msgs.labelSituacao}" />
 				<p:selectOneRadio
 					disabled="#{tipoPessoaBean.usuarioLogado.tipoUsuario eq 2}"
 					rendered="#{(tipoPessoaBean.usuarioLogado.tipoUsuario eq 2) or ((tipoPessoaBean.novoRegistro) or ((not tipoPessoaBean.novoRegistro) and (tipoPessoaBean.tipoPessoa.ativo eq 0)))}"

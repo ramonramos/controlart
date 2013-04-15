@@ -1,0 +1,37 @@
+.data-table-usuarios {
+	margin: auto;
+	width: 90%;
+}
+
+.data-table-usuarios td:nth-child(2) {
+	text-align: center;
+	width: 230px;
+}
+
+.data-table-usuarios td:nth-child(3) {
+	width: 220px;
+}
+
+.data-table-usuarios td:nth-child(4) {
+	text-align: center;
+	width: 130px;
+}
+
+.data-table-usuarios td:nth-child(5) {
+	text-align: center;
+	width: 130px;
+}
+
+.data-table-usuarios .ui-paginator-top {
+	background: transparent;
+	border: none;
+}
+
+.data-table-usuarios .ui-paginator-bottom {
+	background: transparent;
+	border: none;
+}
+
+.dialog .ui-selectoneradio label {
+	margin-left: -17px;
+}

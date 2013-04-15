@@ -1,0 +1,61 @@
+<ui:composition template="template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="titulo">
+	#{msgs.tituloSistema} - #{msgs.labelAlterarSenha}
+	</ui:define>
+
+	<ui:define name="estiloCSS">
+		<h:outputStylesheet library="css" name="alterarSenha.css" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formAlterarSenha">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panel closable="true" closeSpeed="600"
+				styleClass="panel-alterar-senha">
+				<f:facet name="header">
+					<p:graphicImage styleClass="header-image"
+						value="#{resource['image:favicon.ico']}" />
+					<h:outputLabel value="#{msgs.labelAlterarSenha}" />
+				</f:facet>
+
+				<p:panelGrid columns="3">
+					<h:outputLabel value="#{msgs.labelSenhaAtual}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
+					<p:password id="senhaAtual" label="#{msgs.labelSenhaAtual}"
+						required="true" value="#{alterarSenhaBean.usuario.senha}" />
+					<p:message for="senhaAtual" />
+
+					<h:outputLabel value="#{msgs.labelNovaSenha}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
+					<p:password id="novaSenha" label="#{msgs.labelNovaSenha}"
+						required="true" value="#{alterarSenhaBean.usuario.novaSenha}">
+						<f:validateLength minimum="6" maximum="15" />
+					</p:password>
+					<p:message for="novaSenha" />
+
+					<h:outputLabel value="#{msgs.labelConfirmNovaSenha}">
+						<h:outputLabel value="*" styleClass="campo-obrigatorio" />
+					</h:outputLabel>
+					<p:password id="confirmNovaSenha"
+						label="#{msgs.labelConfirmNovaSenha}" required="true"
+						value="#{alterarSenhaBean.usuario.confirmNovaSenha}">
+						<f:validateLength minimum="6" maximum="15" />
+					</p:password>
+					<p:message for="confirmNovaSenha" />
+				</p:panelGrid>
+
+				<p:commandButton action="#{alterarSenhaBean.updateAction}"
+					styleClass="botao" title="#{msgs.labelSalvar}"
+					update=":formAlterarSenha" value="#{msgs.labelSalvar}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

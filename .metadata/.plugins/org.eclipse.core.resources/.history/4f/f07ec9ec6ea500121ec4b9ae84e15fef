@@ -1,0 +1,60 @@
+<ui:composition template="template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="titulo">
+	#{msgs.tituloSistema} - #{msgs.tituloPaginaHome}
+	</ui:define>
+
+	<ui:define name="estiloCSS">
+		<h:outputStylesheet library="css" name="home.css" />
+	</ui:define>
+
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.msBemVindo}, #{templateBean.usuario.nome}" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<p:panel closable="true" styleClass="panel">
+			<f:facet name="header">
+				<p:graphicImage styleClass="header-image"
+					value="#{resource['image:favicon.ico']}" />
+				<h:outputLabel value="#{msgs.labelResumoAtividades}" />
+			</f:facet>
+
+			<p:panelGrid styleClass="width-grid" columns="3">
+				<p:dataTable emptyMessage="#{msgs.msNenhumRegistro}"
+					styleClass="data-table" value="#{homeBean.listAcervo}" var="acervo">
+					<p:column headerText="#{msgs.labelUltimosAcervos}">
+						<h:outputLabel value="#{acervo.nome}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable emptyMessage="#{msgs.msNenhumRegistro}"
+					styleClass="data-table" value="#{homeBean.listPeca}" var="peca">
+					<p:column headerText="#{msgs.labelUltimasPecas}">
+						<h:outputLabel value="#{peca.nome}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable emptyMessage="#{msgs.msNenhumRegistro}"
+					styleClass="data-table" value="#{homeBean.listTransacao}"
+					var="transacao">
+					<p:column headerText="#{msgs.labelUltimasTransacoes}">
+						<p:panelGrid columns="2">
+							<p:column>
+								<h:outputLabel value="#{transacao.tipoTransacao}" />
+							</p:column>
+							<p:column>
+								<h:outputLabel value="#{transacao.peca}" />
+							</p:column>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</ui:define>
+</ui:composition>

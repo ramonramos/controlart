@@ -1,0 +1,17 @@
+function func_pessoa() {
+	$(".moeda").maskMoney({
+		showSymbol : true,
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : "."
+	});
+
+	$(".positive-decimal").numeric({
+		negative : false
+	});
+
+	$(".positive-integer").numeric({
+		decimal : false,
+		negative : false
+	});
+}

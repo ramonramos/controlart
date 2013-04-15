@@ -5,21 +5,21 @@
 
 .data-table-peca td:nth-child(2) {
 	text-align: center;
-	width: 280px;
+	width: 270px;
 }
 
 .data-table-peca td:nth-child(3) {
-	width: 180px;
+	width: 160px;
 }
 
 .data-table-peca td:nth-child(4) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-peca td:nth-child(5) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-peca .ui-paginator-top {

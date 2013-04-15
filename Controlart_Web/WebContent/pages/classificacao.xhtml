@@ -12,6 +12,11 @@
 		<h:outputStylesheet library="css" name="classificacao.css" />
 	</ui:define>
 
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formClassificacao">
 			<p:growl globalOnly="true" life="10000" />
@@ -35,7 +40,11 @@
 						<h:outputLabel value="#{listaClassificacao.nome}" />
 					</p:column>
 
-					<p:column headerText="#{msgs.labelStatus}">
+					<p:column headerText="#{msgs.labelDescricao}">
+						<h:outputLabel value="#{listaClassificacao.descricao}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelSituacao}">
 						<h:outputLabel converter="statusConverter"
 							value="#{listaClassificacao.ativo}" />
 					</p:column>

@@ -1,0 +1,89 @@
+<ui:composition template="template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:define name="titulo">
+	#{msgs.tituloSistema} - #{msgs.labelUsuarios}
+	</ui:define>
+
+	<ui:define name="estiloCSS">
+		<h:outputStylesheet library="css" name="usuarios.css" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formUsuarios">
+			<p:growl globalOnly="true" life="10000" />
+
+			<p:panel closable="true" closeSpeed="600" styleClass="panel">
+				<f:facet name="header">
+					<p:graphicImage styleClass="header-image"
+						value="#{resource['image:favicon.ico']}" />
+					<h:outputLabel value="#{msgs.labelUsuarios}" />
+				</f:facet>
+
+				<p:spacer width="18" />
+
+				<p:dataTable id="dataTableUsuarios"
+					emptyMessage="#{msgs.msNenhumRegistro}" paginator="true"
+					paginatorAlwaysVisible="false" rows="6"
+					styleClass="data-table-usuarios"
+					value="#{usuariosBean.listUsuarios}" var="listaUsuarios">
+					<p:column headerText="#{msgs.labelPessoa}">
+						<h:outputLabel converter="pessoaUsuarioConverter"
+							value="#{listaUsuarios.idPessoa}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelTipoUsuario}">
+						<h:outputLabel converter="tipoUsuarioConverter"
+							value="#{listaUsuarios.tipoUsuario}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelLogin}">
+						<h:outputLabel value="#{listaUsuarios.login}" />
+					</p:column>
+
+					<p:column headerText="#{msgs.labelStatus}">
+						<h:outputLabel converter="statusConverter"
+							value="#{listaUsuarios.ativo}" />
+					</p:column>
+
+					<p:column>
+						<p:commandLink action="#{usuariosBean.definirEditar}"
+							oncomplete="modalUsuariosWV.show();" process="@this"
+							title="#{usuariosBean.usuarioLogado.tipoUsuario eq 1 ? msgs['labelEditar'] : msgs['labelVisualizar']}"
+							update=":modalUsuarios">
+							<p:graphicImage url="#{resource['image:update_ico.png']}" />
+							<p:resetInput target=":formModalUsuarios" />
+						</p:commandLink>
+
+						<p:spacer height="20" />
+
+						<p:commandLink action="#{usuariosBean.inactivateAction}"
+							disabled="#{(listaUsuarios.ativo eq 0) or (usuariosBean.usuarioLogado.tipoUsuario eq 2) or (usuariosBean.usuarioLogado.idUsuario eq listaUsuarios.idUsuario)}"
+							onclick="if (!confirm('#{msgs.msConfirmRemocao}')) return false;"
+							process="@this" title="#{msgs.labelInativar}"
+							update=":formUsuarios">
+							<p:graphicImage url=" #{resource['image:delete_ico.png']}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGroup layout="block" styleClass="botao">
+					<p:commandButton action="#{usuariosBean.definirNovo}"
+						disabled="#{usuariosBean.usuarioLogado.tipoUsuario eq 2}"
+						oncomplete="modalUsuariosWV.show();" process="@this"
+						title="#{msgs.labelNovo}" update=":modalUsuarios"
+						value="#{msgs.labelNovo}">
+						<p:resetInput target=":formModalUsuarios" />
+					</p:commandButton>
+				</h:panelGroup>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="painelFlutuante">
+		<ui:include src="/pages/modal/modalUsuarios.xhtml" />
+	</ui:define>
+</ui:composition>

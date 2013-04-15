@@ -10,12 +10,12 @@
 
 .data-table-tipoPessoa td:nth-child(3) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-tipoPessoa td:nth-child(4) {
 	text-align: center;
-	width: 150px;
+	width: 110px;
 }
 
 .data-table-tipoPessoa .ui-paginator-top {

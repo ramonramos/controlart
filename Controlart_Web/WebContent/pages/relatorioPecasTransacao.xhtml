@@ -8,6 +8,11 @@
 	#{msgs.tituloSistema} - #{msgs.labelPecasTransacao}
 	</ui:define>
 
+	<ui:define name="painelInformativo-user-message">
+		<h:outputLabel title="#{msgs.tooltipUsuarioLogodo}"
+			value="#{msgs.labelUsuario}: #{templateBean.usuario.nome}" />
+	</ui:define>
+
 	<ui:define name="conteudo">
 		<h:form id="formPesquisa">
 			<p:growl globalOnly="true" life="10000" />
@@ -33,7 +38,7 @@
 							value="#{relatoriosBean.listTipoTransacaoEntrada}" />
 					</p:selectOneMenu>
 					<p:message for="tipoTransacao" />
-				</p:panelGrid>				
+				</p:panelGrid>
 
 				<p:panelGrid columns="4">
 					<h:outputLabel value="Periodo de:" />

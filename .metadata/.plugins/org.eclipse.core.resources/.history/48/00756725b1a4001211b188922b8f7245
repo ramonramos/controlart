@@ -1,0 +1,8 @@
+function func_peca() {
+	$(".moeda").maskMoney({
+		showSymbol : true,
+		symbol : "R$ ",
+		decimal : ",",
+		thousands : "."
+	});
+}

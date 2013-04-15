@@ -1,0 +1,3 @@
+.panel .ui-datalist-item {
+	text-align: left;
+}
