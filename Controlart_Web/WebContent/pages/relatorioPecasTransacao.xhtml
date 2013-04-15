@@ -33,21 +33,21 @@
 							value="#{relatoriosBean.listTipoTransacaoEntrada}" />
 					</p:selectOneMenu>
 					<p:message for="tipoTransacao" />
-				</p:panelGrid>				
+				</p:panelGrid>
 
 				<p:panelGrid columns="4">
-					<h:outputLabel value="Periodo de:" />
+					<h:outputLabel value="#{msgs.labelPeriodoDe}" />
 					<p:calendar id="dataInicial" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
 						value="#{relatoriosBean.dataInicial}" />
-					<h:outputLabel value="ate:" />
+					<h:outputLabel value="#{msgs.labelAte}" />
 					<p:calendar id="dataFinal" locale="#{localeBean.locale}"
 						pattern="dd/MM/yyyy" readonlyInput="true" showOn="both"
 						value="#{relatoriosBean.dataFinal}" />
 				</p:panelGrid>
 
-				<p:commandButton update="@form"
-					oncomplete="if (document.getElementById('formPesquisa:tipoTransacao_input').selectedIndex > 0) document.getElementById('relatorioForm:gerarRelatorioBtn').click()"
+
+				<p:commandButton update="@form" oncomplete="validarFiltros()"
 					styleClass="botao" title="#{msgs.labelGerarRelatorio}"
 					value="#{msgs.labelGerarRelatorio}" />
 			</p:panel>
@@ -56,5 +56,30 @@
 			<h:commandButton style="display: none" id="gerarRelatorioBtn"
 				action="#{relatoriosBean.gerarRelatorioPecasTransacao}" />
 		</h:form>
+		<script type="text/javascript">
+			//<![CDATA[
+			function validarFiltros() {
+				var combo = document
+						.getElementById('formPesquisa:tipoTransacao_input');
+				var dataInicio = document
+						.getElementById('formPesquisa:dataInicial_input');
+				var dataFim = document
+						.getElementById('formPesquisa:dataFinal_input');
+				if (combo.selectedIndex > 0) {
+					if (((dataInicio.value == '') && (dataFim.value == ''))
+							|| ((dataInicio.value <= dataFim.value) && (dataFim.value != '' && dataInicio.value != ''))) {
+						document.getElementById(
+								'relatorioForm:gerarRelatorioBtn').click();
+					} else if (dataInicio.value == '') {
+						alert('Preencha a data inicial.');
+					} else if (dataFim.value == '') {
+						alert('Preencha a data final.');
+					} else if (dataInicio.value > dataFim.value) {
+						alert('A data inicial nao pode ser maior que a data final.');
+					}
+				}
+			}
+			//]]>
+		</script>
 	</ui:define>
 </ui:composition>
