@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -116,14 +118,15 @@ public class RelatoriosBean extends ControlArtBean {
 	public void setClassificacaoT(ClassificacaoT classificacaoT) {
 		this.classificacaoT = classificacaoT;
 	}
-	
+
 	public List<TipoTransacaoT> getListTipoTransacao() {
 		if (listTipoTransacao == null) {
 			try {
 				TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
-				listTipoTransacao = tipoTransacaoDao.consultTipoTransacaoComDevolucao();
-			} catch (Exception e) {
-				e.printStackTrace();
+				listTipoTransacao = tipoTransacaoDao
+						.consultTipoTransacaoComDevolucao();
+			} catch (SQLException sql) {
+				processSQLError(sql);
 			}
 		}
 		return listTipoTransacao;
@@ -132,14 +135,15 @@ public class RelatoriosBean extends ControlArtBean {
 	public void setListTipoTransacao(List<TipoTransacaoT> listTipoTransacao) {
 		this.listTipoTransacao = listTipoTransacao;
 	}
-	
+
 	public List<TipoTransacaoT> getListTipoTransacaoEntrada() {
 		if (listTipoTransacaoEntrada == null) {
 			try {
 				TipoTransacaoDao tipoTransacaoDao = new TipoTransacaoDao();
-				listTipoTransacaoEntrada = tipoTransacaoDao.consultTipoTransacaoEntrada();
-			} catch (Exception e) {
-				e.printStackTrace();
+				listTipoTransacaoEntrada = tipoTransacaoDao
+						.consultTipoTransacaoEntrada();
+			} catch (SQLException sql) {
+				processSQLError(sql);
 			}
 		}
 		return listTipoTransacaoEntrada;
@@ -195,7 +199,6 @@ public class RelatoriosBean extends ControlArtBean {
 
 	}
 
-	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioEntradaPeca() {
 		try {
@@ -235,7 +238,7 @@ public class RelatoriosBean extends ControlArtBean {
 						+ sdf.format(getDataFinal()) + "' ");
 			}
 			sb.append("order by dt_transacao desc ");
-			
+
 			ResultSet rs = stmt.executeQuery(sb.toString());
 			JRResultSetDataSource jrsds = new JRResultSetDataSource(rs);
 
@@ -286,8 +289,6 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, connection, null, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -317,8 +318,6 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, connection, null, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -360,10 +359,9 @@ public class RelatoriosBean extends ControlArtBean {
 						+ sdf.format(getDataFinal()) + "' ");
 			}
 			sb.append("order by dt_transacao desc ");
-			
+
 			ResultSet rs = stmt.executeQuery(sb.toString());
 			JRResultSetDataSource jrsds = new JRResultSetDataSource(rs);
-
 
 			facesContext = FacesContext.getCurrentInstance();
 			facesContext.responseComplete();
@@ -381,8 +379,6 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, null, jrsds, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -412,8 +408,6 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, connection, null, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -478,13 +472,11 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, null, jrsds, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void gerarRelatorioTabelaPreco() {
 		try {
@@ -509,12 +501,9 @@ public class RelatoriosBean extends ControlArtBean {
 
 			gerarRelatorio(arquivoJasper, parametros, connection, null, titulo);
 
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 }
